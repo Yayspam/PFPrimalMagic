@@ -10,11 +10,6 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    paddingLeft: 30
-  },
-  radioContainer: {
-    marginTop: 10,
-    marginRight: 78
   }
 });
 

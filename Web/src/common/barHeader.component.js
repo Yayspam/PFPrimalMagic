@@ -7,22 +7,23 @@ const useStyles = makeStyles({
     paddingBottom: 20,
     width: '100%',
     textAlign: 'center',
-    backgroundColor: '#f44336',
+    backgroundColor: ({ colour }) => colour,
+    color: 'white',
     borderTopLeftRadius: 2,
     borderTopRightRadius: 2,
   },
 });
 
-const ManualTriggerHeader = () => {
-  const classes = useStyles();
+const BarHeader = ({ title, colour }) => {
+  const classes = useStyles({ colour });
 
   return (
     <Box className={classes.header}>
       <Typography variant="h4">
-        Manual Trigger
+        {title}
       </Typography>
     </Box>
   );
 }
 
-export default ManualTriggerHeader;
+export default BarHeader;

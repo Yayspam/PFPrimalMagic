@@ -7,7 +7,7 @@ const useStyles = makeStyles({
   inputContainer: {
     display: 'flex',
     flexDirection: 'row',
-    paddingTop: 20
+    padding: 20,
   },
   input: {
     textAlign: 'center'

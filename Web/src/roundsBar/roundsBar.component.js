@@ -1,17 +1,21 @@
-import { Button, makeStyles, Typography } from '@material-ui/core';
+import { Box, Button, makeStyles } from '@material-ui/core';
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { resetAll } from '../state/app/primalMagic.reducer';
-import { advanceRoundThunk, currentRoundSelector } from '../state/rounds/roundsState';
+import { useDispatch } from 'react-redux';
+import BarHeader from '../common/barHeader.component';
+import { advanceRoundThunk } from '../state/rounds/roundsState';
+import RoundsContent from './roundsContent.component';
 
 const useStyles = makeStyles({
-  content: {
+  container: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     height: '100%',
     width: '100%',
     alignItems: 'center'
+  },
+  footer: {
+    margin: 20
   }
 });
 
@@ -19,27 +23,24 @@ const RoundsBar = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   
-  const currentRound = useSelector(currentRoundSelector);
 
-  const onResetClicked = () => {
-    dispatch(resetAll());
-  };
 
   const onNextRoundClicked = () => {
     dispatch(advanceRoundThunk());
   };
 
   return (
-    <div className={classes.content}>
-      <Typography>Rounds and Primal Storm</Typography>
-      <Button variant='contained' onClick={onResetClicked}>
-        Reset
-      </Button>
-      <Typography>Current Round: {currentRound}</Typography>
-      <Button variant='contained' onClick={onNextRoundClicked}>
-        Next Round
-      </Button>
-    </div>
+    <Box className={classes.container}>
+      <BarHeader title="Rounds & Primal Storm" colour="#00a152" />
+      <RoundsContent />
+      <Box className={classes.footer}>
+        <Button 
+          variant='contained'
+          onClick={onNextRoundClicked}>
+            Next Round
+        </Button>
+      </Box>
+    </Box>
   );
 };
 

@@ -1,9 +1,9 @@
 import { Box, Button, makeStyles } from '@material-ui/core';
 import React from 'react'
 import { useDispatch } from 'react-redux';
+import BarHeader from '../common/barHeader.component';
 import { manualTriggerThunk } from '../state/manualTrigger/manualTriggerState';
 import ManualTriggerContent from './manualTriggerContent.component';
-import ManualTriggerHeader from './manualTriggerHeader.component';
 
 const useStyles = makeStyles({
   container: {
@@ -29,7 +29,7 @@ const ManualTriggerBar = () => {
 
   return (
     <Box className={classes.container}>
-      <ManualTriggerHeader />
+      <BarHeader title="Manual Trigger" colour="#f44336" />
       <ManualTriggerContent />
       <Box className={classes.footer}>
         <Button 

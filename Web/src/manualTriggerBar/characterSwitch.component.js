@@ -5,8 +5,7 @@ import { characterInitialState, characters, characterSelector, setManualTriggerC
 
 const useStyles = makeStyles({
   radioContainer: {
-    marginTop: 20,
-    marginRight: 78,
+    padding: 20
   }
 });
 
