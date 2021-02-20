@@ -95,7 +95,8 @@ export const manualTriggerThunk = () => (dispatch, getState) => {
     cr: currentCr
    };
 
-  if(percentile > dialogState.threshold){
+  // if(percentile > dialogState.threshold){
+  if(true){
     const eventPercentile = rollPercentile();
     const event = generateDialogEvent(eventPercentile, currentCr, currentRound, !!(allExpanded));
     dialogState.currentEvent = event;

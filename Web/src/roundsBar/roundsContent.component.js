@@ -45,9 +45,10 @@ const RoundsContent = () => {
 
   return (
     <Box className={classes.content} >
-      <Typography className={classes.currentRoundDisplay}>
-        Current Round: <Avatar className={classes.roundAvatar}>{currentRound}</Avatar>
-      </Typography>
+      <Box className={classes.currentRoundDisplay}>
+        <Typography>Current Round: </Typography>
+        <Avatar className={classes.roundAvatar}>{currentRound}</Avatar>
+      </Box>
       <Button className={classes.resetButton} variant='contained' onClick={onResetClicked}>
         Reset
       </Button>
