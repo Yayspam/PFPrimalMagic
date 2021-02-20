@@ -1,0 +1,17 @@
+Web/node_modules/*
+Web/build/*
+
+Web/.pnp
+Web/.pnp.js
+Web/.env.local
+Web/.env.development.local
+Web/.env.test.local
+Web/.env.production.local
+
+Web/npm-debug.log*
+Web/yarn-debug.log*
+Web/yarn-error.log*
+
+Web/junit.xml
+
+ExampleVideos/*
