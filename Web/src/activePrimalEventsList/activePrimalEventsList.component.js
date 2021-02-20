@@ -1,6 +1,5 @@
 import { Box, makeStyles } from '@material-ui/core';
 import React from 'react'
-import { useDispatch } from 'react-redux';
 import ActivePrimalEventsListContent from './activePrimalEventsListContent.component';
 import ActivePrimalEventsListHeader from './activePrimalEventsListHeader.component';
 

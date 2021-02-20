@@ -12,6 +12,10 @@ import { buildTheme } from './styles/theming';
 import AppReducer from './state/app/App.reducer';
 import Homepage from './homepage/homepage.component';
 import PageNotFoundError from './errorPages/pageNotFoundError.component';
+import persistReducer from 'redux-persist/es/persistReducer';
+import storage from 'redux-persist/lib/storage';
+import { PersistGate } from 'redux-persist/integration/react';
+import persistStore from 'redux-persist/es/persistStore';
 
 const history = createBrowserHistory();
 const middleware = [thunk, routerMiddleware(history)];
@@ -27,9 +31,10 @@ if (process.env.NODE_ENV === 'development') {
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export const store = createStore(
-  AppReducer(history),
+  persistReducer({ key:'root', storage }, AppReducer(history)),
   composeEnhancers(applyMiddleware(...middleware))
 );
+const persistor = persistStore(store);
 
 const pageContent = () => (
   <Switch>
@@ -42,11 +47,13 @@ const App = () => {
   return (
     <div className="App">
       <Provider store={store}>
-        <ConnectedRouter history={history}>
-          <MuiThemeProvider theme={buildTheme()}>
-            {pageContent()}
-          </MuiThemeProvider>
-        </ConnectedRouter>
+        <PersistGate persistor={persistor} loading={null}>
+          <ConnectedRouter history={history}>
+            <MuiThemeProvider theme={buildTheme()}>
+              {pageContent()}
+            </MuiThemeProvider>
+          </ConnectedRouter>
+        </PersistGate>
       </Provider>
     </div>
   );
