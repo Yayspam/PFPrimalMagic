@@ -1,16 +1,21 @@
-import { Button, makeStyles, Typography } from '@material-ui/core';
+import { Box, Button, makeStyles } from '@material-ui/core';
 import React from 'react'
 import { useDispatch } from 'react-redux';
 import { manualTriggerThunk } from '../state/manualTrigger/manualTriggerState';
+import ManualTriggerContent from './manualTriggerContent.component';
+import ManualTriggerHeader from './manualTriggerHeader.component';
 
 const useStyles = makeStyles({
-  content: {
+  container: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     height: '100%',
     width: '100%',
     alignItems: 'center'
+  },
+  footer: {
+    margin: 20
   }
 });
 
@@ -23,14 +28,17 @@ const ManualTriggerBar = () => {
   }
 
   return (
-    <div className={classes.content}>
-      <Typography>Manual Trigger</Typography>
-      <Button 
-        variant='contained'
-        onClick={onManualTriggerClicked}>
-          Manually Trigger Event
-      </Button>
-    </div>
+    <Box className={classes.container}>
+      <ManualTriggerHeader />
+      <ManualTriggerContent />
+      <Box className={classes.footer}>
+        <Button 
+          variant='contained'
+          onClick={onManualTriggerClicked}>
+            Manually Trigger Event
+        </Button>
+      </Box>
+    </Box>
   );
 };
 

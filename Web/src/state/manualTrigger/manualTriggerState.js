@@ -5,8 +5,17 @@ import { currentRoundSelector } from "../rounds/roundsState";
 import { manualTriggerType, setTriggerDialogState, triggerDialogInitialState } from "../triggerDialog/triggerDialogState";
 
 export const characterInitialState = {
-  name: "other",
+  name: "Other",
   cl: undefined
+};
+
+export const characters = {
+  "Other": { ...characterInitialState },
+  "Thunder": { ...characterInitialState, name: "Thunder", cl: 8 },
+  "Finley": { ...characterInitialState, name: "Finley", cl: 12 },
+  "Autumn": { ...characterInitialState, name: "Autumn", cl: 14 },
+  "Poli": { ...characterInitialState, name: "Poli", cl: 1 },
+  "Katsu": { ...characterInitialState, name: "Katsu", cl: 1 },
 };
 
 export const manualTriggerInitialState = {
@@ -14,7 +23,9 @@ export const manualTriggerInitialState = {
   character: { ...characterInitialState }
 };
 
-export const specifiedCrSelector = (state) => state.primalMagic.manualTriggerState.specifiedCr;
+export const manualTriggerStateSelector = (state) => state.primalMagic.manualTriggerState;
+export const characterSelector = (state) => manualTriggerStateSelector(state).character;
+export const specifiedCrSelector = (state) => manualTriggerStateSelector(state).specifiedCr;
 
 const SetManualTriggerCrType = "primalMagic:manualTriggerState:setManualTriggerCr";
 const SetManualTriggerCharacterType = "primalMagic:manualTriggerState:setManualTriggerCharacter";
