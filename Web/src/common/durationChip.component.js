@@ -1,25 +1,35 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { currentRoundSelector } from '../state/rounds/roundsState';
 import CustomChip from './customChip.component';
 
-const DurationEndChip = ({ value, startRound }) => {
+const DurationEndChip = ({ value }) => {
+  const currentRound = useSelector(currentRoundSelector);
+
+  console.log('VALUE', value);
   if (value === undefined) {
     return <CustomChip label="Instantaneous" />;
   }
 
-  if (value < 20) {
+  const duration = value - currentRound;
+
+  if (value < 10 || duration < 10) {
     return <CustomChip label="End" value={value} />;
   }
 
-  const duration = value - startRound;
-
   if (duration < 600) {
+    const durationInMins = Math.ceil(duration / 10);
+    const plural = durationInMins > 1;
     return (
-      <CustomChip label="Lasts (mins)" value={`${Math.floor(duration / 10)}`} />
+      <CustomChip
+        label={`Min${plural ? 's' : ''} Remain${plural ? '' : 's'}`}
+        value={durationInMins}
+      />
     );
   }
 
   return (
-    <CustomChip label="Lasts (hrs)" value={`${Math.floor(duration / 600)}h`} />
+    <CustomChip label="Hrs Remain" value={`${Math.round(duration / 600)}h`} />
   );
 };
 

@@ -2,13 +2,17 @@ import { Box, Typography } from '@material-ui/core';
 import React, { Fragment } from 'react';
 import CustomChip from '../../common/customChip.component';
 import VM from '../../common/variableMark.component';
-import { makeVariable } from '../../state/activePrimalEvents/activePrimalEventsState';
+import {
+  makeConstantVariable,
+  makeVariable,
+} from '../../state/activePrimalEvents/activePrimalEventsState';
 
 export const centipedes = {
   percentileMin: 7,
   percentileMax: 10,
   title: 'Centipedes',
   createVariables: () => ({
+    duration: makeConstantVariable(0),
     centipedeCount: makeVariable(6), // new - centipede count, need to figure out how this works to make the CR total work
   }),
 };
