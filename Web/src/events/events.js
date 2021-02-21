@@ -3,12 +3,35 @@ import {
   makeConstantVariable,
   makeVariable,
 } from '../state/activePrimalEvents/activePrimalEventsState';
+import CatchyMusicEvent, {
+  catchyMusic,
+} from './eventComponents/catchyMusicEvent.component';
 import CentipedesEvent, {
   centipedes,
 } from './eventComponents/centipedesEvent.component';
 import ColourDrainEvent, {
   colourDrain,
 } from './eventComponents/colourDrainEvent.component';
+import ElementalUprisingEvent, {
+  elementalUprising,
+} from './eventComponents/elementalUprisingEvent.component';
+import EnantiomaticSelfEvent, {
+  enantiomaticSelf,
+} from './eventComponents/enantiomaticSelfEvent.component';
+import ExtradimensionalPitEvent, {
+  extradimensionalPit,
+} from './eventComponents/extradimensionalPit.component';
+import HarmEvent, { harm } from './eventComponents/harmEvent.component';
+import HealEvent, { heal } from './eventComponents/healEvent.component';
+import RainOfSmallObjectsEvent, {
+  rainOfSmallObjects,
+} from './eventComponents/rainOfSmallObjectsEvent.component';
+import UtterDarknessEvent, {
+  utterDarkness,
+} from './eventComponents/utterDarknessEvent.component';
+import ZoneOfUnluckEvent, {
+  zoneOfUnluck,
+} from './eventComponents/zoneOfUnluckEvent.component';
 
 export const getEventCardContent = event => {
   if (event.title === colourDrain.title) {
@@ -19,92 +42,64 @@ export const getEventCardContent = event => {
     return <CentipedesEvent event={event} />;
   }
 
+  if (event.title === catchyMusic.title) {
+    return <CatchyMusicEvent event={event} />;
+  }
+
+  if (event.title === zoneOfUnluck.title) {
+    return <ZoneOfUnluckEvent event={event} />;
+  }
+
+  if (event.title === enantiomaticSelf.title) {
+    return <EnantiomaticSelfEvent event={event} />;
+  }
+
+  if (event.title === extradimensionalPit.title) {
+    return <ExtradimensionalPitEvent event={event} />;
+  }
+
+  if (event.title === rainOfSmallObjects.title) {
+    return <RainOfSmallObjectsEvent event={event} />;
+  }
+
+  if (event.title === heal.title) {
+    return <HealEvent event={event} />;
+  }
+
+  if (event.title === harm.title) {
+    return <HarmEvent event={event} />;
+  }
+
+  if (event.title === utterDarkness.title) {
+    return <UtterDarknessEvent event={event} />;
+  }
+
+  if (event.title === elementalUprising.title) {
+    return <ElementalUprisingEvent event={event} />;
+  }
+
   return <div>UNKNOWN EVENT {event.title}</div>;
 };
 
 export const events = [
   colourDrain,
   centipedes,
-  {
-    percentileMin: 11,
-    percentileMax: 14,
-    title: 'Music',
-    createVariables: cr => ({
-      duration: makeConstantVariable(cr * 10, 'CR mins'),
-      chantType: makeVariable(4), // 1d4; 1=Ulfen battle chants, 2=Chelish opera arias, 3=Desnan Prayers, 4=Vudrani monastic chants
-    }),
-  },
-  {
-    percentileMin: 15,
-    percentileMax: 18,
-    title: 'Zone of Unluck',
-    createVariables: cr => ({
-      radius: makeConstantVariable(cr * 5, 'CR x 5ft.'),
-      duration: makeConstantVariable(cr * 10 * 60, 'CR hours'),
-    }),
-  },
-  {
-    percentileMin: 19,
-    percentileMax: 22,
-    title: 'Mirror Image',
-    createVariables: () => ({}),
-  },
-  {
-    percentileMin: 23,
-    percentileMax: 26,
-    title: 'Pit',
-    createVariables: cr => ({
-      depth: makeConstantVariable(cr * 10, 'CR x 10ft.'),
-    }),
-  },
-  {
-    percentileMin: 27,
-    percentileMax: 32,
-    title: 'Tiny Object Rain',
-    createVariables: cr => ({
-      radius: makeConstantVariable(cr * 5, 'CR x 5ft.'),
-      duration: makeConstantVariable(cr, 'CR rounds'),
-    }),
-  },
-  {
-    percentileMin: 33,
-    percentileMax: 38,
-    title: 'Heal',
-    createVariables: cr => ({
-      casterLevel: makeConstantVariable(cr, 'CL = CR'),
-    }),
-  },
-  {
-    percentileMin: 39,
-    percentileMax: 44,
-    title: 'Harm',
-    createVariables: cr => ({
-      casterLevel: makeConstantVariable(cr, 'CL = CR'),
-    }),
-  },
-  {
-    percentileMin: 45,
-    percentileMax: 48,
-    title: 'Darkness',
-    createVariables: cr => ({
-      depth: makeConstantVariable(cr * 10, 'CR x 10ft.'),
-    }),
-  },
-  {
-    percentileMin: 49,
-    percentileMax: 54,
-    title: 'Elemental Uprising',
-    createVariables: () => ({
-      elementalCount: makeVariable(6), // new - elemental count, need to figure out how this works to make the CR total work
-    }),
-  },
+  catchyMusic,
+  zoneOfUnluck,
+  enantiomaticSelf,
+  extradimensionalPit,
+  rainOfSmallObjects,
+  heal,
+  harm,
+  utterDarkness,
+  elementalUprising,
   {
     percentileMin: 55,
     percentileMax: 62,
     title: 'Aurora Borealis',
     createVariables: cr => ({
       elementalCount: makeVariable(6), // new - elemental count, need to figure out how this works to make the CR total work
-      save: makeConstantVariable(cr + 10, 'DC = CR + 10'),
+      save: makeConstantVariable(cr + 10, 'Will Save DC = CR + 10'),
       duration: makeConstantVariable(cr), // CR rounds
     }),
   },
@@ -113,8 +108,9 @@ export const events = [
     percentileMax: 68,
     title: 'Mass Delusion',
     createVariables: cr => ({
+      duration: makeConstantVariable(0),
       creatureCount: makeVariable(cr), // 1d(cr) creatures confused
-      save: makeConstantVariable(cr + 10, 'DC = CR + 10'),
+      save: makeConstantVariable(cr + 10, 'Will Save DC = CR + 10'),
     }),
   },
   {
@@ -126,7 +122,7 @@ export const events = [
       radius: makeConstantVariable(cr * 5, 'CR x 5ft.'),
       damage: makeConstantVariable(cr * 2, 'CR x 2 damage'),
       duration: makeConstantVariable(cr, 'CR rounds'),
-      save: makeConstantVariable(cr + 10, 'DC = CR + 10'),
+      save: makeConstantVariable(cr + 10, 'Reflex Save DC = CR + 10'),
     }),
   },
   {
@@ -134,6 +130,7 @@ export const events = [
     percentileMax: 78,
     title: 'Telekinesis',
     createVariables: cr => ({
+      duration: makeConstantVariable(0),
       radius: makeConstantVariable(cr * 10, 'CR x 10ft.'),
       cmb: makeConstantVariable(cr + 10, 'CMB = CR + 10'),
     }),
@@ -143,6 +140,7 @@ export const events = [
     percentileMax: 88,
     title: 'Wonderous Magic',
     createVariables: () => ({
+      duration: makeConstantVariable(0),
       rodOfWonderPercentile: makeVariable(100), // rod of wander percentile roll
     }),
   },
@@ -160,7 +158,8 @@ export const events = [
     percentileMax: 98,
     title: 'Magic Jar',
     createVariables: cr => ({
-      save: makeConstantVariable(cr + 10, 'DC = CR + 10'),
+      duration: makeConstantVariable(0),
+      save: makeConstantVariable(cr + 10, 'Will Save DC = CR + 10'),
       stunDuration: makeVariable(4), // 1d4 rounds stun duration
       bodyStopDuration: makeConstantVariable(cr, 'CR rounds'),
     }),
@@ -170,6 +169,7 @@ export const events = [
     percentileMax: 100,
     title: 'Two Simultaneous Events',
     createVariables: () => ({
+      duration: makeConstantVariable(0),
       percentileOne: makeVariable(100), // First event percentile
       percentileTwo: makeVariable(100), // Second even percentile
     }), // Not sure how to do this one...

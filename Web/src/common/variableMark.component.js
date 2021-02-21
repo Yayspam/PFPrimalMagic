@@ -14,6 +14,14 @@ export const dist = 'DISTANCE';
 export const willSave = 'WILL_SAVE';
 export const fortSave = 'FORT_SAVE';
 export const reflexSave = 'REFLEX_SAVE';
+export const cl = 'CASTER_LEVEL';
+
+const getCasterLevel = variable => {
+  return {
+    prefix: 'Caster Level',
+    value: variable.result,
+  };
+};
 
 const getTime = variable => {
   let value = variable.result;
@@ -75,6 +83,10 @@ const getValues = (variable, unitType) => {
     return getSave(variable, 'Reflex');
   }
 
+  if (unitType === cl) {
+    return getCasterLevel(variable);
+  }
+
   return {
     value: variable.result,
     unit: undefined,
@@ -98,10 +110,12 @@ const getToolTip = variable => {
     variable.modifier}] ${modifier}`;
 };
 
-const VM = ({ v, u }) => {
+const VM = ({ v, u, h }) => {
   const classes = useStyles({ u });
-  const { prefix, value, unit } = getValues(v, u);
-  const toolTip = getToolTip(v);
+  const { prefix, value, unit } = h?.getValues
+    ? h.getValues(v)
+    : getValues(v, u);
+  const toolTip = h?.getToolTip ? h.getToolTip(v) : getToolTip(v);
   return (
     <Tooltip title={toolTip} placement="left">
       <mark className={classes.mark}>
@@ -111,6 +125,11 @@ const VM = ({ v, u }) => {
       </mark>
     </Tooltip>
   );
+};
+
+VM.defaultProps = {
+  u: undefined,
+  h: undefined,
 };
 
 export default VM;

@@ -6,7 +6,6 @@ import CustomChip from './customChip.component';
 const DurationEndChip = ({ value }) => {
   const currentRound = useSelector(currentRoundSelector);
 
-  console.log('VALUE', value);
   if (value === undefined) {
     return <CustomChip label="Instantaneous" />;
   }

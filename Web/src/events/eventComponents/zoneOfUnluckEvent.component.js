@@ -2,24 +2,23 @@ import { Box, Typography } from '@material-ui/core';
 import React, { Fragment } from 'react';
 import CustomChip from '../../common/customChip.component';
 import DurationEndChip from '../../common/durationChip.component';
-import VM, { dist, time, willSave } from '../../common/variableMark.component';
+import VM, { dist, time } from '../../common/variableMark.component';
 import { makeConstantVariable } from '../../state/activePrimalEvents/activePrimalEventsState';
 
-export const colourDrain = {
-  percentileMin: 1,
-  percentileMax: 6,
-  title: 'Colour Drain',
+export const zoneOfUnluck = {
+  percentileMin: 15,
+  percentileMax: 18,
+  title: 'Zone of Unluck',
   createVariables: cr => ({
     radius: makeConstantVariable(cr * 5, 'CR x 5ft.'),
-    duration: makeConstantVariable(cr * 10, 'CR mins'),
-    save: makeConstantVariable(15, 'DC 15 Will Save'),
+    duration: makeConstantVariable(cr * 10 * 60, 'CR hours'),
   }),
 };
 
-const ColourDrainEvent = ({ event }) => {
+const ZoneOfUnluckEvent = ({ event }) => {
   const { cr, variables, percentileRoll, startRound, finalRound } = event;
   const { result: crVal } = cr;
-  const { radius, duration, save } = variables;
+  const { radius, duration } = variables;
   return (
     <Fragment>
       <Box>
@@ -27,17 +26,16 @@ const ColourDrainEvent = ({ event }) => {
         <CustomChip label="CR" value={crVal} />
         <CustomChip label="Start" value={startRound} />
         <DurationEndChip value={finalRound} />
-        <CustomChip label="Will Save" value={save?.result} />
       </Box>
       <Typography>
-        Creatures and objects within a <VM v={radius} u={dist} /> radius are
-        drained of colour for <VM v={duration} u={time} />. A gnome in this area
-        must succeed at a <VM v={save} u={willSave} /> to avoid being shaken by
-        this effect for the duration of the loss of colour. This is a
-        mind-affecting fear effect.
+        A zone of unluck and a strange pale violet radience equivalent to
+        candlelight fills a <VM v={radius} u={dist} /> radius for{' '}
+        <VM v={duration} u={time} />. All <mark>d20 rolls</mark> made in the
+        area must be <mark>rolled twice, taking the lower</mark> of the two
+        rolls.
       </Typography>
     </Fragment>
   );
 };
 
-export default ColourDrainEvent;
+export default ZoneOfUnluckEvent;

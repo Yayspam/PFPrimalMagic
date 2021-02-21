@@ -9,7 +9,7 @@ export const variableInitialState = {
   description: undefined,
 };
 
-export const makeConstantVariable = (value, description) => ({
+export const makeConstantVariable = (value, description = undefined) => ({
   ...variableInitialState,
   diceSize: 0,
   diceCount: 0,
@@ -18,12 +18,18 @@ export const makeConstantVariable = (value, description) => ({
   description,
 });
 
-export const makeVariable = (diceSize, diceCount = 1, modifier = 0) => ({
+export const makeVariable = (
+  diceSize,
+  diceCount = 1,
+  modifier = 0,
+  description = undefined
+) => ({
   ...variableInitialState,
   diceSize: diceSize,
   diceCount: diceCount,
   modifier: modifier,
   result: rollMultipleD(diceSize, diceCount, modifier),
+  description,
 });
 
 export const reRollVariable = variable => ({

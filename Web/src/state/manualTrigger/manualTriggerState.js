@@ -137,7 +137,7 @@ export const manualTriggerThunk = () => (dispatch, getState) => {
     ? eventAlwaysSelectedSelector(state)
     : undefined;
 
-  if (eventsAlwaysTrigger || percentile > dialogState.threshold) {
+  if (eventsAlwaysTrigger || percentile >= dialogState.threshold) {
     const eventPercentile = rollPercentile();
     const event = generateDialogEvent(
       eventPercentile,
