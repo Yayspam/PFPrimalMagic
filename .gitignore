@@ -15,3 +15,5 @@ Web/yarn-error.log*
 Web/junit.xml
 
 ExampleVideos/*
+
+.vscode/*

@@ -22,6 +22,10 @@ module.exports = {
       'blankLine': 'any', 'prev': 'block-like', 'next': 'return' 
     }],
     'prettier/prettier': 'error',
+    'quotes': ['error', 'single'],
+    'semi': ['error', 'always'],
+    'indent': ['error', 2],
+    'no-multi-spaces': ['error']
   },
   'parser': 'babel-eslint',
   'parserOptions': {
