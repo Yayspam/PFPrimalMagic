@@ -1,6 +1,7 @@
 import { Box, makeStyles } from '@material-ui/core';
 import React from 'react';
 import ActivePrimalEventsListContent from './activePrimalEventsListContent.component';
+import ActivePrimalEventsListFooter from './activePrimalEventsListFooter.content';
 import ActivePrimalEventsListHeader from './activePrimalEventsListHeader.component';
 
 const useStyles = makeStyles({
@@ -21,6 +22,7 @@ const ActivePrimalEventsList = () => {
     <Box className={classes.content}>
       <ActivePrimalEventsListHeader />
       <ActivePrimalEventsListContent />
+      <ActivePrimalEventsListFooter />
     </Box>
   );
 };

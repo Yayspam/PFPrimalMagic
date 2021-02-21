@@ -1,4 +1,4 @@
-import { getEvent } from '../../events/events';
+import { getEvent, getEventByTitle } from '../../events/events';
 import { rollPercentile } from '../../random';
 import {
   makeConstantVariable,
@@ -11,6 +11,11 @@ import {
   setTriggerDialogState,
   triggerDialogInitialState,
 } from '../triggerDialog/triggerDialogState';
+import {
+  alwaysSelectSameEventSelector,
+  eventsAlwaysTriggerSelector,
+  eventAlwaysSelectedSelector,
+} from '../userSettings/userSetingsState';
 
 export const characterInitialState = {
   name: 'Other',
@@ -83,8 +88,16 @@ export const manualTriggerStateReducers = {
 };
 
 // TODO: Replace with actual content, we'll need a list of these for each percentile roll, I think
-export const generateDialogEvent = (percentile, cr, startRound, expanded) => {
-  const correspondingEvent = getEvent(percentile);
+export const generateDialogEvent = (
+  percentile,
+  cr,
+  startRound,
+  expanded,
+  eventAlwaysSelected
+) => {
+  const correspondingEvent = eventAlwaysSelected
+    ? getEventByTitle(eventAlwaysSelected)
+    : getEvent(percentile);
   const variables = correspondingEvent.createVariables(cr);
   const durationInRounds = variables.duration?.result;
   const finalRound =
@@ -94,7 +107,9 @@ export const generateDialogEvent = (percentile, cr, startRound, expanded) => {
     ...primalEventInitialState,
     id: Date.now(),
     title: correspondingEvent.title,
-    percentileRoll: percentile,
+    percentileRoll: eventAlwaysSelected
+      ? correspondingEvent.percentileMin
+      : percentile,
     cr: makeConstantVariable(cr),
     startRound,
     finalRound,
@@ -107,10 +122,11 @@ export const generateDialogEvent = (percentile, cr, startRound, expanded) => {
 // Rolls a percentile, then generates the dialog state, and the event state if roll was high enought
 // Then opens the dialog with that state
 export const manualTriggerThunk = () => (dispatch, getState) => {
+  const state = getState();
   const percentile = rollPercentile();
-  const currentCr = specifiedCrSelector(getState());
-  const currentRound = currentRoundSelector(getState());
-  const allExpanded = allExpandedSelector(getState());
+  const currentCr = specifiedCrSelector(state);
+  const currentRound = currentRoundSelector(state);
+  const allExpanded = allExpandedSelector(state);
   const dialogState = {
     ...triggerDialogInitialState,
     open: true,
@@ -119,13 +135,20 @@ export const manualTriggerThunk = () => (dispatch, getState) => {
     cr: currentCr,
   };
 
-  if (percentile > dialogState.threshold) {
+  const eventsAlwaysTrigger = eventsAlwaysTriggerSelector(state);
+  const alwaysShowSameEvent = alwaysSelectSameEventSelector(state);
+  const eventAlwaysSelected = alwaysShowSameEvent
+    ? eventAlwaysSelectedSelector(state)
+    : undefined;
+
+  if (eventsAlwaysTrigger || percentile > dialogState.threshold) {
     const eventPercentile = rollPercentile();
     const event = generateDialogEvent(
       eventPercentile,
       currentCr,
       currentRound,
-      !!allExpanded
+      !!allExpanded,
+      eventAlwaysSelected
     );
     dialogState.currentEvent = event;
   }

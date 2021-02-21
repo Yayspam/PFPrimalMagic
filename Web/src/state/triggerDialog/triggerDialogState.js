@@ -6,6 +6,10 @@ import {
   specifiedCrSelector,
 } from '../manualTrigger/manualTriggerState';
 import { currentRoundSelector } from '../rounds/roundsState';
+import {
+  alwaysSelectSameEventSelector,
+  eventAlwaysSelectedSelector,
+} from '../userSettings/userSetingsState';
 
 export const manualTriggerType = 'MANUAL';
 export const stormTrigerType = 'STORM';
@@ -84,16 +88,22 @@ export const confirmDialogPrimalEventThunk = () => (dispatch, getState) => {
 // Thunk that handles all state when pressing the re-roll event button in a trigger dialog
 // Re-rolls the primal magic event based on the current dialog settings and updates the dialog state
 export const rerollDialogPrimalEventThunk = () => (dispatch, getState) => {
-  const currentDialogState = triggerDialogStateSelector(getState());
+  const state = getState();
+  const currentDialogState = triggerDialogStateSelector(state);
   const eventPercentile = rollPercentile();
-  const currentCr = specifiedCrSelector(getState());
-  const currentRound = currentRoundSelector(getState());
-  const allExpanded = allExpandedSelector(getState());
+  const currentCr = specifiedCrSelector(state);
+  const currentRound = currentRoundSelector(state);
+  const allExpanded = allExpandedSelector(state);
+  const alwaysShowSameEvent = alwaysSelectSameEventSelector(state);
+  const eventAlwaysSelected = alwaysShowSameEvent
+    ? eventAlwaysSelectedSelector(state)
+    : undefined;
   const event = generateDialogEvent(
     eventPercentile,
     currentCr,
     currentRound,
-    !!allExpanded
+    !!allExpanded,
+    eventAlwaysSelected
   );
   const newDialogState = {
     ...currentDialogState,

@@ -17,6 +17,10 @@ import {
   eventExpansionReducers,
 } from '../eventExpansionState/eventExpansionState';
 import { roundsInitialState, roundsStateReducers } from '../rounds/roundsState';
+import {
+  userSettingsInitialState,
+  userSettingsStateReducers,
+} from '../userSettings/userSetingsState';
 
 export const initialState = {
   activePrimalEventsState: [...activePrimalEventsInitialState],
@@ -35,6 +39,9 @@ export const initialState = {
   triggerDialogState: {
     ...triggerDialogInitialState,
   },
+  userSettingsState: {
+    ...userSettingsInitialState,
+  },
 };
 
 const ResetAllType = 'primalMagic:resetAll';
@@ -43,7 +50,10 @@ export const resetAll = () => ({
   type: ResetAllType,
 });
 
-const handleResetAll = () => ({ ...initialState });
+const handleResetAll = state => ({
+  ...initialState,
+  userSettingsState: { ...state.userSettingsState },
+});
 
 const PrimalMagicReducer = createReducer(initialState, {
   [ResetAllType]: handleResetAll,
@@ -52,6 +62,7 @@ const PrimalMagicReducer = createReducer(initialState, {
   ...manualTriggerStateReducers,
   ...roundsStateReducers,
   ...triggerDialogStateReducers,
+  ...userSettingsStateReducers,
 });
 
 export default PrimalMagicReducer;

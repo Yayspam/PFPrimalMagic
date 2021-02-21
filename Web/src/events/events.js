@@ -138,7 +138,7 @@ export const events = [
   {
     percentileMin: 79,
     percentileMax: 88,
-    title: 'Telekinesis',
+    title: 'Wonderous Magic',
     createVariables: cr => ({
       rodOfWonderPercentile: makeVariable(100), // rod of wander percentile roll
       radius: makeConstantVariable(cr * 10), // 10xCR ft
@@ -148,7 +148,7 @@ export const events = [
   {
     percentileMin: 89,
     percentileMax: 94,
-    title: 'Telekinesis',
+    title: 'Teleportation Storm',
     createVariables: cr => ({
       save: makeConstantVariable(cr + 10), // DC 10 + cr Will Save
       distance: makeConstantVariable(cr * 5), // 5xCR ft - only for one creature? Not sure on this one
@@ -185,4 +185,14 @@ export const getEvent = percentileRoll => {
   }
 
   return eventsInRange[0];
+};
+
+export const getEventByTitle = title => {
+  const eventsWithTitle = events.filter(e => e.title === title);
+
+  if (eventsWithTitle.length === 0) {
+    return events[0];
+  }
+
+  return eventsWithTitle[0];
 };
