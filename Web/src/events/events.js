@@ -1,27 +1,30 @@
+import React from 'react';
 import {
   makeConstantVariable,
   makeVariable,
 } from '../state/activePrimalEvents/activePrimalEventsState';
+import CentipedesEvent, {
+  centipedes,
+} from './eventComponents/centipedesEvent.component';
+import ColourDrainEvent, {
+  colourDrain,
+} from './eventComponents/colourDrainEvent.component';
+
+export const getEventCardContent = event => {
+  if (event.title === colourDrain.title) {
+    return <ColourDrainEvent event={event} />;
+  }
+
+  if (event.title === centipedes.title) {
+    return <CentipedesEvent event={event} />;
+  }
+
+  return <div>UNKNOWN EVENT {event.title}</div>;
+};
 
 export const events = [
-  {
-    percentileMin: 1,
-    percentileMax: 6,
-    title: 'Colour Drain',
-    createVariables: cr => ({
-      radius: makeConstantVariable(cr * 5, 'CR x 5ft.'),
-      duration: makeConstantVariable(cr * 10, 'CR mins'),
-      save: makeConstantVariable(15, 'DC 15 Will Save'),
-    }),
-  },
-  {
-    percentileMin: 7,
-    percentileMax: 10,
-    title: 'Centipedes',
-    createVariables: () => ({
-      centipedeCount: makeVariable(6), // new - centipede count, need to figure out how this works to make the CR total work
-    }),
-  },
+  colourDrain,
+  centipedes,
   {
     percentileMin: 11,
     percentileMax: 14,

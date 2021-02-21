@@ -9,9 +9,9 @@ import React from 'react';
 import { eventImminant, eventActive } from '../common/colours';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import ColourDrainEvent from './eventComponents/colourDrainEvent.component';
 import { useSelector } from 'react-redux';
 import { currentRoundSelector } from '../state/rounds/roundsState';
+import { getEventCardContent } from './events';
 
 const useStyles = makeStyles({
   card: {
@@ -59,7 +59,7 @@ const EventCard = ({ event, titleColour, onExpandToggleClicked }) => {
       />
       {expanded && (
         <CardContent className={classes.cardContent}>
-          <ColourDrainEvent event={event} />
+          {getEventCardContent(event)}
         </CardContent>
       )}
     </Card>

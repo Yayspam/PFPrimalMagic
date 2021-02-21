@@ -17,14 +17,14 @@ export const reflexSave = 'REFLEX_SAVE';
 
 const getTime = variable => {
   let value = variable.result;
-  let unit = `round${value > 1 ? 's' : null}`;
+  let unit = `round${value > 1 ? 's' : ''}`;
 
   if (value > 600) {
     value = Math.floor(value / 600);
-    unit = `hour${value > 1 ? 's' : null}`;
+    unit = `hour${value > 1 ? 's' : ''}`;
   } else if (value > 20) {
     value = Math.floor(value / 10);
-    unit = `minute${value > 1 ? 's' : null}`;
+    unit = `minute${value > 1 ? 's' : ''}`;
   }
 
   return {
@@ -89,7 +89,7 @@ const getToolTip = variable => {
   let modifier = `+${variable.modifier}`;
 
   if (!variable.modifier) {
-    modifier = null;
+    modifier = '';
   } else if (variable.modifier < 0) {
     modifier = `-${variable.modifier}`;
   }

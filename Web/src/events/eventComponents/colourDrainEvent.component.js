@@ -3,6 +3,18 @@ import React, { Fragment } from 'react';
 import CustomChip from '../../common/customChip.component';
 import DurationEndChip from '../../common/durationChip.component';
 import VM, { dist, time, willSave } from '../../common/variableMark.component';
+import { makeConstantVariable } from '../../state/activePrimalEvents/activePrimalEventsState';
+
+export const colourDrain = {
+  percentileMin: 1,
+  percentileMax: 6,
+  title: 'Colour Drain',
+  createVariables: cr => ({
+    radius: makeConstantVariable(cr * 5, 'CR x 5ft.'),
+    duration: makeConstantVariable(cr * 10, 'CR mins'),
+    save: makeConstantVariable(15, 'DC 15 Will Save'),
+  }),
+};
 
 const ColourDrainEvent = ({ event }) => {
   const { cr, variables, percentileRoll, startRound, finalRound } = event;
