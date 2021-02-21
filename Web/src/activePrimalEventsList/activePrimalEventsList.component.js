@@ -1,5 +1,5 @@
 import { Box, makeStyles } from '@material-ui/core';
-import React from 'react'
+import React from 'react';
 import ActivePrimalEventsListContent from './activePrimalEventsListContent.component';
 import ActivePrimalEventsListHeader from './activePrimalEventsListHeader.component';
 
@@ -10,8 +10,8 @@ const useStyles = makeStyles({
     justifyContent: 'space-between',
     height: '100%',
     width: '100%',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  },
 });
 
 const ActivePrimalEventsList = () => {
@@ -19,10 +19,10 @@ const ActivePrimalEventsList = () => {
 
   return (
     <Box className={classes.content}>
-      <ActivePrimalEventsListHeader/>
-      <ActivePrimalEventsListContent/>
+      <ActivePrimalEventsListHeader />
+      <ActivePrimalEventsListContent />
     </Box>
   );
 };
 
-export default ActivePrimalEventsList
+export default ActivePrimalEventsList;

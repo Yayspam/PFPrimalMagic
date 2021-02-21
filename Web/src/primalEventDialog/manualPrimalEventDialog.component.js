@@ -1,8 +1,12 @@
 import { Button, Dialog, Typography } from '@material-ui/core';
-import React from 'react'
+import React from 'react';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { closeTriggerDialog, confirmDialogPrimalEventThunk, triggerDialogStateSelector } from '../state/triggerDialog/triggerDialogState';
+import {
+  closeTriggerDialog,
+  confirmDialogPrimalEventThunk,
+  triggerDialogStateSelector,
+} from '../state/triggerDialog/triggerDialogState';
 
 const ManualPrimalEventDialog = () => {
   const dispatch = useDispatch();
@@ -13,29 +17,23 @@ const ManualPrimalEventDialog = () => {
   };
 
   const onCloseDialogClicked = () => {
-    dispatch(closeTriggerDialog())
+    dispatch(closeTriggerDialog());
   };
 
   return (
     <Dialog open={dialogState.open}>
       <Fragment>
-        <Typography>
-          Primal Event Dialog.
-        </Typography>
+        <Typography>Primal Event Dialog.</Typography>
         <Typography>
           d%: {dialogState.percentile}, CR: {dialogState.cr}
         </Typography>
-        {dialogState.currentEvent && 
-          <Button
-            variant='contained'
-            onClick={onAcceptClicked}>
-              Accept
+        {dialogState.currentEvent && (
+          <Button variant="contained" onClick={onAcceptClicked}>
+            Accept
           </Button>
-        }
-        <Button
-          variant='contained'
-          onClick={onCloseDialogClicked}>
-            Close
+        )}
+        <Button variant="contained" onClick={onCloseDialogClicked}>
+          Close
         </Button>
       </Fragment>
     </Dialog>

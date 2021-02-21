@@ -1,11 +1,14 @@
-import { rollPercentile } from "../../random";
-import { addActivePrimalEvent } from "../activePrimalEvents/activePrimalEventsState";
-import { allExpandedSelector } from "../eventExpansionState/eventExpansionState";
-import { generateDialogEvent, specifiedCrSelector } from "../manualTrigger/manualTriggerState";
-import { currentRoundSelector } from "../rounds/roundsState";
+import { rollPercentile } from '../../random';
+import { addActivePrimalEvent } from '../activePrimalEvents/activePrimalEventsState';
+import { allExpandedSelector } from '../eventExpansionState/eventExpansionState';
+import {
+  generateDialogEvent,
+  specifiedCrSelector,
+} from '../manualTrigger/manualTriggerState';
+import { currentRoundSelector } from '../rounds/roundsState';
 
-export const manualTriggerType = "MANUAL";
-export const stormTrigerType = "STORM";
+export const manualTriggerType = 'MANUAL';
+export const stormTrigerType = 'STORM';
 
 export const triggerDialogInitialState = {
   open: false,
@@ -13,57 +16,62 @@ export const triggerDialogInitialState = {
   percentile: 0,
   threshold: 50,
   cr: undefined,
-  currentEvent: undefined
-}
+  currentEvent: undefined,
+};
 
-export const triggerDialogStateSelector = (state) => state.primalMagic.triggerDialogState;
-export const triggerDialogCurrentEventSelector = (state) => triggerDialogStateSelector(state).currentEvent;
+export const triggerDialogStateSelector = state =>
+  state.primalMagic.triggerDialogState;
+export const triggerDialogCurrentEventSelector = state =>
+  triggerDialogStateSelector(state).currentEvent;
 
-const SetTriggerDialogStateType = "primalMagic:triggerDialogState:setTriggerDialogState";
-const SetTriggerDialogPrimalEventType = "primalMagic:triggerDialogState:setTriggerDialogPrimalEvent";
-const CloseTriggerDialogType = "primalMagic:triggerDialogState:closeTriggerDialog";
+const SetTriggerDialogStateType =
+  'primalMagic:triggerDialogState:setTriggerDialogState';
+const SetTriggerDialogPrimalEventType =
+  'primalMagic:triggerDialogState:setTriggerDialogPrimalEvent';
+const CloseTriggerDialogType =
+  'primalMagic:triggerDialogState:closeTriggerDialog';
 
-export const setTriggerDialogState = (triggerDialogState) => ({
+export const setTriggerDialogState = triggerDialogState => ({
   type: SetTriggerDialogStateType,
-  payload: triggerDialogState
+  payload: triggerDialogState,
 });
 
-export const setTriggerDialogPrimalEvent = (primalEvent) => ({
+export const setTriggerDialogPrimalEvent = primalEvent => ({
   type: SetTriggerDialogPrimalEventType,
-  payload: primalEvent
+  payload: primalEvent,
 });
 
 export const closeTriggerDialog = () => ({
-  type: CloseTriggerDialogType
+  type: CloseTriggerDialogType,
 });
 
 const handleSetTriggerDialogState = (state, payload) => ({
   ...state,
   triggerDialogState: {
-    ...payload
-  }
+    ...payload,
+  },
 });
 
 const handleSetTriggerDialogPrimalEvent = (state, payload) => ({
   ...state,
   triggerDialogState: {
     ...state.triggerDialogState,
-    currentEvent: payload
-  }
+    currentEvent: payload,
+  },
 });
 
-const handleCloseTriggerDialog = (state) => ({
+const handleCloseTriggerDialog = state => ({
   ...state,
   triggerDialogState: {
-    ...triggerDialogInitialState
-  }
+    ...triggerDialogInitialState,
+  },
 });
 
-export const triggerDialogStateReducers = ({
+export const triggerDialogStateReducers = {
   [SetTriggerDialogStateType]: handleSetTriggerDialogState,
   [SetTriggerDialogPrimalEventType]: handleSetTriggerDialogPrimalEvent,
-  [CloseTriggerDialogType]: handleCloseTriggerDialog
-});
+  [CloseTriggerDialogType]: handleCloseTriggerDialog,
+};
 
 // Thunk that handles all state when pressing the confirm button in a trigger dialog
 // Adds the trigger dialog's current event to the active primal events then wipes the dialog to close it
@@ -81,11 +89,16 @@ export const rerollDialogPrimalEventThunk = () => (dispatch, getState) => {
   const currentCr = specifiedCrSelector(getState());
   const currentRound = currentRoundSelector(getState());
   const allExpanded = allExpandedSelector(getState());
-  const event = generateDialogEvent(eventPercentile, currentCr, currentRound, !!(allExpanded));
+  const event = generateDialogEvent(
+    eventPercentile,
+    currentCr,
+    currentRound,
+    !!allExpanded
+  );
   const newDialogState = {
     ...currentDialogState,
-    currentEvent: event
+    currentEvent: event,
   };
 
   dispatch(setTriggerDialogState(newDialogState));
-}
+};

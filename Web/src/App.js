@@ -31,7 +31,7 @@ if (process.env.NODE_ENV === 'development') {
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export const store = createStore(
-  persistReducer({ key:'root', storage }, AppReducer(history)),
+  persistReducer({ key: 'root', storage }, AppReducer(history)),
   composeEnhancers(applyMiddleware(...middleware))
 );
 const persistor = persistStore(store);

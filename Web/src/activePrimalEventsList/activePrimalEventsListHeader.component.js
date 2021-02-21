@@ -1,8 +1,11 @@
-import React from 'react'
+import React from 'react';
 import { Box, IconButton, makeStyles, Typography } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { activePrimalEventsSelector } from '../state/activePrimalEvents/activePrimalEventsState';
-import { allExpandedSelector, toggleAllExpandedThunk } from '../state/eventExpansionState/eventExpansionState';
+import {
+  allExpandedSelector,
+  toggleAllExpandedThunk,
+} from '../state/eventExpansionState/eventExpansionState';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import RemoveIcon from '@material-ui/icons/Remove';
@@ -21,24 +24,24 @@ const useStyles = makeStyles({
   subtitleContainer: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   subtitle: {
     marginLeft: 5,
-    marginRight: 5
+    marginRight: 5,
   },
   expandButton: {
     color: 'white',
     backgroundColor: 'transparent',
     '&:hover': {
-      backgroundColor: 'transparent'
-    }
+      backgroundColor: 'transparent',
+    },
   },
   headerText: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between'
-  }
+    justifyContent: 'space-between',
+  },
 });
 
 const ActivePrimalEventsListHeader = () => {
@@ -52,21 +55,25 @@ const ActivePrimalEventsListHeader = () => {
     dispatch(toggleAllExpandedThunk());
   };
 
-  const buildExpandIcon = (expanded) => {
-    if(expanded === undefined){
-      return (<RemoveIcon/>);
+  const buildExpandIcon = expanded => {
+    if (expanded === undefined) {
+      return <RemoveIcon />;
     }
 
-    if(!expanded){
-      return (<ExpandLessIcon/>);
+    if (!expanded) {
+      return <ExpandLessIcon />;
     }
 
-    return (<ExpandMoreIcon/>);
+    return <ExpandMoreIcon />;
   };
 
-  const buildExpandButton = (expanded) => {
+  const buildExpandButton = expanded => {
     return (
-      <IconButton disableRipple className={classes.expandButton} onClick={toggleAllClicked}>
+      <IconButton
+        disableRipple
+        className={classes.expandButton}
+        onClick={toggleAllClicked}
+      >
         {buildExpandIcon(expanded)}
       </IconButton>
     );
@@ -76,9 +83,7 @@ const ActivePrimalEventsListHeader = () => {
     <Box className={classes.header}>
       <Box className={classes.headerText}>
         {buildExpandButton(allExpanded)}
-        <Typography variant="h4">
-          Active Primal Events
-        </Typography>
+        <Typography variant="h4">Active Primal Events</Typography>
         {buildExpandButton(allExpanded)}
       </Box>
       <Box className={classes.subtitleContainer}>
@@ -88,6 +93,6 @@ const ActivePrimalEventsListHeader = () => {
       </Box>
     </Box>
   );
-}
+};
 
 export default ActivePrimalEventsListHeader;

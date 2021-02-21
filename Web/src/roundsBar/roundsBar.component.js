@@ -1,5 +1,5 @@
 import { Box, Button, makeStyles } from '@material-ui/core';
-import React from 'react'
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import BarHeader from '../common/barHeader.component';
 import { advanceRoundThunk } from '../state/rounds/roundsState';
@@ -12,18 +12,16 @@ const useStyles = makeStyles({
     justifyContent: 'space-between',
     height: '100%',
     width: '100%',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   footer: {
-    margin: 20
-  }
+    margin: 20,
+  },
 });
 
 const RoundsBar = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  
-
 
   const onNextRoundClicked = () => {
     dispatch(advanceRoundThunk());
@@ -34,14 +32,12 @@ const RoundsBar = () => {
       <BarHeader title="Rounds & Primal Storm" colour="#00a152" />
       <RoundsContent />
       <Box className={classes.footer}>
-        <Button 
-          variant='contained'
-          onClick={onNextRoundClicked}>
-            Next Round
+        <Button variant="contained" onClick={onNextRoundClicked}>
+          Next Round
         </Button>
       </Box>
     </Box>
   );
 };
 
-export default RoundsBar
+export default RoundsBar;

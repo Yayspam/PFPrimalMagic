@@ -1,39 +1,49 @@
 import createReducer from './createReducer';
-import { manualTriggerInitialState, manualTriggerStateReducers } from '../manualTrigger/manualTriggerState';
-import { activePrimalEventsInitialState, activePrimalEventsReducers } from '../activePrimalEvents/activePrimalEventsState';
+import {
+  manualTriggerInitialState,
+  manualTriggerStateReducers,
+} from '../manualTrigger/manualTriggerState';
+import {
+  activePrimalEventsInitialState,
+  activePrimalEventsReducers,
+} from '../activePrimalEvents/activePrimalEventsState';
 import { primalStormInitialState } from '../primalStorm/primalStormState';
-import { triggerDialogInitialState, triggerDialogStateReducers } from '../triggerDialog/triggerDialogState';
-import { eventExpansionInitialState, eventExpansionReducers } from '../eventExpansionState/eventExpansionState';
+import {
+  triggerDialogInitialState,
+  triggerDialogStateReducers,
+} from '../triggerDialog/triggerDialogState';
+import {
+  eventExpansionInitialState,
+  eventExpansionReducers,
+} from '../eventExpansionState/eventExpansionState';
 import { roundsInitialState, roundsStateReducers } from '../rounds/roundsState';
 
 export const initialState = {
-  activePrimalEventsState: [
-    ...activePrimalEventsInitialState
-  ],
+  activePrimalEventsState: [...activePrimalEventsInitialState],
   eventExpansionState: {
-    ...eventExpansionInitialState
+    ...eventExpansionInitialState,
   },
   manualTriggerState: {
-    ...manualTriggerInitialState
+    ...manualTriggerInitialState,
   },
   primalStormState: {
-    ...primalStormInitialState
+    ...primalStormInitialState,
   },
   roundsState: {
     ...roundsInitialState,
   },
   triggerDialogState: {
-    ...triggerDialogInitialState
+    ...triggerDialogInitialState,
   },
 };
 
 const ResetAllType = 'primalMagic:resetAll';
 
 export const resetAll = () => ({
-  type: ResetAllType
+  type: ResetAllType,
 });
 
-const handleResetAll = () => ({...initialState});
+const handleResetAll = () => ({ ...initialState });
 
 const PrimalMagicReducer = createReducer(initialState, {
   [ResetAllType]: handleResetAll,
@@ -41,7 +51,7 @@ const PrimalMagicReducer = createReducer(initialState, {
   ...activePrimalEventsReducers,
   ...manualTriggerStateReducers,
   ...roundsStateReducers,
-  ...triggerDialogStateReducers
+  ...triggerDialogStateReducers,
 });
 
 export default PrimalMagicReducer;

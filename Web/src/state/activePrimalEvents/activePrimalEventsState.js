@@ -1,37 +1,41 @@
-import { rollMultipleD } from "../../random";
+import { rollMultipleD } from '../../random';
 
 export const variableInitialState = {
   diceSize: undefined,
   diceCount: undefined,
   modifier: undefined,
   result: undefined,
-}
+};
 
-export const makeConstantVariable = (value) => ({
+export const makeConstantVariable = value => ({
   ...variableInitialState,
   diceSize: 0,
   diceCount: 0,
   modifier: value,
-  result: value
-})
+  result: value,
+});
 
 export const makeVariable = (diceSize, diceCount = 1, modifier = 0) => ({
   ...variableInitialState,
   diceSize: diceSize,
   diceCount: diceCount,
   modifier: modifier,
-  result: rollMultipleD(diceSize, diceCount, modifier)
+  result: rollMultipleD(diceSize, diceCount, modifier),
 });
 
-export const reRollVariable = (variable) => ({
+export const reRollVariable = variable => ({
   ...variable,
-  result: rollMultipleD(variable.diceSize, variable.diceCount, variable.modifier)
+  result: rollMultipleD(
+    variable.diceSize,
+    variable.diceCount,
+    variable.modifier
+  ),
 });
 
 export const primalEventInitialState = {
   id: undefined,
   percentileRoll: undefined,
-  cr: {...variableInitialState},
+  cr: { ...variableInitialState },
   startRound: undefined,
   finalRound: undefined,
   variables: [],
@@ -40,63 +44,69 @@ export const primalEventInitialState = {
 
 export const activePrimalEventsInitialState = [];
 
-export const activePrimalEventsSelector = (state) => state.primalMagic.activePrimalEventsState;
-export const activePrimalEventSelector = (id) => (state) => activePrimalEventsSelector(state).find(primalEvent => primalEvent.id === id);
-export const activePrimalEventIsExpandedSelector = (id) => (state) => activePrimalEventSelector(id)(state).expanded;
+export const activePrimalEventsSelector = state =>
+  state.primalMagic.activePrimalEventsState;
+export const activePrimalEventSelector = id => state =>
+  activePrimalEventsSelector(state).find(primalEvent => primalEvent.id === id);
+export const activePrimalEventIsExpandedSelector = id => state =>
+  activePrimalEventSelector(id)(state).expanded;
 
-const ExpandAllEventsType = "primalMagic:activePrimalEvents:expandAllEvents";
-const CollapseAllEventsType = "primalMagic:activePrimalEvents:collapseAllEvents";
-const ToggleSingleExpandedType = "primalMagic:activePrimalEvents:toggleSingleExpanded";
-const AddActivePrimalEventType = "primalMagic:activePrimalEvents:addActivePrimalEvent";
+const ExpandAllEventsType = 'primalMagic:activePrimalEvents:expandAllEvents';
+const CollapseAllEventsType =
+  'primalMagic:activePrimalEvents:collapseAllEvents';
+const ToggleSingleExpandedType =
+  'primalMagic:activePrimalEvents:toggleSingleExpanded';
+const AddActivePrimalEventType =
+  'primalMagic:activePrimalEvents:addActivePrimalEvent';
 
 export const expandAll = () => ({
-  type: ExpandAllEventsType
+  type: ExpandAllEventsType,
 });
 
 export const collapseAll = () => ({
-  type: CollapseAllEventsType
+  type: CollapseAllEventsType,
 });
 
-export const toggleSingleExpanded = (id) => ({
+export const toggleSingleExpanded = id => ({
   type: ToggleSingleExpandedType,
-  payload: id
+  payload: id,
 });
 
-export const addActivePrimalEvent = (primalEvent) => ({
+export const addActivePrimalEvent = primalEvent => ({
   type: AddActivePrimalEventType,
-  payload: primalEvent
+  payload: primalEvent,
 });
 
 const copyState = state => ({
   ...state,
-  activePrimalEventsState: [
-    ...state.activePrimalEventsState
-  ]
+  activePrimalEventsState: [...state.activePrimalEventsState],
 });
 
 const handleExpandAll = state => {
   const newState = copyState(state);
-  newState.activePrimalEventsState = newState
-    .activePrimalEventsState
-    .map(activePrimalEvent => ({ ...activePrimalEvent, expanded: true }));
+  newState.activePrimalEventsState = newState.activePrimalEventsState.map(
+    activePrimalEvent => ({ ...activePrimalEvent, expanded: true })
+  );
 
   return newState;
 };
 
-const handleCollapseAll = (state) => {
+const handleCollapseAll = state => {
   const newState = copyState(state);
-  newState.activePrimalEventsState = newState
-    .activePrimalEventsState
-    .map(activePrimalEvent => ({ ...activePrimalEvent, expanded: false }));
+  newState.activePrimalEventsState = newState.activePrimalEventsState.map(
+    activePrimalEvent => ({ ...activePrimalEvent, expanded: false })
+  );
 
   return newState;
 };
 
 const handleToggleSingleExpanded = (state, payload) => {
   const newState = copyState(state);
-  const match = newState.activePrimalEventsState.find(activePrimalEvent => activePrimalEvent.id === payload);
+  const match = newState.activePrimalEventsState.find(
+    activePrimalEvent => activePrimalEvent.id === payload
+  );
 
-  if(!match){
+  if (!match) {
     return newState;
   }
 
@@ -110,11 +120,11 @@ const handleAddActivePrimalEvent = (state, payload) => {
   const newState = copyState(state);
   newState.activePrimalEventsState.push(payload);
   return newState;
-}
+};
 
-export const activePrimalEventsReducers = ({
+export const activePrimalEventsReducers = {
   [ExpandAllEventsType]: handleExpandAll,
   [CollapseAllEventsType]: handleCollapseAll,
   [ToggleSingleExpandedType]: handleToggleSingleExpanded,
-  [AddActivePrimalEventType]: handleAddActivePrimalEvent
-});
+  [AddActivePrimalEventType]: handleAddActivePrimalEvent,
+};

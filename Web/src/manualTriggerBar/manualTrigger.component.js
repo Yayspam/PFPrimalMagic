@@ -1,5 +1,5 @@
 import { Box, Button, makeStyles } from '@material-ui/core';
-import React from 'react'
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import BarHeader from '../common/barHeader.component';
 import { manualTriggerThunk } from '../state/manualTrigger/manualTriggerState';
@@ -12,11 +12,11 @@ const useStyles = makeStyles({
     justifyContent: 'space-between',
     height: '100%',
     width: '100%',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   footer: {
-    margin: 20
-  }
+    margin: 20,
+  },
 });
 
 const ManualTriggerBar = () => {
@@ -25,21 +25,19 @@ const ManualTriggerBar = () => {
 
   const onManualTriggerClicked = () => {
     dispatch(manualTriggerThunk());
-  }
+  };
 
   return (
     <Box className={classes.container}>
       <BarHeader title="Manual Trigger" colour="#f44336" />
       <ManualTriggerContent />
       <Box className={classes.footer}>
-        <Button 
-          variant='contained'
-          onClick={onManualTriggerClicked}>
-            Manually Trigger Event
+        <Button variant="contained" onClick={onManualTriggerClicked}>
+          Manually Trigger Event
         </Button>
       </Box>
     </Box>
   );
 };
 
-export default ManualTriggerBar
+export default ManualTriggerBar;

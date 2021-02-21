@@ -1,5 +1,12 @@
-import React from 'react'
-import { Box, Button, List, ListItem, makeStyles, Typography } from '@material-ui/core';
+import React from 'react';
+import {
+  Box,
+  Button,
+  List,
+  ListItem,
+  makeStyles,
+  Typography,
+} from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleSingleExpandedThunk } from '../state/eventExpansionState/eventExpansionState';
 import { activePrimalEventsSelector } from '../state/activePrimalEvents/activePrimalEventsState';
@@ -12,8 +19,8 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    overflow: 'auto'
-  }
+    overflow: 'auto',
+  },
 });
 
 const ActivePrimalEventsListContent = () => {
@@ -22,26 +29,36 @@ const ActivePrimalEventsListContent = () => {
 
   const activePrimalEvents = useSelector(activePrimalEventsSelector);
 
-  const toggleSingleClicked = (primalEvent) => () => {
+  const toggleSingleClicked = primalEvent => () => {
     dispatch(toggleSingleExpandedThunk(primalEvent.id));
   };
 
   return (
     <Box className={classes.content}>
-      {activePrimalEvents.length > 0 && (<List>
-        {activePrimalEvents.map((primalEvent, index) => (
-          <ListItem key={primalEvent.id}>
-            <Typography>
-              Primal Event: {index + 1}; d%: {primalEvent.percentileRoll}; CR: {primalEvent.cr.result}; Expanded: {booleanToString(primalEvent.expanded)}
-              <Button variant='contained' onClick={toggleSingleClicked(primalEvent)} >
-                Toggle
-              </Button>
-            </Typography>
-          </ListItem>
-        ))}
-      </List>)}
+      {activePrimalEvents.length > 0 && (
+        <List>
+          {activePrimalEvents.map(primalEvent => (
+            <ListItem key={primalEvent.id}>
+              <Typography>
+                Primal Event: {primalEvent.title}; d%:{' '}
+                {primalEvent.percentileRoll}; CR: {primalEvent.cr.result}; Start
+                Round: {primalEvent.startRound},{' '}
+                {primalEvent.finalRound &&
+                  `End Round: ${primalEvent.finalRound}, `}
+                Expanded: {booleanToString(primalEvent.expanded)}
+                <Button
+                  variant="contained"
+                  onClick={toggleSingleClicked(primalEvent)}
+                >
+                  Toggle
+                </Button>
+              </Typography>
+            </ListItem>
+          ))}
+        </List>
+      )}
     </Box>
   );
-}
+};
 
 export default ActivePrimalEventsListContent;

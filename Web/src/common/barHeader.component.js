@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Box, makeStyles, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles({
@@ -19,11 +19,9 @@ const BarHeader = ({ title, colour }) => {
 
   return (
     <Box className={classes.header}>
-      <Typography variant="h4">
-        {title}
-      </Typography>
+      <Typography variant="h4">{title}</Typography>
     </Box>
   );
-}
+};
 
 export default BarHeader;

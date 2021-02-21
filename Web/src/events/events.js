@@ -1,4 +1,7 @@
-import { makeVariable } from '../state/activePrimalEvents/activePrimalEventsState';
+import {
+  makeConstantVariable,
+  makeVariable,
+} from '../state/activePrimalEvents/activePrimalEventsState';
 
 export const events = [
   {
@@ -6,9 +9,9 @@ export const events = [
     percentileMax: 6,
     title: 'Colour Drain',
     createVariables: cr => ({
-      radius: makeVariable(0, 0, cr * 5), // 5xCR ft
-      duration: makeVariable(0, 0, cr * 10), // CR minutes
-      save: makeVariable(0, 0, 15), // DC 15 Will Save
+      radius: makeConstantVariable(cr * 5), // 5xCR ft
+      duration: makeConstantVariable(cr * 10), // CR minutes
+      save: makeConstantVariable(15), // DC 15 Will Save
     }),
   },
   {
@@ -24,8 +27,8 @@ export const events = [
     percentileMax: 14,
     title: 'Music',
     createVariables: cr => ({
-      duration: makeVariable(0, 0, cr * 10), // CR minutes
-      chantType: makeVariable(4),
+      duration: makeConstantVariable(cr * 10), // CR minutes
+      chantType: makeVariable(4), // 1d4; 1=Ulfen battle chants, 2=Chelish opera arias, 3=Desnan Prayers, 4=Vudrani monastic chants
     }),
   },
   {
@@ -33,8 +36,8 @@ export const events = [
     percentileMax: 18,
     title: 'Zone of Unluck',
     createVariables: cr => ({
-      radius: makeVariable(0, 0, cr * 5), // 5xCR ft
-      duration: makeVariable(0, 0, cr * 10 * 60), // CR hours
+      radius: makeConstantVariable(cr * 5), // 5xCR ft
+      duration: makeConstantVariable(cr * 10 * 60), // CR hours
     }),
   },
   {
@@ -48,7 +51,7 @@ export const events = [
     percentileMax: 26,
     title: 'Pit',
     createVariables: cr => ({
-      depth: makeVariable(0, 0, cr * 10), // 10xCR ft
+      depth: makeConstantVariable(cr * 10), // 10xCR ft
     }),
   },
   {
@@ -56,8 +59,8 @@ export const events = [
     percentileMax: 32,
     title: 'Tiny Object Rain',
     createVariables: cr => ({
-      radius: makeVariable(0, 0, cr * 5), // 5xCR ft
-      duration: makeVariable(0, 0, cr), // CR rounds
+      radius: makeConstantVariable(cr * 5), // 5xCR ft
+      duration: makeConstantVariable(cr), // CR rounds
     }),
   },
   {
@@ -65,7 +68,7 @@ export const events = [
     percentileMax: 38,
     title: 'Heal',
     createVariables: cr => ({
-      casterLevel: makeVariable(0, 0, cr), // CL = CR
+      casterLevel: makeConstantVariable(cr), // CL = CR
     }),
   },
   {
@@ -73,7 +76,7 @@ export const events = [
     percentileMax: 44,
     title: 'Harm',
     createVariables: cr => ({
-      casterLevel: makeVariable(0, 0, cr), // CL = CR
+      casterLevel: makeConstantVariable(cr), // CL = CR
     }),
   },
   {
@@ -81,7 +84,7 @@ export const events = [
     percentileMax: 48,
     title: 'Darkness',
     createVariables: cr => ({
-      depth: makeVariable(0, 0, cr * 10), // 10xCR ft
+      depth: makeConstantVariable(cr * 10), // 10xCR ft
     }),
   },
   {
@@ -98,8 +101,8 @@ export const events = [
     title: 'Aurora Borealis',
     createVariables: cr => ({
       elementalCount: makeVariable(6), // new - elemental count, need to figure out how this works to make the CR total work
-      save: makeVariable(0, 0, cr + 10), // DC 10 + cr Will Save
-      duration: makeVariable(0, 0, cr), // CR rounds
+      save: makeConstantVariable(cr + 10), // DC 10 + cr Will Save
+      duration: makeConstantVariable(cr), // CR rounds
     }),
   },
   {
@@ -108,7 +111,7 @@ export const events = [
     title: 'Mass Delusion',
     createVariables: cr => ({
       creatureCount: makeVariable(cr), // 1d(cr) creatures confused
-      save: makeVariable(0, 0, cr + 10), // DC 10 + cr Will Save
+      save: makeConstantVariable(cr + 10), // DC 10 + cr Will Save
     }),
   },
   {
@@ -117,10 +120,10 @@ export const events = [
     title: 'Energy Storm',
     createVariables: cr => ({
       energyType: makeVariable(4), // 1d4; 1=acid, 2=cold, 3=electricity, 4=fire
-      radius: makeVariable(0, 0, cr * 5), // 5xCR ft
-      damage: makeVariable(0, 0, cr * 2), // 2 damage per CR
-      duration: makeVariable(0, 0, cr), // CR rounds
-      save: makeVariable(0, 0, cr + 10), // DC 10 + cr Reflex Save
+      radius: makeConstantVariable(cr * 5), // 5xCR ft
+      damage: makeConstantVariable(cr * 2), // 2 damage per CR
+      duration: makeConstantVariable(cr), // CR rounds
+      save: makeConstantVariable(cr + 10), // DC 10 + cr Reflex Save
     }),
   },
   {
@@ -128,8 +131,8 @@ export const events = [
     percentileMax: 78,
     title: 'Telekinesis',
     createVariables: cr => ({
-      radius: makeVariable(0, 0, cr * 10), // 10xCR ft
-      cmb: makeVariable(0, 0, cr + 10), // CMB of 10 + CR
+      radius: makeConstantVariable(cr * 10), // 10xCR ft
+      cmb: makeConstantVariable(cr + 10), // CMB of 10 + CR
     }),
   },
   {
@@ -138,8 +141,8 @@ export const events = [
     title: 'Telekinesis',
     createVariables: cr => ({
       rodOfWonderPercentile: makeVariable(100), // rod of wander percentile roll
-      radius: makeVariable(0, 0, cr * 10), // 10xCR ft
-      cmb: makeVariable(0, 0, cr + 10), // CMB of 10 + CR
+      radius: makeConstantVariable(cr * 10), // 10xCR ft
+      cmb: makeConstantVariable(cr + 10), // CMB of 10 + CR
     }),
   },
   {
@@ -147,8 +150,8 @@ export const events = [
     percentileMax: 94,
     title: 'Telekinesis',
     createVariables: cr => ({
-      save: makeVariable(0, 0, cr + 10), // DC 10 + cr Will Save
-      distance: makeVariable(0, 0, cr * 5), // 5xCR ft - only for one creature? Not sure on this one
+      save: makeConstantVariable(cr + 10), // DC 10 + cr Will Save
+      distance: makeConstantVariable(cr * 5), // 5xCR ft - only for one creature? Not sure on this one
     }),
   },
   {
@@ -156,9 +159,9 @@ export const events = [
     percentileMax: 98,
     title: 'Magic Jar',
     createVariables: cr => ({
-      save: makeVariable(0, 0, cr + 10), // DC 10 + cr Will Save
+      save: makeConstantVariable(cr + 10), // DC 10 + cr Will Save
       stunDuration: makeVariable(4), // 1d4 rounds stun duration
-      bodyStopDuration: makeVariable(0, 0, cr), // CR rounds of body swap
+      bodyStopDuration: makeConstantVariable(cr), // CR rounds of body swap
     }),
   },
   {
@@ -171,3 +174,15 @@ export const events = [
     }), // Not sure how to do this one...
   },
 ];
+
+export const getEvent = percentileRoll => {
+  const eventsInRange = events.filter(
+    e => percentileRoll >= e.percentileMin && percentileRoll <= e.percentileMax
+  );
+
+  if (eventsInRange.length === 0) {
+    return events[0];
+  }
+
+  return eventsInRange[0];
+};

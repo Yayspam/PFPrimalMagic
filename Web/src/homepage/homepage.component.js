@@ -18,21 +18,21 @@ const useStyles = makeStyles({
     width: '20%',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   page: {
     margin: 10,
     width: '50%',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   pinnedEventsPage: {
     margin: 10,
     width: '20%',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
 });
 
@@ -42,17 +42,21 @@ const Homepage = () => {
   return (
     <div className={classes.contentContainer}>
       <Paper elevation={3} variant="outlined" className={classes.buttonPage}>
-        <ManualTriggerBar/>
+        <ManualTriggerBar />
       </Paper>
       <Paper elevation={3} variant="outlined" className={classes.page}>
-        <ActivePrimalEventsList/>
+        <ActivePrimalEventsList />
       </Paper>
-      <Paper elevation={3} variant="outlined" className={classes.pinnedEventsPage}>
-        <RoundsBar/>
+      <Paper
+        elevation={3}
+        variant="outlined"
+        className={classes.pinnedEventsPage}
+      >
+        <RoundsBar />
       </Paper>
-      <ManualPrimalEventDialog/>
+      <ManualPrimalEventDialog />
     </div>
-    );
-}
+  );
+};
 
 export default Homepage;
