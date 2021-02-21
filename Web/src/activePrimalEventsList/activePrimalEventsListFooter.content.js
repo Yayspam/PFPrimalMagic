@@ -21,6 +21,7 @@ import {
   setEventsAlwaysTrigger,
 } from '../state/userSettings/userSetingsState';
 import { events } from '../events/events';
+import { userSettingsHeader } from '../common/colours';
 
 const useStyles = makeStyles({
   footer: {
@@ -36,7 +37,7 @@ const useStyles = makeStyles({
   dialogHeader: {
     paddingTop: 5,
     paddingBottom: 5,
-    backgroundColor: '#ff9800',
+    backgroundColor: userSettingsHeader,
     color: 'white',
     width: '100%',
     textAlign: 'center',

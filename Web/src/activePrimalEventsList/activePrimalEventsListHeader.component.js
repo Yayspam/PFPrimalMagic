@@ -9,6 +9,7 @@ import {
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import RemoveIcon from '@material-ui/icons/Remove';
+import { primalEventsHeader } from '../common/colours';
 
 const useStyles = makeStyles({
   header: {
@@ -16,7 +17,7 @@ const useStyles = makeStyles({
     paddingBottom: 5,
     width: '100%',
     textAlign: 'center',
-    backgroundColor: '#3f51b5',
+    backgroundColor: primalEventsHeader,
     color: 'white',
     borderTopLeftRadius: 2,
     borderTopRightRadius: 2,
@@ -61,10 +62,10 @@ const ActivePrimalEventsListHeader = () => {
     }
 
     if (!expanded) {
-      return <ExpandLessIcon />;
+      return <ExpandMoreIcon />;
     }
 
-    return <ExpandMoreIcon />;
+    return <ExpandLessIcon />;
   };
 
   const buildExpandButton = expanded => {

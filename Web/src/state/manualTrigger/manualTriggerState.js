@@ -4,7 +4,6 @@ import {
   makeConstantVariable,
   primalEventInitialState,
 } from '../activePrimalEvents/activePrimalEventsState';
-import { allExpandedSelector } from '../eventExpansionState/eventExpansionState';
 import { currentRoundSelector } from '../rounds/roundsState';
 import {
   manualTriggerType,
@@ -87,12 +86,10 @@ export const manualTriggerStateReducers = {
   [SetManualTriggerCharacterType]: handleSetManualTriggerCharacter,
 };
 
-// TODO: Replace with actual content, we'll need a list of these for each percentile roll, I think
 export const generateDialogEvent = (
   percentile,
   cr,
   startRound,
-  expanded,
   eventAlwaysSelected
 ) => {
   const correspondingEvent = eventAlwaysSelected
@@ -114,7 +111,7 @@ export const generateDialogEvent = (
     startRound,
     finalRound,
     variables,
-    expanded,
+    expanded: true,
   };
 };
 
@@ -126,7 +123,6 @@ export const manualTriggerThunk = () => (dispatch, getState) => {
   const percentile = rollPercentile();
   const currentCr = specifiedCrSelector(state);
   const currentRound = currentRoundSelector(state);
-  const allExpanded = allExpandedSelector(state);
   const dialogState = {
     ...triggerDialogInitialState,
     open: true,
@@ -147,7 +143,6 @@ export const manualTriggerThunk = () => (dispatch, getState) => {
       eventPercentile,
       currentCr,
       currentRound,
-      !!allExpanded,
       eventAlwaysSelected
     );
     dialogState.currentEvent = event;

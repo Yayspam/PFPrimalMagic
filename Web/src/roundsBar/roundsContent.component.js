@@ -3,6 +3,7 @@ import { Avatar, Box, Button, makeStyles, Typography } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { currentRoundSelector } from '../state/rounds/roundsState';
 import { resetAll } from '../state/app/primalMagic.reducer';
+import { primalStormHeader } from '../common/colours';
 
 const useStyles = makeStyles({
   content: {
@@ -26,7 +27,7 @@ const useStyles = makeStyles({
     justifyContent: 'flex-start',
   },
   roundAvatar: {
-    backgroundColor: '#00a152',
+    backgroundColor: primalStormHeader,
     height: 30,
     width: 30,
     marginLeft: 10,

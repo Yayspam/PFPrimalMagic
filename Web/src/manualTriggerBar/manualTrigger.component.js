@@ -2,6 +2,7 @@ import { Box, Button, makeStyles } from '@material-ui/core';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import BarHeader from '../common/barHeader.component';
+import { manualTriggerHeader } from '../common/colours';
 import { manualTriggerThunk } from '../state/manualTrigger/manualTriggerState';
 import ManualTriggerContent from './manualTriggerContent.component';
 
@@ -29,7 +30,7 @@ const ManualTriggerBar = () => {
 
   return (
     <Box className={classes.container}>
-      <BarHeader title="Manual Trigger" colour="#f44336" />
+      <BarHeader title="Manual Trigger" colour={manualTriggerHeader} />
       <ManualTriggerContent />
       <Box className={classes.footer}>
         <Button variant="contained" onClick={onManualTriggerClicked}>

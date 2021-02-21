@@ -32,6 +32,8 @@ const SetTriggerDialogStateType =
   'primalMagic:triggerDialogState:setTriggerDialogState';
 const SetTriggerDialogPrimalEventType =
   'primalMagic:triggerDialogState:setTriggerDialogPrimalEvent';
+const ToggleTriggerDialogPrimalEventExpandedType =
+  'primalMagic:triggerDialogState:toggleTriggerDialogPrimalEventExpanded';
 const CloseTriggerDialogType =
   'primalMagic:triggerDialogState:closeTriggerDialog';
 
@@ -43,6 +45,10 @@ export const setTriggerDialogState = triggerDialogState => ({
 export const setTriggerDialogPrimalEvent = primalEvent => ({
   type: SetTriggerDialogPrimalEventType,
   payload: primalEvent,
+});
+
+export const toggleTriggerDialogPrimalEventExpanded = () => ({
+  type: ToggleTriggerDialogPrimalEventExpandedType,
 });
 
 export const closeTriggerDialog = () => ({
@@ -64,6 +70,17 @@ const handleSetTriggerDialogPrimalEvent = (state, payload) => ({
   },
 });
 
+const handleToggleTriggerDialogPrimalEventExpanded = state => ({
+  ...state,
+  triggerDialogState: {
+    ...state.triggerDialogState,
+    currentEvent: {
+      ...state.triggerDialogState.currentEvent,
+      expanded: !state.triggerDialogState.currentEvent.expanded,
+    },
+  },
+});
+
 const handleCloseTriggerDialog = state => ({
   ...state,
   triggerDialogState: {
@@ -74,14 +91,21 @@ const handleCloseTriggerDialog = state => ({
 export const triggerDialogStateReducers = {
   [SetTriggerDialogStateType]: handleSetTriggerDialogState,
   [SetTriggerDialogPrimalEventType]: handleSetTriggerDialogPrimalEvent,
+  [ToggleTriggerDialogPrimalEventExpandedType]: handleToggleTriggerDialogPrimalEventExpanded,
   [CloseTriggerDialogType]: handleCloseTriggerDialog,
 };
 
 // Thunk that handles all state when pressing the confirm button in a trigger dialog
 // Adds the trigger dialog's current event to the active primal events then wipes the dialog to close it
 export const confirmDialogPrimalEventThunk = () => (dispatch, getState) => {
-  const currentEvent = triggerDialogCurrentEventSelector(getState());
-  dispatch(addActivePrimalEvent(currentEvent));
+  const state = getState();
+  const currentEvent = triggerDialogCurrentEventSelector(state);
+  const allExpanded = allExpandedSelector(state);
+  const dispatchedEvent = {
+    ...currentEvent,
+    expanded: !!allExpanded,
+  };
+  dispatch(addActivePrimalEvent(dispatchedEvent));
   dispatch(closeTriggerDialog());
 };
 
@@ -93,7 +117,6 @@ export const rerollDialogPrimalEventThunk = () => (dispatch, getState) => {
   const eventPercentile = rollPercentile();
   const currentCr = specifiedCrSelector(state);
   const currentRound = currentRoundSelector(state);
-  const allExpanded = allExpandedSelector(state);
   const alwaysShowSameEvent = alwaysSelectSameEventSelector(state);
   const eventAlwaysSelected = alwaysShowSameEvent
     ? eventAlwaysSelectedSelector(state)
@@ -102,9 +125,9 @@ export const rerollDialogPrimalEventThunk = () => (dispatch, getState) => {
     eventPercentile,
     currentCr,
     currentRound,
-    !!allExpanded,
     eventAlwaysSelected
   );
+  event.expanded = currentDialogState.currentEvent.expanded;
   const newDialogState = {
     ...currentDialogState,
     currentEvent: event,
@@ -112,3 +135,5 @@ export const rerollDialogPrimalEventThunk = () => (dispatch, getState) => {
 
   dispatch(setTriggerDialogState(newDialogState));
 };
+
+// TODO: Thunk to just reroll current event variables

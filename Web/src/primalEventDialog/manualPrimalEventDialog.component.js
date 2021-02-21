@@ -1,16 +1,73 @@
-import { Button, Dialog, Typography } from '@material-ui/core';
-import React from 'react';
-import { Fragment } from 'react';
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  makeStyles,
+  Typography,
+} from '@material-ui/core';
+import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { manualTriggerHeader, primalStormHeader } from '../common/colours';
 import {
   closeTriggerDialog,
   confirmDialogPrimalEventThunk,
+  manualTriggerType,
+  rerollDialogPrimalEventThunk,
   triggerDialogStateSelector,
 } from '../state/triggerDialog/triggerDialogState';
+import { eventsAlwaysTriggerSelector } from '../state/userSettings/userSetingsState';
+import EventCard from '../events/eventCard.component';
+import SyncIcon from '@material-ui/icons/Sync';
+import ReplayIcon from '@material-ui/icons/Replay';
+
+const useStyles = makeStyles({
+  dialogHeader: {
+    backgroundColor: ({ isManualTrigger }) =>
+      isManualTrigger ? manualTriggerHeader : primalStormHeader,
+    color: 'white',
+    textAlign: 'center',
+  },
+  eventOccurrance: {
+    fontWeight: 'bold',
+  },
+  card: {
+    marginTop: 10,
+  },
+  cardHeader: {
+    backgroundColor: ({ isManualTrigger }) =>
+      isManualTrigger ? manualTriggerHeader : primalStormHeader,
+    color: 'white',
+    paddingTop: 3,
+    paddingBottom: 3,
+  },
+  reRollButton: {
+    margin: 5,
+  },
+});
 
 const ManualPrimalEventDialog = () => {
   const dispatch = useDispatch();
-  const dialogState = useSelector(triggerDialogStateSelector);
+  const {
+    percentile,
+    threshold,
+    triggerType,
+    open,
+    cr,
+    currentEvent,
+  } = useSelector(triggerDialogStateSelector);
+  const isManualTrigger = triggerType === manualTriggerType;
+  const classes = useStyles({ isManualTrigger });
+  const eventsAlwaysTriggered = useSelector(eventsAlwaysTriggerSelector);
+
+  const eventOccurred = percentile >= threshold;
+  const showEventContent = eventOccurred || eventsAlwaysTriggered;
+  let eventOccuranceMessage = `Event did not occur (${percentile}%, >=${threshold}% required)`;
+
+  if (eventOccurred) {
+    eventOccuranceMessage = `Event occurred (${percentile}%, >=${threshold}% achieved)`;
+  }
 
   const onAcceptClicked = () => {
     dispatch(confirmDialogPrimalEventThunk());
@@ -20,22 +77,67 @@ const ManualPrimalEventDialog = () => {
     dispatch(closeTriggerDialog());
   };
 
+  const onReRollEventClicked = () => {
+    dispatch(rerollDialogPrimalEventThunk());
+  };
+
+  if (!open) {
+    return null;
+  }
+
   return (
-    <Dialog open={dialogState.open}>
-      <Fragment>
-        <Typography>Primal Event Dialog.</Typography>
-        <Typography>
-          d%: {dialogState.percentile}, CR: {dialogState.cr}
+    <Dialog fullWidth open={open}>
+      <DialogTitle className={classes.dialogHeader}>
+        {isManualTrigger ? 'Manual' : 'Storm'} Primal Event Trigger
+      </DialogTitle>
+      <DialogContent>
+        <Typography className={classes.eventOccurrance}>
+          {eventOccuranceMessage}
         </Typography>
-        {dialogState.currentEvent && (
+        {!eventOccurred && eventsAlwaysTriggered && (
+          <Typography>(But was forced to occur by settings)</Typography>
+        )}
+        {showEventContent && (
+          <Fragment>
+            <Typography>CR: {cr}</Typography>
+          </Fragment>
+        )}
+        {showEventContent && (
+          <Fragment>
+            <EventCard
+              event={currentEvent}
+              titleColour={
+                isManualTrigger ? manualTriggerHeader : primalStormHeader
+              }
+            />
+            <Button
+              className={classes.reRollButton}
+              variant="contained"
+              startIcon={<SyncIcon />}
+              onClick={onReRollEventClicked}
+            >
+              Re-Roll (Event)
+            </Button>
+            <Button
+              className={classes.reRollButton}
+              variant="contained"
+              startIcon={<ReplayIcon />}
+            >
+              Re-Roll (Event Variables)
+            </Button>
+          </Fragment>
+        )}
+      </DialogContent>
+      <DialogActions>
+        {showEventContent && (
           <Button variant="contained" onClick={onAcceptClicked}>
-            Accept
+            Trigger Event
           </Button>
         )}
         <Button variant="contained" onClick={onCloseDialogClicked}>
-          Close
+          {showEventContent ? 'Do Not Trigger' : 'Phew...'}
         </Button>
-      </Fragment>
+      </DialogActions>
     </Dialog>
   );
 };
