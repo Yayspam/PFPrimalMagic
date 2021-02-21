@@ -50,10 +50,19 @@ export const resetAll = () => ({
   type: ResetAllType,
 });
 
-const handleResetAll = state => ({
-  ...initialState,
-  userSettingsState: { ...state.userSettingsState },
-});
+const handleResetAll = state => {
+  if (state?.userSettingsState?.resetOnlyResetsRounds) {
+    return {
+      ...state,
+      roundsState: { ...roundsInitialState },
+    };
+  }
+
+  return {
+    ...initialState,
+    userSettingsState: { ...state.userSettingsState },
+  };
+};
 
 const PrimalMagicReducer = createReducer(initialState, {
   [ResetAllType]: handleResetAll,

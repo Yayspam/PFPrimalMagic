@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   cardHeader: {
     backgroundColor: ({ titleColour, expiresThisTurn }) =>
       titleColour ?? (expiresThisTurn ? eventImminant : eventActive),
-    color: ({ titleColour }) => (titleColour ? 'white' : 'black'),
+    color: 'white',
     alignItems: 'flex-start',
     paddingTop: 10,
     paddingBottom: 3,

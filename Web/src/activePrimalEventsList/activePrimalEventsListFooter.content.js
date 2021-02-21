@@ -17,9 +17,11 @@ import {
   alwaysSelectSameEventSelector,
   eventAlwaysSelectedSelector,
   eventsAlwaysTriggerSelector,
+  resetOnlyResetsRoundsSelector,
   setAlwaysSelectSameEvent,
-  seteventAlwaysSelected,
+  setEventAlwaysSelected,
   setEventsAlwaysTrigger,
+  setResetOnlyResetsRounds,
 } from '../state/userSettings/userSetingsState';
 import { events } from '../events/events';
 import { userSettingsHeader } from '../common/colours';
@@ -57,6 +59,7 @@ const ActivePrimalEventsListFooter = () => {
   const eventsAlwaysTrigger = useSelector(eventsAlwaysTriggerSelector);
   const alwaysSelectSameEvent = useSelector(alwaysSelectSameEventSelector);
   const eventAlwaysSelected = useSelector(eventAlwaysSelectedSelector);
+  const resetOnlyResetsRounds = useSelector(resetOnlyResetsRoundsSelector);
 
   const onUserSettingsClicked = () => {
     setDialogOpen(true);
@@ -78,7 +81,12 @@ const ActivePrimalEventsListFooter = () => {
 
   const sameEventSelected = event => {
     const value = event.target.value;
-    dispatch(seteventAlwaysSelected(value));
+    dispatch(setEventAlwaysSelected(value));
+  };
+
+  const resetOnlyResetsRoundsClicked = event => {
+    const value = event.target.checked;
+    dispatch(setResetOnlyResetsRounds(value));
   };
 
   return (
@@ -93,6 +101,17 @@ const ActivePrimalEventsListFooter = () => {
           User Settings
         </DialogTitle>
         <DialogContent className={classes.dialogContent}>
+          <FormControlLabel
+            label="'Reset' Only Resets Current Round"
+            labelPlacement="start"
+            control={
+              <Checkbox
+                color="default"
+                checked={resetOnlyResetsRounds}
+                onChange={resetOnlyResetsRoundsClicked}
+              />
+            }
+          />
           <FormControlLabel
             label="Events Always Trigger"
             labelPlacement="start"

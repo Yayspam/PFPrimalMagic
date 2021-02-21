@@ -2,6 +2,7 @@ export const userSettingsInitialState = {
   eventsAlwaysTrigger: false,
   alwaysSelectSameEvent: false,
   eventAlwaysSelected: 'Colour Drain',
+  resetOnlyResetsRounds: false,
 };
 
 export const userSettingsStateSelector = state =>
@@ -12,13 +13,17 @@ export const alwaysSelectSameEventSelector = state =>
   userSettingsStateSelector(state).alwaysSelectSameEvent;
 export const eventAlwaysSelectedSelector = state =>
   userSettingsStateSelector(state).eventAlwaysSelected;
+export const resetOnlyResetsRoundsSelector = state =>
+  userSettingsStateSelector(state).resetOnlyResetsRounds;
 
 const SetEventsAlwaysTriggerType =
   'primalMagic:userSettingsState:setEventsAlwaysTrigger';
 const SetAlwaysSelectSameEventType =
   'primalMagic:userSettingsState:setAlwaysSelectSameEvent';
 const SetEventAlwaysSelectedType =
-  'primalMagic:userSettingsState:setEventAlwaysSelectedType';
+  'primalMagic:userSettingsState:setEventAlwaysSelected';
+const SetResetOnlyResetsRoundsType =
+  'primalMagic:userSettingsState:setResetOnlyResetsRounds';
 
 export const setEventsAlwaysTrigger = shouldAlwaysTrigger => ({
   type: SetEventsAlwaysTriggerType,
@@ -30,9 +35,14 @@ export const setAlwaysSelectSameEvent = alwaysSelectSame => ({
   payload: alwaysSelectSame,
 });
 
-export const seteventAlwaysSelected = eventAlwaysSelected => ({
+export const setEventAlwaysSelected = eventAlwaysSelected => ({
   type: SetEventAlwaysSelectedType,
   payload: eventAlwaysSelected,
+});
+
+export const setResetOnlyResetsRounds = onlyResetsRounds => ({
+  type: SetResetOnlyResetsRoundsType,
+  payload: onlyResetsRounds,
 });
 
 const copyState = state => ({
@@ -60,8 +70,15 @@ const handleSetEventAlwaysSelected = (state, payload) => {
   return newState;
 };
 
+const handleSetResetOnlyResetsRounds = (state, payload) => {
+  const newState = copyState(state);
+  newState.userSettingsState.resetOnlyResetsRounds = payload;
+  return newState;
+};
+
 export const userSettingsStateReducers = {
   [SetEventsAlwaysTriggerType]: handleSetEventsAlwaysTrigger,
   [SetAlwaysSelectSameEventType]: handleSetAlwaysSelectSameEvent,
   [SetEventAlwaysSelectedType]: handleSetEventAlwaysSelected,
+  [SetResetOnlyResetsRoundsType]: handleSetResetOnlyResetsRounds,
 };
