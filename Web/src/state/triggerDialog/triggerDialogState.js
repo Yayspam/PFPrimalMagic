@@ -1,6 +1,8 @@
-import { getEvent } from '../../events/events';
 import { rollPercentile } from '../../random';
-import { addActivePrimalEvent } from '../activePrimalEvents/activePrimalEventsState';
+import {
+  addActivePrimalEvent,
+  reRollVariable,
+} from '../activePrimalEvents/activePrimalEventsState';
 import { allExpandedSelector } from '../eventExpansionState/eventExpansionState';
 import {
   generateDialogEvent,
@@ -145,16 +147,20 @@ export const rerollDialogPrimalEventVariablesThunk = () => (
 ) => {
   const state = getState();
   const currentDialogState = triggerDialogStateSelector(state);
-  const eventPercentile = currentDialogState.currentEvent.percentileRoll;
-  const cr = currentDialogState.cr;
-  const correspondingEvent = getEvent(eventPercentile);
-  const variables = correspondingEvent.createVariables(cr);
+
+  const newVariables = {};
+
+  Object.entries(currentDialogState.currentEvent.variables).forEach(
+    ([key, variable]) => {
+      newVariables[key] = reRollVariable(variable);
+    }
+  );
 
   const newDialogState = {
     ...currentDialogState,
     currentEvent: {
       ...currentDialogState.currentEvent,
-      variables,
+      variables: newVariables,
     },
   };
 
