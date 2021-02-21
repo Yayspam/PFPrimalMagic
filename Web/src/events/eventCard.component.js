@@ -6,20 +6,21 @@ import {
   makeStyles,
 } from '@material-ui/core';
 import React from 'react';
-import { manualTriggerHeader } from '../common/colours';
+import { eventImminant, eventActive } from '../common/colours';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import { useDispatch } from 'react-redux';
-import { toggleTriggerDialogPrimalEventExpanded } from '../state/triggerDialog/triggerDialogState';
 import ColourDrainEvent from './eventComponents/colourDrainEvent.component';
+import { useSelector } from 'react-redux';
+import { currentRoundSelector } from '../state/rounds/roundsState';
 
 const useStyles = makeStyles({
   card: {
-    marginTop: 10,
+    width: '100%',
   },
   cardHeader: {
-    backgroundColor: ({ titleColour }) => titleColour ?? manualTriggerHeader, // Figure this out
-    color: 'white',
+    backgroundColor: ({ titleColour, expiresThisTurn }) =>
+      titleColour ?? (expiresThisTurn ? eventImminant : eventActive),
+    color: ({ titleColour }) => (titleColour ? 'white' : 'black'),
     alignItems: 'flex-start',
     paddingTop: 10,
     paddingBottom: 3,
@@ -35,22 +36,18 @@ const useStyles = makeStyles({
   },
 });
 
-const EventCard = ({ event, titleColour }) => {
-  const { title, expanded } = event;
-  const classes = useStyles({ titleColour });
-  const dispatch = useDispatch();
-
-  const onExpandToggleClicked = () => {
-    dispatch(toggleTriggerDialogPrimalEventExpanded());
-  };
+const EventCard = ({ event, titleColour, onExpandToggleClicked }) => {
+  const { title, expanded, finalRound } = event;
+  const currentRound = useSelector(currentRoundSelector);
+  const expiresThisTurn = finalRound === currentRound;
+  const classes = useStyles({ titleColour, expiresThisTurn });
 
   return (
-    <Card variant="outlined" className={classes.card}>
+    <Card className={classes.card} variant="outlined">
       <CardHeader
         className={classes.cardHeader}
         title={title}
         titleTypographyProps={{ variant: 'h6' }}
-        subheaderTypographyProps={{ color: 'white' }}
         action={
           <IconButton
             className={classes.expandAction}

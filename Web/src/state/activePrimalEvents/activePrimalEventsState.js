@@ -1,4 +1,5 @@
 import { rollMultipleD } from '../../random';
+import { currentRoundSelector } from '../rounds/roundsState';
 
 export const variableInitialState = {
   diceSize: undefined,
@@ -47,7 +48,9 @@ export const primalEventInitialState = {
 export const activePrimalEventsInitialState = [];
 
 export const activePrimalEventsSelector = state =>
-  state.primalMagic.activePrimalEventsState;
+  state.primalMagic.activePrimalEventsState.filter(
+    event => event.finalRound >= currentRoundSelector(state)
+  );
 export const activePrimalEventSelector = id => state =>
   activePrimalEventsSelector(state).find(primalEvent => primalEvent.id === id);
 export const activePrimalEventIsExpandedSelector = id => state =>

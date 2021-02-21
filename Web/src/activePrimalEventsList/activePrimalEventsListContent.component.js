@@ -1,16 +1,9 @@
 import React from 'react';
-import {
-  Box,
-  Button,
-  List,
-  ListItem,
-  makeStyles,
-  Typography,
-} from '@material-ui/core';
+import { Box, List, ListItem, makeStyles } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleSingleExpandedThunk } from '../state/eventExpansionState/eventExpansionState';
 import { activePrimalEventsSelector } from '../state/activePrimalEvents/activePrimalEventsState';
-import { booleanToString } from '../common/utils';
+import EventCard from '../events/eventCard.component';
 
 const useStyles = makeStyles({
   content: {
@@ -39,20 +32,10 @@ const ActivePrimalEventsListContent = () => {
         <List>
           {activePrimalEvents.map(primalEvent => (
             <ListItem key={primalEvent.id}>
-              <Typography>
-                Primal Event: {primalEvent.title}; d%:{' '}
-                {primalEvent.percentileRoll}; CR: {primalEvent.cr.result}; Start
-                Round: {primalEvent.startRound},{' '}
-                {primalEvent.finalRound &&
-                  `End Round: ${primalEvent.finalRound}, `}
-                Expanded: {booleanToString(primalEvent.expanded)}
-                <Button
-                  variant="contained"
-                  onClick={toggleSingleClicked(primalEvent)}
-                >
-                  Toggle
-                </Button>
-              </Typography>
+              <EventCard
+                event={primalEvent}
+                onExpandToggleClicked={toggleSingleClicked(primalEvent)}
+              />
             </ListItem>
           ))}
         </List>

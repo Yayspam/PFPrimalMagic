@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Dialog,
   DialogActions,
@@ -16,12 +17,14 @@ import {
   manualTriggerType,
   rerollDialogPrimalEventThunk,
   rerollDialogPrimalEventVariablesThunk,
+  toggleTriggerDialogPrimalEventExpanded,
   triggerDialogStateSelector,
 } from '../state/triggerDialog/triggerDialogState';
 import { eventsAlwaysTriggerSelector } from '../state/userSettings/userSetingsState';
 import EventCard from '../events/eventCard.component';
 import SyncIcon from '@material-ui/icons/Sync';
 import ReplayIcon from '@material-ui/icons/Replay';
+import { blue } from '@material-ui/core/colors';
 
 const useStyles = makeStyles({
   dialogHeader: {
@@ -33,9 +36,6 @@ const useStyles = makeStyles({
   eventOccurrance: {
     fontWeight: 'bold',
   },
-  card: {
-    marginTop: 10,
-  },
   cardHeader: {
     backgroundColor: ({ isManualTrigger }) =>
       isManualTrigger ? manualTriggerHeader : primalStormHeader,
@@ -45,6 +45,13 @@ const useStyles = makeStyles({
   },
   reRollButton: {
     margin: 5,
+    color: blue[500],
+    justifySelf: 'center',
+  },
+  reRollContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
 });
 
@@ -86,6 +93,10 @@ const ManualPrimalEventDialog = () => {
     dispatch(rerollDialogPrimalEventVariablesThunk());
   };
 
+  const onExpandToggleClicked = () => {
+    dispatch(toggleTriggerDialogPrimalEventExpanded());
+  };
+
   if (!open) {
     return null;
   }
@@ -109,28 +120,29 @@ const ManualPrimalEventDialog = () => {
         )}
         {showEventContent && (
           <Fragment>
+            <Box className={classes.reRollContainer}>
+              <Button
+                className={classes.reRollButton}
+                startIcon={<SyncIcon />}
+                onClick={onReRollEventClicked}
+              >
+                Re-Roll (Event)
+              </Button>
+              <Button
+                className={classes.reRollButton}
+                startIcon={<ReplayIcon />}
+                onClick={onReRollEventVariablesClicked}
+              >
+                Re-Roll (Event Variables)
+              </Button>
+            </Box>
             <EventCard
               event={currentEvent}
               titleColour={
                 isManualTrigger ? manualTriggerHeader : primalStormHeader
               }
+              onExpandToggleClicked={onExpandToggleClicked}
             />
-            <Button
-              className={classes.reRollButton}
-              variant="contained"
-              startIcon={<SyncIcon />}
-              onClick={onReRollEventClicked}
-            >
-              Re-Roll (Event)
-            </Button>
-            <Button
-              className={classes.reRollButton}
-              variant="contained"
-              startIcon={<ReplayIcon />}
-              onClick={onReRollEventVariablesClicked}
-            >
-              Re-Roll (Event Variables)
-            </Button>
           </Fragment>
         )}
       </DialogContent>
