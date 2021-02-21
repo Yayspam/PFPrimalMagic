@@ -1,3 +1,4 @@
+import { getEvent } from '../../events/events';
 import { rollPercentile } from '../../random';
 import { addActivePrimalEvent } from '../activePrimalEvents/activePrimalEventsState';
 import { allExpandedSelector } from '../eventExpansionState/eventExpansionState';
@@ -136,4 +137,26 @@ export const rerollDialogPrimalEventThunk = () => (dispatch, getState) => {
   dispatch(setTriggerDialogState(newDialogState));
 };
 
-// TODO: Thunk to just reroll current event variables
+// Thunk that handles all state when pressing the re-roll event variables button in a trigger dialog
+// Keeps the current primal magic event but re-rolls any variables
+export const rerollDialogPrimalEventVariablesThunk = () => (
+  dispatch,
+  getState
+) => {
+  const state = getState();
+  const currentDialogState = triggerDialogStateSelector(state);
+  const eventPercentile = currentDialogState.currentEvent.percentileRoll;
+  const cr = currentDialogState.cr;
+  const correspondingEvent = getEvent(eventPercentile);
+  const variables = correspondingEvent.createVariables(cr);
+
+  const newDialogState = {
+    ...currentDialogState,
+    currentEvent: {
+      ...currentDialogState.currentEvent,
+      variables,
+    },
+  };
+
+  dispatch(setTriggerDialogState(newDialogState));
+};

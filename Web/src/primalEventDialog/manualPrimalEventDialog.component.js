@@ -15,6 +15,7 @@ import {
   confirmDialogPrimalEventThunk,
   manualTriggerType,
   rerollDialogPrimalEventThunk,
+  rerollDialogPrimalEventVariablesThunk,
   triggerDialogStateSelector,
 } from '../state/triggerDialog/triggerDialogState';
 import { eventsAlwaysTriggerSelector } from '../state/userSettings/userSetingsState';
@@ -81,6 +82,10 @@ const ManualPrimalEventDialog = () => {
     dispatch(rerollDialogPrimalEventThunk());
   };
 
+  const onReRollEventVariablesClicked = () => {
+    dispatch(rerollDialogPrimalEventVariablesThunk());
+  };
+
   if (!open) {
     return null;
   }
@@ -122,6 +127,7 @@ const ManualPrimalEventDialog = () => {
               className={classes.reRollButton}
               variant="contained"
               startIcon={<ReplayIcon />}
+              onClick={onReRollEventVariablesClicked}
             >
               Re-Roll (Event Variables)
             </Button>

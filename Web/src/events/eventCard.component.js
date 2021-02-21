@@ -11,7 +11,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import { useDispatch } from 'react-redux';
 import { toggleTriggerDialogPrimalEventExpanded } from '../state/triggerDialog/triggerDialogState';
-import ColourDrainEvent from './eventComponents/colourDrain.component';
+import ColourDrainEvent from './eventComponents/colourDrainEvent.component';
 
 const useStyles = makeStyles({
   card: {

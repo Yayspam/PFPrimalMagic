@@ -15,7 +15,7 @@ const ColourDrainEvent = ({ event }) => {
         <CustomChip label="CR" value={crVal} />
         <CustomChip label="Start" value={startRound} />
         <DurationEndChip value={finalRound} startRound={startRound} />
-        <CustomChip label="Will Save" value={save.result} />
+        <CustomChip label="Will Save" value={save?.result} />
       </Box>
       <Typography>
         Creatures and objects within a <VM v={radius} u={dist} /> radius are
