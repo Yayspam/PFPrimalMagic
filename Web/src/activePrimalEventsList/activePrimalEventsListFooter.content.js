@@ -3,12 +3,13 @@ import {
   Button,
   Checkbox,
   Dialog,
-  Divider,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   FormControlLabel,
   makeStyles,
   MenuItem,
   Select,
-  Typography,
 } from '@material-ui/core';
 import React, { Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -31,15 +32,12 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    minHeight: 200,
-    minWidth: 450,
+    minHeight: 150,
+    minWidth: 420,
   },
   dialogHeader: {
-    paddingTop: 5,
-    paddingBottom: 5,
     backgroundColor: userSettingsHeader,
     color: 'white',
-    width: '100%',
     textAlign: 'center',
   },
   dropDown: {
@@ -91,11 +89,10 @@ const ActivePrimalEventsListFooter = () => {
         </Button>
       </Box>
       <Dialog open={dialogOpen}>
-        <Box className={classes.dialogContent}>
-          <Typography className={classes.dialogHeader} variant="h5">
-            User Settings
-          </Typography>
-          <Divider className={classes.divider} />
+        <DialogTitle className={classes.dialogHeader}>
+          User Settings
+        </DialogTitle>
+        <DialogContent className={classes.dialogContent}>
           <FormControlLabel
             label="Events Always Trigger"
             labelPlacement="start"
@@ -138,10 +135,12 @@ const ActivePrimalEventsListFooter = () => {
               }
             />
           )}
-        </Box>
-        <Button variant="contained" onClick={onClose}>
-          Close
-        </Button>
+        </DialogContent>
+        <DialogActions>
+          <Button variant="contained" onClick={onClose}>
+            Close
+          </Button>
+        </DialogActions>
       </Dialog>
     </Fragment>
   );
