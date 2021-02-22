@@ -3,6 +3,9 @@ import {
   makeConstantVariable,
   makeVariable,
 } from '../state/activePrimalEvents/activePrimalEventsState';
+import AuroraBorealisEvent, {
+  auroraBorealis,
+} from './eventComponents/auroraBorealisEvent.component';
 import CatchyMusicEvent, {
   catchyMusic,
 } from './eventComponents/catchyMusicEvent.component';
@@ -23,6 +26,9 @@ import ExtradimensionalPitEvent, {
 } from './eventComponents/extradimensionalPit.component';
 import HarmEvent, { harm } from './eventComponents/harmEvent.component';
 import HealEvent, { heal } from './eventComponents/healEvent.component';
+import MassDelusionEvent, {
+  massDelusion,
+} from './eventComponents/massDelusionEvent.component';
 import RainOfSmallObjectsEvent, {
   rainOfSmallObjects,
 } from './eventComponents/rainOfSmallObjectsEvent.component';
@@ -78,6 +84,14 @@ export const getEventCardContent = event => {
     return <ElementalUprisingEvent event={event} />;
   }
 
+  if (event.title === auroraBorealis.title) {
+    return <AuroraBorealisEvent event={event} />;
+  }
+
+  if (event.title === massDelusion.title) {
+    return <MassDelusionEvent event={event} />;
+  }
+
   return <div>UNKNOWN EVENT {event.title}</div>;
 };
 
@@ -93,26 +107,8 @@ export const events = [
   harm,
   utterDarkness,
   elementalUprising,
-  {
-    percentileMin: 55,
-    percentileMax: 62,
-    title: 'Aurora Borealis',
-    createVariables: cr => ({
-      elementalCount: makeVariable(6), // new - elemental count, need to figure out how this works to make the CR total work
-      save: makeConstantVariable(cr + 10, 'Will Save DC = CR + 10'),
-      duration: makeConstantVariable(cr), // CR rounds
-    }),
-  },
-  {
-    percentileMin: 63,
-    percentileMax: 68,
-    title: 'Mass Delusion',
-    createVariables: cr => ({
-      duration: makeConstantVariable(0),
-      creatureCount: makeVariable(cr), // 1d(cr) creatures confused
-      save: makeConstantVariable(cr + 10, 'Will Save DC = CR + 10'),
-    }),
-  },
+  auroraBorealis,
+  massDelusion,
   {
     percentileMin: 69,
     percentileMax: 74,

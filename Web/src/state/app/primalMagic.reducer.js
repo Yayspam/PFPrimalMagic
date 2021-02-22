@@ -52,7 +52,7 @@ export const resetAll = () => ({
 });
 
 export const resetPrimalMagic = () => ({
-  type: ResetAllType,
+  type: ResetAllForceType,
 });
 
 const handleResetAll = state => {
@@ -69,7 +69,7 @@ const handleResetAll = state => {
   };
 };
 
-export const handleResetAllForce = state => {
+export const handleResetAllForce = () => {
   return {
     ...initialState,
   };

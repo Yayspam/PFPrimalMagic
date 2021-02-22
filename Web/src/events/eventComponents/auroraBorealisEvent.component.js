@@ -6,18 +6,18 @@ import DurationEndChip from '../../common/durationChip.component';
 import VM, { dist, time, willSave } from '../../common/variableMark.component';
 import { makeConstantVariable } from '../../state/activePrimalEvents/activePrimalEventsState';
 
-export const colourDrain = {
-  percentileMin: 1,
-  percentileMax: 6,
-  title: 'Colour Drain',
+export const auroraBorealis = {
+  percentileMin: 55,
+  percentileMax: 62,
+  title: 'Aurora Borealis',
   createVariables: cr => ({
-    radius: makeConstantVariable(cr * 5, 'CR x 5ft.'),
-    duration: makeConstantVariable(cr * 10, 'CR mins'),
-    save: makeConstantVariable(15, 'DC 15 Will Save'),
+    radius: makeConstantVariable(cr * 10, 'CR x 10ft.'),
+    save: makeConstantVariable(cr + 10, 'Will Save DC = CR + 10'),
+    duration: makeConstantVariable(cr, 'CR rounds'),
   }),
 };
 
-const ColourDrainEvent = ({ event }) => {
+const AuroraBorealisEvent = ({ event }) => {
   const { cr, variables, percentileRoll, startRound, finalRound } = event;
   const { result: crVal } = cr;
   const { radius, duration, save } = variables;
@@ -28,17 +28,19 @@ const ColourDrainEvent = ({ event }) => {
         <CustomChip label="CR" value={crVal} />
         <CustomChip label="Start" value={startRound} />
         <DurationEndChip value={finalRound} />
-        <CustomChip label="Will Save" value={save?.result} />
       </Box>
       <Typography>
-        Creatures and objects within a <VM v={radius} u={dist} /> radius are
-        drained of colour for <VM v={duration} u={time} />. A gnome in this area
-        must succeed at a <VM v={save} u={willSave} /> to avoid being{' '}
-        <Condition name="Shaken" /> by this effect for the duration of the loss
-        of colour. This is a mind-affecting fear effect.
+        Strange, shifting curtains of colour, akin to an aurora borealis,
+        manifest in the sky but are visible only to those in a{' '}
+        <VM v={radius} u={dist} /> radius. Every creature in this area must make
+        a <VM v={save} u={willSave} /> or become <Condition name="Dazed" /> by
+        the shifting colours <mark>for 1 round</mark>. The colours persist for{' '}
+        <VM v={duration} u={time} />. Creatures must make a{' '}
+        <mark>new save each round</mark> to avoid becoming dazed. This is a
+        mind-affecting effect.
       </Typography>
     </Fragment>
   );
 };
 
-export default ColourDrainEvent;
+export default AuroraBorealisEvent;
