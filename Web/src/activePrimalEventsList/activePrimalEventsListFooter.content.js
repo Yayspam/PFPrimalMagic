@@ -10,7 +10,6 @@ import {
   makeStyles,
   MenuItem,
   Select,
-  Link,
 } from '@material-ui/core';
 import React, { Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -26,7 +25,7 @@ import {
 } from '../state/userSettings/userSetingsState';
 import { events } from '../events/events';
 import { userSettingsHeader } from '../common/colours';
-import { NavLink } from 'react-router-dom';
+import ProperLink from '../common/properLink.component';
 
 const useStyles = makeStyles({
   footer: {
@@ -107,7 +106,7 @@ const ActivePrimalEventsListFooter = () => {
         </Button>
         <Button
           className={classes.footerButton}
-          component={NavLink}
+          component={ProperLink}
           variant="contained"
           to="/"
         >

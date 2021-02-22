@@ -1,13 +1,13 @@
 import React from 'react';
 import BasicErrorMessage from './basicErrorMessage.component';
-import { Link } from 'react-router-dom';
 import ErrorPage from './errorPage.component';
+import ProperLink from '../common/properLink.component';
 
 const PageNotFoundError = () => (
   <ErrorPage errorTitle="404">
     <BasicErrorMessage>
-      Page not found. Please check the page address for typos or contact
-      support. Click <Link to="/">here</Link> to return to the home page.
+      Page not found. Please check the page address for typos. Click{' '}
+      <ProperLink to="/">here</ProperLink> to return to the home page.
     </BasicErrorMessage>
   </ErrorPage>
 );

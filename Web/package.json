@@ -1,5 +1,6 @@
 {
   "name": "web",
+  "homepage": "https://yayspam.github.io/PFPrimalMagic",
   "version": "0.1.0",
   "private": true,
   "proxy": "https://localhost:44398/",

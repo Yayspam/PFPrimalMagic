@@ -39,10 +39,14 @@ const persistor = persistStore(store);
 
 const pageContent = () => (
   <Switch>
-    <Route exact path="/" render={() => <Homepage />} />
     <Route
       exact
-      path="/PrimalMagicTracker"
+      path={process.env.PUBLIC_URL + '/'}
+      render={() => <Homepage />}
+    />
+    <Route
+      exact
+      path={process.env.PUBLIC_URL + '/PrimalMagicTracker'}
       render={() => <PrimalEventPage />}
     />
     <Route render={() => <PageNotFoundError />} />
