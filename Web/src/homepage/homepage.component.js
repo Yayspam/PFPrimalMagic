@@ -1,60 +1,67 @@
+import {
+  Button,
+  Card,
+  CardActions,
+  CardHeader,
+  makeStyles,
+} from '@material-ui/core';
 import React from 'react';
-import { makeStyles, Paper } from '@material-ui/core';
-import { grey } from '@material-ui/core/colors';
-import ManualTriggerBar from '../manualTriggerBar/manualTrigger.component';
-import ActivePrimalEventsList from '../activePrimalEventsList/activePrimalEventsList.component';
-import RoundsBar from '../roundsBar/roundsBar.component';
-import ManualPrimalEventDialog from '../primalEventDialog/manualPrimalEventDialog.component';
+import { useDispatch } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import primalMagicImage from '../images/primal_magic_image.png';
+import { resetPrimalMagic } from '../state/app/primalMagic.reducer';
 
 const useStyles = makeStyles({
-  contentContainer: {
-    height: 'calc(100vh - 20px)',
+  container: {
     display: 'flex',
-    justifyContent: 'center',
-    backgroundColor: grey[100],
-  },
-  buttonPage: {
-    margin: 10,
-    width: '20%',
-    display: 'flex',
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    height: '100%',
   },
-  page: {
-    margin: 10,
-    width: '50%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+  cardHeader: {
+    textAlign: 'center',
+    paddingTop: 5,
+    paddingBottom: 5,
   },
-  pinnedEventsPage: {
-    margin: 10,
-    width: '20%',
+  cardActions: {
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });
 
 const Homepage = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const onResetClicked = () => {
+    dispatch(resetPrimalMagic());
+  };
 
   return (
-    <div className={classes.contentContainer}>
-      <Paper elevation={3} variant="outlined" className={classes.buttonPage}>
-        <ManualTriggerBar />
-      </Paper>
-      <Paper elevation={3} variant="outlined" className={classes.page}>
-        <ActivePrimalEventsList />
-      </Paper>
-      <Paper
-        elevation={3}
-        variant="outlined"
-        className={classes.pinnedEventsPage}
-      >
-        <RoundsBar />
-      </Paper>
-      <ManualPrimalEventDialog />
+    <div className={classes.container}>
+      <Card>
+        <CardHeader
+          className={classes.cardHeader}
+          title={'Primal Magic Utility'}
+        />
+        <NavLink to="/PrimalMagicTracker">
+          <img src={primalMagicImage} />
+        </NavLink>
+        <CardActions className={classes.cardActions}>
+          <Button
+            component={NavLink}
+            variant="contained"
+            to="/PrimalMagicTracker"
+          >
+            Visit
+          </Button>
+          <Button variant="contained" onClick={onResetClicked}>
+            Reset Data
+          </Button>
+        </CardActions>
+      </Card>
     </div>
   );
 };

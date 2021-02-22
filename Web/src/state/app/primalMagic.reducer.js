@@ -45,8 +45,13 @@ export const initialState = {
 };
 
 const ResetAllType = 'primalMagic:resetAll';
+const ResetAllForceType = 'primalMagic:resetAllForce';
 
 export const resetAll = () => ({
+  type: ResetAllType,
+});
+
+export const resetPrimalMagic = () => ({
   type: ResetAllType,
 });
 
@@ -64,8 +69,15 @@ const handleResetAll = state => {
   };
 };
 
+export const handleResetAllForce = state => {
+  return {
+    ...initialState,
+  };
+};
+
 const PrimalMagicReducer = createReducer(initialState, {
   [ResetAllType]: handleResetAll,
+  [ResetAllForceType]: handleResetAllForce,
   ...eventExpansionReducers,
   ...activePrimalEventsReducers,
   ...manualTriggerStateReducers,

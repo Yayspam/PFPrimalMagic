@@ -19,6 +19,7 @@ module.exports = {
         next: 'return',
       },
     ],
+    'no-unused-vars': 'off',
     'prettier/prettier': 'error',
     quotes: ['error', 'single'],
     semi: ['error', 'always'],

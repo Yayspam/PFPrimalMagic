@@ -16,6 +16,7 @@ import persistReducer from 'redux-persist/es/persistReducer';
 import storage from 'redux-persist/lib/storage';
 import { PersistGate } from 'redux-persist/integration/react';
 import persistStore from 'redux-persist/es/persistStore';
+import PrimalEventPage from './primalEventPage/primalEventPage.component';
 
 const history = createBrowserHistory();
 const middleware = [thunk, routerMiddleware(history)];
@@ -39,13 +40,18 @@ const persistor = persistStore(store);
 const pageContent = () => (
   <Switch>
     <Route exact path="/" render={() => <Homepage />} />
+    <Route
+      exact
+      path="/PrimalMagicTracker"
+      render={() => <PrimalEventPage />}
+    />
     <Route render={() => <PageNotFoundError />} />
   </Switch>
 );
 
 const App = () => {
   return (
-    <div className="App">
+    <div>
       <Provider store={store}>
         <PersistGate persistor={persistor} loading={null}>
           <ConnectedRouter history={history}>

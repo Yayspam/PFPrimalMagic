@@ -10,6 +10,7 @@ import {
   makeStyles,
   MenuItem,
   Select,
+  Link,
 } from '@material-ui/core';
 import React, { Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,10 +26,15 @@ import {
 } from '../state/userSettings/userSetingsState';
 import { events } from '../events/events';
 import { userSettingsHeader } from '../common/colours';
+import { NavLink } from 'react-router-dom';
 
 const useStyles = makeStyles({
   footer: {
     margin: 20,
+  },
+  footerButton: {
+    marginLeft: 10,
+    marginRight: 10,
   },
   dialogContent: {
     display: 'flex',
@@ -92,8 +98,20 @@ const ActivePrimalEventsListFooter = () => {
   return (
     <Fragment>
       <Box className={classes.footer}>
-        <Button variant="contained" onClick={onUserSettingsClicked}>
+        <Button
+          className={classes.footerButton}
+          variant="contained"
+          onClick={onUserSettingsClicked}
+        >
           Settings
+        </Button>
+        <Button
+          className={classes.footerButton}
+          component={NavLink}
+          variant="contained"
+          to="/"
+        >
+          Home
         </Button>
       </Box>
       <Dialog open={dialogOpen}>
