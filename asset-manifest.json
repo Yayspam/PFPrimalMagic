@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/PFPrimalMagic/static/js/main.9941423f.chunk.js",
-    "main.js.map": "/PFPrimalMagic/static/js/main.9941423f.chunk.js.map",
+    "main.js": "/PFPrimalMagic/static/js/main.7bc2aa4a.chunk.js",
+    "main.js.map": "/PFPrimalMagic/static/js/main.7bc2aa4a.chunk.js.map",
     "runtime-main.js": "/PFPrimalMagic/static/js/runtime-main.b1aa7981.js",
     "runtime-main.js.map": "/PFPrimalMagic/static/js/runtime-main.b1aa7981.js.map",
     "static/css/2.012b392b.chunk.css": "/PFPrimalMagic/static/css/2.012b392b.chunk.css",
@@ -16,6 +16,6 @@
     "static/js/runtime-main.b1aa7981.js",
     "static/css/2.012b392b.chunk.css",
     "static/js/2.df66b940.chunk.js",
-    "static/js/main.9941423f.chunk.js"
+    "static/js/main.7bc2aa4a.chunk.js"
   ]
 }
