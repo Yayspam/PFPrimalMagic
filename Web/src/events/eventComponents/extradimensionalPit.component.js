@@ -36,7 +36,6 @@ const ExtradimensionalPitEvent = ({ event }) => {
         an extradimensional space in the gorund, not an actual pit. The pit is{' '}
         <VM v={depth} u={dist} />, but otherwise functions as the{' '}
         <Spell
-          link={'https://aonprd.com/SpellDisplay.aspx?ItemName=Create%20Pit'}
           name="Create Pit"
           casterLevel={casterLevel}
           save={save}

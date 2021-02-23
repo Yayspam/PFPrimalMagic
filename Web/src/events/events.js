@@ -41,6 +41,9 @@ import TrippingTelekinesisEvent, {
 import UtterDarknessEvent, {
   utterDarkness,
 } from './eventComponents/utterDarknessEvent.component';
+import WonderousMagicEvent, {
+  wonderousMagic,
+} from './eventComponents/wonderousMagicEvent.component';
 import ZoneOfUnluckEvent, {
   zoneOfUnluck,
 } from './eventComponents/zoneOfUnluckEvent.component';
@@ -106,6 +109,10 @@ export const getEventCardContent = event => {
     return <TrippingTelekinesisEvent event={event} />;
   }
 
+  if (event.title === wonderousMagic.title) {
+    return <WonderousMagicEvent event={event} />;
+  }
+
   return <div>UNKNOWN EVENT {event.title}</div>;
 };
 
@@ -125,15 +132,7 @@ export const events = [
   massDelusion,
   energyStorm,
   trippingTelekinesis,
-  {
-    percentileMin: 79,
-    percentileMax: 88,
-    title: 'Wonderous Magic',
-    createVariables: () => ({
-      duration: makeConstantVariable(0),
-      rodOfWonderPercentile: makeVariable(100), // rod of wander percentile roll
-    }),
-  },
+  wonderousMagic,
   {
     percentileMin: 89,
     percentileMax: 94,

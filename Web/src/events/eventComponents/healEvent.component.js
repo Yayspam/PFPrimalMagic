@@ -38,7 +38,6 @@ const HealEvent = ({ event }) => {
         Positive energy affects <VM v={creaturesAffected} /> nearby creatures.
         These creatures are affected by a{' '}
         <Spell
-          link={'https://aonprd.com/SpellDisplay.aspx?ItemName=Heal'}
           name="Heal"
           casterLevel={casterLevel}
           save={save}

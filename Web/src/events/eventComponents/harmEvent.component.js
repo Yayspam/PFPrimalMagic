@@ -38,7 +38,6 @@ const HarmEvent = ({ event }) => {
         Negative energy affects <VM v={creaturesAffected} /> nearby creatures.
         These creatures are affected by a{' '}
         <Spell
-          link={'https://aonprd.com/SpellDisplay.aspx?ItemName=Harm'}
           name="Harm"
           casterLevel={casterLevel}
           save={save}

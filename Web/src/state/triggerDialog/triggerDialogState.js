@@ -1,3 +1,4 @@
+import { wonderousMagic } from '../../events/eventComponents/wonderousMagicEvent.component';
 import { rollPercentile } from '../../random';
 import {
   addActivePrimalEvent,
@@ -148,13 +149,19 @@ export const rerollDialogPrimalEventVariablesThunk = () => (
   const state = getState();
   const currentDialogState = triggerDialogStateSelector(state);
 
-  const newVariables = {};
+  let newVariables = {};
 
-  Object.entries(currentDialogState.currentEvent.variables).forEach(
-    ([key, variable]) => {
-      newVariables[key] = reRollVariable(variable);
-    }
-  );
+  if (currentDialogState.currentEvent.title === wonderousMagic.title) {
+    // Because wonderous magic has an inner table we need to handle it separately
+    // We must completely reroll the variables object, not just each variable
+    newVariables = wonderousMagic.createVariables();
+  } else {
+    Object.entries(currentDialogState.currentEvent.variables).forEach(
+      ([key, variable]) => {
+        newVariables[key] = reRollVariable(variable);
+      }
+    );
+  }
 
   const newDialogState = {
     ...currentDialogState,

@@ -31,14 +31,7 @@ const UtterDarknessEvent = ({ event }) => {
       </Box>
       <Typography>
         A <VM v={radius} u={dist} /> radius area becomes utterly dark, as if
-        from a{' '}
-        <Spell
-          link={
-            'https://aonprd.com/SpellDisplay.aspx?ItemName=Deeper%20Darkness'
-          }
-          name="Deeper Darkness"
-          casterLevel={casterLevel}
-        />
+        from a <Spell name="Deeper Darkness" casterLevel={casterLevel} />
       </Typography>
     </Fragment>
   );
