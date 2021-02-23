@@ -28,6 +28,7 @@ const AuroraBorealisEvent = ({ event }) => {
         <CustomChip label="CR" value={crVal} />
         <CustomChip label="Start" value={startRound} />
         <DurationEndChip value={finalRound} />
+        <CustomChip label="Will Save" value={save?.result} />
       </Box>
       <Typography>
         Strange, shifting curtains of colour, akin to an aurora borealis,

@@ -21,6 +21,9 @@ import ElementalUprisingEvent, {
 import EnantiomaticSelfEvent, {
   enantiomaticSelf,
 } from './eventComponents/enantiomaticSelfEvent.component';
+import EnergyStormEvent, {
+  energyStorm,
+} from './eventComponents/energyStormEvent.component';
 import ExtradimensionalPitEvent, {
   extradimensionalPit,
 } from './eventComponents/extradimensionalPit.component';
@@ -92,6 +95,10 @@ export const getEventCardContent = event => {
     return <MassDelusionEvent event={event} />;
   }
 
+  if (event.title === energyStorm.title) {
+    return <EnergyStormEvent event={event} />;
+  }
+
   return <div>UNKNOWN EVENT {event.title}</div>;
 };
 
@@ -109,18 +116,7 @@ export const events = [
   elementalUprising,
   auroraBorealis,
   massDelusion,
-  {
-    percentileMin: 69,
-    percentileMax: 74,
-    title: 'Energy Storm',
-    createVariables: cr => ({
-      energyType: makeVariable(4), // 1d4; 1=acid, 2=cold, 3=electricity, 4=fire
-      radius: makeConstantVariable(cr * 5, 'CR x 5ft.'),
-      damage: makeConstantVariable(cr * 2, 'CR x 2 damage'),
-      duration: makeConstantVariable(cr, 'CR rounds'),
-      save: makeConstantVariable(cr + 10, 'Reflex Save DC = CR + 10'),
-    }),
-  },
+  energyStorm,
   {
     percentileMin: 75,
     percentileMax: 78,
