@@ -35,6 +35,9 @@ import MassDelusionEvent, {
 import RainOfSmallObjectsEvent, {
   rainOfSmallObjects,
 } from './eventComponents/rainOfSmallObjectsEvent.component';
+import TrippingTelekinesisEvent, {
+  trippingTelekinesis,
+} from './eventComponents/trippingTelekinesisEvent.component';
 import UtterDarknessEvent, {
   utterDarkness,
 } from './eventComponents/utterDarknessEvent.component';
@@ -99,6 +102,10 @@ export const getEventCardContent = event => {
     return <EnergyStormEvent event={event} />;
   }
 
+  if (event.title === trippingTelekinesis.title) {
+    return <TrippingTelekinesisEvent event={event} />;
+  }
+
   return <div>UNKNOWN EVENT {event.title}</div>;
 };
 
@@ -117,16 +124,7 @@ export const events = [
   auroraBorealis,
   massDelusion,
   energyStorm,
-  {
-    percentileMin: 75,
-    percentileMax: 78,
-    title: 'Telekinesis',
-    createVariables: cr => ({
-      duration: makeConstantVariable(0),
-      radius: makeConstantVariable(cr * 10, 'CR x 10ft.'),
-      cmb: makeConstantVariable(cr + 10, 'CMB = CR + 10'),
-    }),
-  },
+  trippingTelekinesis,
   {
     percentileMin: 79,
     percentileMax: 88,

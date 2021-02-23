@@ -1,6 +1,7 @@
 import { Box, Typography } from '@material-ui/core';
 import React, { Fragment } from 'react';
 import CustomChip from '../../common/customChip.component';
+import DurationEndChip from '../../common/durationChip.component';
 import Spell from '../../common/spellDisplay.component';
 import VM, { willSave } from '../../common/variableMark.component';
 import {
@@ -30,7 +31,7 @@ const HealEvent = ({ event }) => {
         <CustomChip label="d%" value={percentileRoll} />
         <CustomChip label="CR" value={crVal} />
         <CustomChip label="Start" value={startRound} />
-        <CustomChip label="Instantaneous" />
+        <DurationEndChip />
         <CustomChip label="Will Save" value={save?.result} />
       </Box>
       <Typography>

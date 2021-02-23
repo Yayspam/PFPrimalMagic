@@ -2,6 +2,7 @@ import { Box, Typography } from '@material-ui/core';
 import React, { Fragment } from 'react';
 import Condition from '../../common/conditionDisplay.component';
 import CustomChip from '../../common/customChip.component';
+import DurationEndChip from '../../common/durationChip.component';
 import VM, { willSave } from '../../common/variableMark.component';
 import {
   makeConstantVariable,
@@ -29,7 +30,7 @@ const MassDelusionEvent = ({ event }) => {
         <CustomChip label="d%" value={percentileRoll} />
         <CustomChip label="CR" value={crVal} />
         <CustomChip label="Start" value={startRound} />
-        <CustomChip label="Instantaneous" />
+        <DurationEndChip />
       </Box>
       <Typography>
         <VM v={creaturesAffected} /> creatures become{' '}

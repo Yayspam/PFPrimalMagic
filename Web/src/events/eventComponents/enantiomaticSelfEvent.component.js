@@ -1,6 +1,7 @@
 import { Box, Typography } from '@material-ui/core';
 import React, { Fragment } from 'react';
 import CustomChip from '../../common/customChip.component';
+import DurationEndChip from '../../common/durationChip.component';
 import { makeConstantVariable } from '../../state/activePrimalEvents/activePrimalEventsState';
 
 export const enantiomaticSelf = {
@@ -21,7 +22,7 @@ const EnantiomaticSelfEvent = ({ event }) => {
         <CustomChip label="d%" value={percentileRoll} />
         <CustomChip label="CR" value={crVal} />
         <CustomChip label="Start" value={startRound} />
-        <CustomChip label="Instantaneous" />
+        <DurationEndChip />
       </Box>
       <Typography>
         One creature&apos;s body and all its posessions reverse into a mirror

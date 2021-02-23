@@ -1,13 +1,11 @@
 import { Box, Typography } from '@material-ui/core';
 import React, { Fragment } from 'react';
-import Condition from '../../common/conditionDisplay.component';
 import CustomChip from '../../common/customChip.component';
 import DurationEndChip from '../../common/durationChip.component';
 import VM, {
   dist,
   reflexSave,
   time,
-  willSave,
 } from '../../common/variableMark.component';
 import {
   makeConstantVariable,
