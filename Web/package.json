@@ -3,7 +3,6 @@
   "homepage": "https://yayspam.github.io/PFPrimalMagic",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://localhost:44398/",
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",

@@ -6,7 +6,7 @@ import * as log from 'loglevel';
 import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import { createBrowserHistory } from 'history';
+import { createHashHistory } from 'history';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { buildTheme } from './styles/theming';
 import AppReducer from './state/app/App.reducer';
@@ -18,7 +18,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import persistStore from 'redux-persist/es/persistStore';
 import PrimalEventPage from './primalEventPage/primalEventPage.component';
 
-const history = createBrowserHistory();
+const history = createHashHistory();
 const middleware = [thunk, routerMiddleware(history)];
 
 if (process.env.NODE_ENV === 'development') {
@@ -39,14 +39,10 @@ const persistor = persistStore(store);
 
 const pageContent = () => (
   <Switch>
+    <Route exact path={'/'} render={() => <Homepage />} />
     <Route
       exact
-      path={process.env.PUBLIC_URL + '/'}
-      render={() => <Homepage />}
-    />
-    <Route
-      exact
-      path={process.env.PUBLIC_URL + '/PrimalMagicTracker'}
+      path={'/PrimalMagicTracker'}
       render={() => <PrimalEventPage />}
     />
     <Route render={() => <PageNotFoundError />} />
