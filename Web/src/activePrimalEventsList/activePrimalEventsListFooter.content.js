@@ -32,6 +32,7 @@ import { userSettingsHeader } from '../common/colours';
 import { wonderousMagic } from '../events/eventComponents/wonderousMagicEvent.component';
 import { rodOfWonderResults } from '../events/eventComponents/rodOfWonderResults/rodOfWonderResults';
 import { NavLink } from 'react-router-dom';
+import primalMagicFlowchart from '../images/primal_magic_flowchart.png';
 
 const useStyles = makeStyles({
   footer: {
@@ -66,6 +67,7 @@ const ActivePrimalEventsListFooter = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [flowchartDialogOpen, setFlowchartDialogOpen] = useState(false);
 
   const eventsAlwaysTrigger = useSelector(eventsAlwaysTriggerSelector);
   const alwaysSelectSameEvent = useSelector(alwaysSelectSameEventSelector);
@@ -117,6 +119,14 @@ const ActivePrimalEventsListFooter = () => {
     dispatch(setResetOnlyResetsRounds(value));
   };
 
+  const onFlowchartOpenClicked = () => {
+    setFlowchartDialogOpen(true);
+  };
+
+  const onFlowchartCloseClicked = () => {
+    setFlowchartDialogOpen(false);
+  };
+
   return (
     <Fragment>
       <Box className={classes.footer}>
@@ -129,6 +139,13 @@ const ActivePrimalEventsListFooter = () => {
         </Button>
         <Button
           className={classes.footerButton}
+          variant="contained"
+          onClick={onFlowchartOpenClicked}
+        >
+          Flowchart
+        </Button>
+        <Button
+          className={classes.footerButton}
           component={NavLink}
           variant="contained"
           to="/"
@@ -136,6 +153,16 @@ const ActivePrimalEventsListFooter = () => {
           Home
         </Button>
       </Box>
+      <Dialog open={flowchartDialogOpen}>
+        <DialogContent>
+          <img src={primalMagicFlowchart} />
+        </DialogContent>
+        <DialogActions>
+          <Button variant="contained" onClick={onFlowchartCloseClicked}>
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Dialog open={dialogOpen}>
         <DialogTitle className={classes.dialogHeader}>
           User Settings
