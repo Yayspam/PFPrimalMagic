@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import ProperLink from '../common/properLink.component';
+import { NavLink } from 'react-router-dom';
 import primalMagicImage from '../images/primal_magic_image.png';
 import { resetPrimalMagic } from '../state/app/primalMagic.reducer';
 
@@ -46,12 +46,12 @@ const Homepage = () => {
           className={classes.cardHeader}
           title={'Primal Magic Utility'}
         />
-        <ProperLink to="/PrimalMagicTracker">
+        <NavLink to="/PrimalMagicTracker">
           <img src={primalMagicImage} />
-        </ProperLink>
+        </NavLink>
         <CardActions className={classes.cardActions}>
           <Button
-            component={ProperLink}
+            component={NavLink}
             variant="contained"
             to="/PrimalMagicTracker"
           >

@@ -17,15 +17,21 @@ import {
   alwaysSelectSameEventSelector,
   eventAlwaysSelectedSelector,
   eventsAlwaysTriggerSelector,
+  rodOfWonderAlwaysSelectedSelector,
   resetOnlyResetsRoundsSelector,
   setAlwaysSelectSameEvent,
   setEventAlwaysSelected,
   setEventsAlwaysTrigger,
+  setRodOfWonderAlwaysSelected,
   setResetOnlyResetsRounds,
+  alwaysSelectSameRodResultSelector,
+  setAlwaysSelectSameRodResult,
 } from '../state/userSettings/userSetingsState';
 import { events } from '../events/events';
 import { userSettingsHeader } from '../common/colours';
-import ProperLink from '../common/properLink.component';
+import { wonderousMagic } from '../events/eventComponents/wonderousMagicEvent.component';
+import { rodOfWonderResults } from '../events/eventComponents/rodOfWonderResults/rodOfWonderResults';
+import { NavLink } from 'react-router-dom';
 
 const useStyles = makeStyles({
   footer: {
@@ -64,6 +70,13 @@ const ActivePrimalEventsListFooter = () => {
   const eventsAlwaysTrigger = useSelector(eventsAlwaysTriggerSelector);
   const alwaysSelectSameEvent = useSelector(alwaysSelectSameEventSelector);
   const eventAlwaysSelected = useSelector(eventAlwaysSelectedSelector);
+  const eventIsRodOfWonder = eventAlwaysSelected === wonderousMagic.title;
+  const rodResultAlwaysSelected = useSelector(
+    alwaysSelectSameRodResultSelector
+  );
+  const rodOfWonderAlwaysSelected = useSelector(
+    rodOfWonderAlwaysSelectedSelector
+  );
   const resetOnlyResetsRounds = useSelector(resetOnlyResetsRoundsSelector);
 
   const onUserSettingsClicked = () => {
@@ -89,6 +102,16 @@ const ActivePrimalEventsListFooter = () => {
     dispatch(setEventAlwaysSelected(value));
   };
 
+  const alwaysSelectSameRodResultClicked = event => {
+    const value = event.target.checked;
+    dispatch(setAlwaysSelectSameRodResult(value));
+  };
+
+  const sameRodOfWonderSelected = event => {
+    const value = event.target.value;
+    dispatch(setRodOfWonderAlwaysSelected(value));
+  };
+
   const resetOnlyResetsRoundsClicked = event => {
     const value = event.target.checked;
     dispatch(setResetOnlyResetsRounds(value));
@@ -106,7 +129,7 @@ const ActivePrimalEventsListFooter = () => {
         </Button>
         <Button
           className={classes.footerButton}
-          component={ProperLink}
+          component={NavLink}
           variant="contained"
           to="/"
         >
@@ -165,6 +188,39 @@ const ActivePrimalEventsListFooter = () => {
                   {events.map(event => (
                     <MenuItem key={event.title} value={event.title}>
                       {event.title}
+                    </MenuItem>
+                  ))}
+                </Select>
+              }
+            />
+          )}
+          {eventIsRodOfWonder && (
+            <FormControlLabel
+              label="Always Show Same Rod Of Wonder Result"
+              labelPlacement="start"
+              control={
+                <Checkbox
+                  color="default"
+                  checked={rodResultAlwaysSelected}
+                  onChange={alwaysSelectSameRodResultClicked}
+                />
+              }
+            />
+          )}
+          {eventIsRodOfWonder && rodResultAlwaysSelected && (
+            <FormControlLabel
+              label="Same Rod Of Wonder Result Shown:"
+              labelPlacement="start"
+              control={
+                <Select
+                  variant="outlined"
+                  className={classes.dropDown}
+                  value={rodOfWonderAlwaysSelected}
+                  onChange={sameRodOfWonderSelected}
+                >
+                  {rodOfWonderResults.map(result => (
+                    <MenuItem key={result.title} value={result.title}>
+                      {result.title}
                     </MenuItem>
                   ))}
                 </Select>

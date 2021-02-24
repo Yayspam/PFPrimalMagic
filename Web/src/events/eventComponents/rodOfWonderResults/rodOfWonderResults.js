@@ -36,7 +36,7 @@ export const getRodOfWonderComponent = (rodResult, variables) => {
   return <div>UNKNOWN ROD OF WONDER RESULT {rodResult.title}</div>;
 };
 
-const rodOfWonderTable = [
+export const rodOfWonderResults = [
   slow,
   faerieFire,
   delusion,
@@ -46,12 +46,22 @@ const rodOfWonderTable = [
 ];
 
 export const getRodResult = percentileRoll => {
-  const results = rodOfWonderTable.filter(
+  const results = rodOfWonderResults.filter(
     e => percentileRoll >= e.percentileMin && percentileRoll <= e.percentileMax
   );
 
   if (results.length === 0) {
-    return rodOfWonderTable[0];
+    return rodOfWonderResults[0];
+  }
+
+  return results[0];
+};
+
+export const getRodResultByTitle = title => {
+  const results = rodOfWonderResults.filter(e => e.title === title);
+
+  if (results.length === 0) {
+    return rodOfWonderResults[0];
   }
 
   return results[0];

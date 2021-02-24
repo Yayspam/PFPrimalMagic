@@ -2,6 +2,8 @@ export const userSettingsInitialState = {
   eventsAlwaysTrigger: false,
   alwaysSelectSameEvent: false,
   eventAlwaysSelected: 'Colour Drain',
+  alwaysSelectSameRodResult: false,
+  rodOfWonderAlwaysSelected: 'Slow',
   resetOnlyResetsRounds: false,
 };
 
@@ -13,6 +15,10 @@ export const alwaysSelectSameEventSelector = state =>
   userSettingsStateSelector(state).alwaysSelectSameEvent;
 export const eventAlwaysSelectedSelector = state =>
   userSettingsStateSelector(state).eventAlwaysSelected;
+export const alwaysSelectSameRodResultSelector = state =>
+  userSettingsStateSelector(state).alwaysSelectSameRodResult;
+export const rodOfWonderAlwaysSelectedSelector = state =>
+  userSettingsStateSelector(state).rodOfWonderAlwaysSelected;
 export const resetOnlyResetsRoundsSelector = state =>
   userSettingsStateSelector(state).resetOnlyResetsRounds;
 
@@ -22,6 +28,10 @@ const SetAlwaysSelectSameEventType =
   'primalMagic:userSettingsState:setAlwaysSelectSameEvent';
 const SetEventAlwaysSelectedType =
   'primalMagic:userSettingsState:setEventAlwaysSelected';
+const SetRodResultAlwaysSelectedType =
+  'primalMagic:userSettingsState:setRodResultAlwaysSelected';
+const SetRodOfWonderAlwaysSelectedType =
+  'primalMagic:userSettingsState:setRodOfWonderAlwaysSelected';
 const SetResetOnlyResetsRoundsType =
   'primalMagic:userSettingsState:setResetOnlyResetsRounds';
 
@@ -38,6 +48,16 @@ export const setAlwaysSelectSameEvent = alwaysSelectSame => ({
 export const setEventAlwaysSelected = eventAlwaysSelected => ({
   type: SetEventAlwaysSelectedType,
   payload: eventAlwaysSelected,
+});
+
+export const setAlwaysSelectSameRodResult = alwaysSelectSame => ({
+  type: SetRodResultAlwaysSelectedType,
+  payload: alwaysSelectSame,
+});
+
+export const setRodOfWonderAlwaysSelected = rodOfWonderAlwaysSelected => ({
+  type: SetRodOfWonderAlwaysSelectedType,
+  payload: rodOfWonderAlwaysSelected,
 });
 
 export const setResetOnlyResetsRounds = onlyResetsRounds => ({
@@ -70,6 +90,18 @@ const handleSetEventAlwaysSelected = (state, payload) => {
   return newState;
 };
 
+const handleSetAlwaysSelectSameRodResult = (state, payload) => {
+  const newState = copyState(state);
+  newState.userSettingsState.alwaysSelectSameRodResult = payload;
+  return newState;
+};
+
+const handleSetRodOfWonderAlwaysSelected = (state, payload) => {
+  const newState = copyState(state);
+  newState.userSettingsState.rodOfWonderAlwaysSelected = payload;
+  return newState;
+};
+
 const handleSetResetOnlyResetsRounds = (state, payload) => {
   const newState = copyState(state);
   newState.userSettingsState.resetOnlyResetsRounds = payload;
@@ -80,5 +112,7 @@ export const userSettingsStateReducers = {
   [SetEventsAlwaysTriggerType]: handleSetEventsAlwaysTrigger,
   [SetAlwaysSelectSameEventType]: handleSetAlwaysSelectSameEvent,
   [SetEventAlwaysSelectedType]: handleSetEventAlwaysSelected,
+  [SetRodResultAlwaysSelectedType]: handleSetAlwaysSelectSameRodResult,
+  [SetRodOfWonderAlwaysSelectedType]: handleSetRodOfWonderAlwaysSelected,
   [SetResetOnlyResetsRoundsType]: handleSetResetOnlyResetsRounds,
 };

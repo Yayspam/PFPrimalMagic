@@ -11,14 +11,23 @@ import {
 import {
   getRodOfWonderComponent,
   getRodResult,
+  getRodResultByTitle,
 } from './rodOfWonderResults/rodOfWonderResults';
 
 export const wonderousMagic = {
   percentileMin: 79,
   percentileMax: 88,
   title: 'Wonderous Magic',
-  createVariables: () => {
+  createVariables: (_, rodOfWonderEventAlwaysSelected) => {
+    const match = rodOfWonderEventAlwaysSelected
+      ? getRodResultByTitle(rodOfWonderEventAlwaysSelected)
+      : undefined;
     const rodOfWonderPercentile = makeVariable(100);
+
+    if (match) {
+      rodOfWonderPercentile.result = match.percentileMin;
+    }
+
     const rodOfWonderVariables = getRodResult(
       rodOfWonderPercentile.result
     ).createVariables();

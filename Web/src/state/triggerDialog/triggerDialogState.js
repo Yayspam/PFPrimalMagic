@@ -12,7 +12,9 @@ import {
 import { currentRoundSelector } from '../rounds/roundsState';
 import {
   alwaysSelectSameEventSelector,
+  alwaysSelectSameRodResultSelector,
   eventAlwaysSelectedSelector,
+  rodOfWonderAlwaysSelectedSelector,
 } from '../userSettings/userSetingsState';
 
 export const manualTriggerType = 'MANUAL';
@@ -125,11 +127,17 @@ export const rerollDialogPrimalEventThunk = () => (dispatch, getState) => {
   const eventAlwaysSelected = alwaysShowSameEvent
     ? eventAlwaysSelectedSelector(state)
     : undefined;
+  const alwaysShowSameRodResult = alwaysSelectSameRodResultSelector(state);
+  const rodOfWonderResultAlwaysSelected =
+    eventAlwaysSelected === wonderousMagic.title && alwaysShowSameRodResult
+      ? rodOfWonderAlwaysSelectedSelector(state)
+      : undefined;
   const event = generateDialogEvent(
     eventPercentile,
     currentCr,
     currentRound,
-    eventAlwaysSelected
+    eventAlwaysSelected,
+    rodOfWonderResultAlwaysSelected
   );
   event.expanded = currentDialogState.currentEvent.expanded;
   const newDialogState = {
@@ -154,7 +162,14 @@ export const rerollDialogPrimalEventVariablesThunk = () => (
   if (currentDialogState.currentEvent.title === wonderousMagic.title) {
     // Because wonderous magic has an inner table we need to handle it separately
     // We must completely reroll the variables object, not just each variable
-    newVariables = wonderousMagic.createVariables();
+    const alwaysShowSameRodResult = alwaysSelectSameRodResultSelector(state);
+    const rodOfWonderResultAlwaysSelected = alwaysShowSameRodResult
+      ? rodOfWonderAlwaysSelectedSelector(state)
+      : undefined;
+    newVariables = wonderousMagic.createVariables(
+      undefined,
+      rodOfWonderResultAlwaysSelected
+    );
   } else {
     Object.entries(currentDialogState.currentEvent.variables).forEach(
       ([key, variable]) => {

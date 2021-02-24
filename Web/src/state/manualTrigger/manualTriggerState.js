@@ -1,3 +1,4 @@
+import { wonderousMagic } from '../../events/eventComponents/wonderousMagicEvent.component';
 import { getEvent, getEventByTitle } from '../../events/events';
 import { rollPercentile } from '../../random';
 import {
@@ -14,6 +15,8 @@ import {
   alwaysSelectSameEventSelector,
   eventsAlwaysTriggerSelector,
   eventAlwaysSelectedSelector,
+  rodOfWonderAlwaysSelectedSelector,
+  alwaysSelectSameRodResultSelector,
 } from '../userSettings/userSetingsState';
 
 export const characterInitialState = {
@@ -90,12 +93,17 @@ export const generateDialogEvent = (
   percentile,
   cr,
   startRound,
-  eventAlwaysSelected
+  eventAlwaysSelected,
+  rodOfWonderResultAlwaysSelected
 ) => {
   const correspondingEvent = eventAlwaysSelected
     ? getEventByTitle(eventAlwaysSelected)
     : getEvent(percentile);
-  const variables = correspondingEvent.createVariables(cr);
+  const variables = correspondingEvent.createVariables(
+    cr,
+    rodOfWonderResultAlwaysSelected
+  );
+
   const durationInRounds = variables.duration?.result;
   const finalRound =
     durationInRounds === undefined ? undefined : startRound + durationInRounds;
@@ -132,18 +140,25 @@ export const manualTriggerThunk = () => (dispatch, getState) => {
   };
 
   const eventsAlwaysTrigger = eventsAlwaysTriggerSelector(state);
-  const alwaysShowSameEvent = alwaysSelectSameEventSelector(state);
-  const eventAlwaysSelected = alwaysShowSameEvent
-    ? eventAlwaysSelectedSelector(state)
-    : undefined;
 
   if (eventsAlwaysTrigger || percentile >= dialogState.threshold) {
+    const alwaysShowSameEvent = alwaysSelectSameEventSelector(state);
+    const eventAlwaysSelected = alwaysShowSameEvent
+      ? eventAlwaysSelectedSelector(state)
+      : undefined;
+    const alwaysShowSameRodResult = alwaysSelectSameRodResultSelector(state);
+    const rodOfWonderResultAlwaysSelected =
+      eventAlwaysSelected === wonderousMagic.title && alwaysShowSameRodResult
+        ? rodOfWonderAlwaysSelectedSelector(state)
+        : undefined;
+
     const eventPercentile = rollPercentile();
     const event = generateDialogEvent(
       eventPercentile,
       currentCr,
       currentRound,
-      eventAlwaysSelected
+      eventAlwaysSelected,
+      rodOfWonderResultAlwaysSelected
     );
     dialogState.currentEvent = event;
   }
