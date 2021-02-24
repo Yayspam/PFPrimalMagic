@@ -1,6 +1,16 @@
 import React, { Fragment } from 'react';
 
-const AonLink = ({ name, link }) => {
+const AonLink = ({ name, link, noHighlight }) => {
+  if (noHighlight) {
+    return (
+      <Fragment>
+        <a href={link} target="_blank" rel="noopener noreferrer">
+          {name}
+        </a>
+      </Fragment>
+    );
+  }
+
   return (
     <Fragment>
       <mark>
@@ -10,6 +20,10 @@ const AonLink = ({ name, link }) => {
       </mark>
     </Fragment>
   );
+};
+
+AonLink.defaultProps = {
+  noHighlight: false,
 };
 
 export default AonLink;
