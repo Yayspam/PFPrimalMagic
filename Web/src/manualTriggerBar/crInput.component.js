@@ -33,7 +33,9 @@ const CrInput = () => {
   const crErrorLabel = !disabled && crError ? 'between 1 and 20' : null;
 
   const onCrChanged = event => {
-    dispatch(setManualTriggerCr(event.target.value));
+    const value = event.target.value;
+    const number = value === undefined ? undefined : parseInt(value);
+    dispatch(setManualTriggerCr(number));
   };
 
   return (
