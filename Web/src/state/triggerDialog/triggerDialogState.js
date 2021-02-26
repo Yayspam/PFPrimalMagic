@@ -1,3 +1,4 @@
+import { twoSimultaneousEvents } from '../../events/eventComponents/twoSimultaneousEventsEvent.component';
 import { wonderousMagic } from '../../events/eventComponents/wonderousMagicEvent.component';
 import { rollPercentile } from '../../random';
 import {
@@ -6,6 +7,7 @@ import {
 } from '../activePrimalEvents/activePrimalEventsState';
 import { allExpandedSelector } from '../eventExpansionState/eventExpansionState';
 import {
+  calculateFinalRound,
   generateDialogEvent,
   specifiedCrSelector,
 } from '../manualTrigger/manualTriggerState';
@@ -156,10 +158,11 @@ export const rerollDialogPrimalEventVariablesThunk = () => (
 ) => {
   const state = getState();
   const currentDialogState = triggerDialogStateSelector(state);
+  const currentEvent = currentDialogState.currentEvent;
 
   let newVariables = {};
 
-  if (currentDialogState.currentEvent.title === wonderousMagic.title) {
+  if (currentEvent.title === wonderousMagic.title) {
     // Because wonderous magic has an inner table we need to handle it separately
     // We must completely reroll the variables object, not just each variable
     const alwaysShowSameRodResult = alwaysSelectSameRodResultSelector(state);
@@ -170,19 +173,27 @@ export const rerollDialogPrimalEventVariablesThunk = () => (
       undefined,
       rodOfWonderResultAlwaysSelected
     );
-  } else {
-    Object.entries(currentDialogState.currentEvent.variables).forEach(
-      ([key, variable]) => {
-        newVariables[key] = reRollVariable(variable);
-      }
+  } else if (currentEvent.title === twoSimultaneousEvents.title) {
+    // Because two simultaneous events has two events inside which need variables rerolling
+    // we need to completely re roll the variables object, not just each variable
+    newVariables = twoSimultaneousEvents.createVariables(
+      currentEvent.cr.result
     );
+  } else {
+    Object.entries(currentEvent.variables).forEach(([key, variable]) => {
+      newVariables[key] = reRollVariable(variable);
+    });
   }
 
   const newDialogState = {
     ...currentDialogState,
     currentEvent: {
-      ...currentDialogState.currentEvent,
+      ...currentEvent,
       variables: newVariables,
+      finalRound: calculateFinalRound(
+        newVariables.duration,
+        currentEvent.startRound
+      ),
     },
   };
 

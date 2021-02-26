@@ -89,6 +89,13 @@ export const manualTriggerStateReducers = {
   [SetManualTriggerCharacterType]: handleSetManualTriggerCharacter,
 };
 
+export const calculateFinalRound = (durationVariable, startRound) => {
+  const durationInRounds = durationVariable?.result;
+  return durationInRounds === undefined
+    ? undefined
+    : startRound + durationInRounds;
+};
+
 export const generateDialogEvent = (
   percentile,
   cr,
@@ -104,9 +111,7 @@ export const generateDialogEvent = (
     rodOfWonderResultAlwaysSelected
   );
 
-  const durationInRounds = variables.duration?.result;
-  const finalRound =
-    durationInRounds === undefined ? undefined : startRound + durationInRounds;
+  const finalRound = calculateFinalRound(variables.duration, startRound);
 
   return {
     ...primalEventInitialState,

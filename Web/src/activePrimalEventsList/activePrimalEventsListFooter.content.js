@@ -72,7 +72,8 @@ const ActivePrimalEventsListFooter = () => {
   const eventsAlwaysTrigger = useSelector(eventsAlwaysTriggerSelector);
   const alwaysSelectSameEvent = useSelector(alwaysSelectSameEventSelector);
   const eventAlwaysSelected = useSelector(eventAlwaysSelectedSelector);
-  const eventIsRodOfWonder = eventAlwaysSelected === wonderousMagic.title;
+  const eventIsRodOfWonder =
+    alwaysSelectSameEvent && eventAlwaysSelected === wonderousMagic.title;
   const rodResultAlwaysSelected = useSelector(
     alwaysSelectSameRodResultSelector
   );

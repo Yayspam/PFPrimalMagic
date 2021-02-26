@@ -1,4 +1,4 @@
-import { rollMultipleD } from '../../random';
+import { rollD, rollMultipleD } from '../../random';
 import { currentRoundSelector } from '../rounds/roundsState';
 
 export const variableInitialState = {
@@ -30,6 +30,12 @@ export const makeVariable = (
   modifier: modifier,
   result: rollMultipleD(diceSize, diceCount, modifier),
   description,
+});
+
+export const makeLimitedVariable = (diceSize, limit) => ({
+  ...variableInitialState,
+  diceSize: diceSize,
+  result: Math.min(rollD(diceSize), limit),
 });
 
 export const reRollVariable = variable => ({

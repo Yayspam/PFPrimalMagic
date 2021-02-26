@@ -14,8 +14,6 @@ export const summonAnimal = {
 
 const handleAnimalType = {
   getValues: variable => {
-    console.log('CALLED', variable);
-
     if (variable.result <= 25) {
       return {
         value: (

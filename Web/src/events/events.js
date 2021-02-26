@@ -1,8 +1,4 @@
 import React from 'react';
-import {
-  makeConstantVariable,
-  makeVariable,
-} from '../state/activePrimalEvents/activePrimalEventsState';
 import AuroraBorealisEvent, {
   auroraBorealis,
 } from './eventComponents/auroraBorealisEvent.component';
@@ -29,15 +25,24 @@ import ExtradimensionalPitEvent, {
 } from './eventComponents/extradimensionalPit.component';
 import HarmEvent, { harm } from './eventComponents/harmEvent.component';
 import HealEvent, { heal } from './eventComponents/healEvent.component';
+import MagicJarEvent, {
+  magicJar,
+} from './eventComponents/magicJarEvent.component';
 import MassDelusionEvent, {
   massDelusion,
 } from './eventComponents/massDelusionEvent.component';
 import RainOfSmallObjectsEvent, {
   rainOfSmallObjects,
 } from './eventComponents/rainOfSmallObjectsEvent.component';
+import TeleportationStormEvent, {
+  teleportationStorm,
+} from './eventComponents/teleportationStormEvent.component';
 import TrippingTelekinesisEvent, {
   trippingTelekinesis,
 } from './eventComponents/trippingTelekinesisEvent.component';
+import TwoSimultaneousEventsEvent, {
+  twoSimultaneousEvents,
+} from './eventComponents/twoSimultaneousEventsEvent.component';
 import UtterDarknessEvent, {
   utterDarkness,
 } from './eventComponents/utterDarknessEvent.component';
@@ -113,6 +118,18 @@ export const getEventCardContent = event => {
     return <WonderousMagicEvent event={event} />;
   }
 
+  if (event.title === teleportationStorm.title) {
+    return <TeleportationStormEvent event={event} />;
+  }
+
+  if (event.title === magicJar.title) {
+    return <MagicJarEvent event={event} />;
+  }
+
+  if (event.title === twoSimultaneousEvents.title) {
+    return <TwoSimultaneousEventsEvent event={event} />;
+  }
+
   return <div>UNKNOWN EVENT {event.title}</div>;
 };
 
@@ -133,36 +150,9 @@ export const events = [
   energyStorm,
   trippingTelekinesis,
   wonderousMagic,
-  {
-    percentileMin: 89,
-    percentileMax: 94,
-    title: 'Teleportation Storm',
-    createVariables: cr => ({
-      save: makeConstantVariable(cr + 10, 'DC = CR + 10'),
-      distance: makeConstantVariable(cr * 5, 'CR x 5ft.'), // 5xCR ft - only for one creature? Not sure on this one
-    }),
-  },
-  {
-    percentileMin: 95,
-    percentileMax: 98,
-    title: 'Magic Jar',
-    createVariables: cr => ({
-      duration: makeConstantVariable(0),
-      save: makeConstantVariable(cr + 10, 'Will Save DC = CR + 10'),
-      stunDuration: makeVariable(4), // 1d4 rounds stun duration
-      bodyStopDuration: makeConstantVariable(cr, 'CR rounds'),
-    }),
-  },
-  {
-    percentileMin: 99,
-    percentileMax: 100,
-    title: 'Two Simultaneous Events',
-    createVariables: () => ({
-      duration: makeConstantVariable(0),
-      percentileOne: makeVariable(100), // First event percentile
-      percentileTwo: makeVariable(100), // Second even percentile
-    }), // Not sure how to do this one...
-  },
+  teleportationStorm,
+  magicJar,
+  twoSimultaneousEvents,
 ];
 
 export const getEvent = percentileRoll => {

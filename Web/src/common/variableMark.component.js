@@ -1,6 +1,7 @@
 import { makeStyles, Tooltip } from '@material-ui/core';
 import { lightBlue } from '@material-ui/core/colors';
 import React from 'react';
+import { objectToArrayString } from './utils';
 
 const useStyles = makeStyles({
   mark: {
@@ -16,6 +17,24 @@ export const fortSave = 'FORT_SAVE';
 export const reflexSave = 'REFLEX_SAVE';
 export const cl = 'CASTER_LEVEL';
 export const weight = 'WEIGHT';
+export const direction = 'DIRECTION';
+
+const directions = {
+  1: 'north',
+  2: 'north east',
+  3: 'east',
+  4: 'south east',
+  5: 'south',
+  6: 'south west',
+  7: 'west',
+  8: 'north west',
+};
+
+const getDirection = variable => {
+  return {
+    value: directions[Math.floor(variable.result, 8)],
+  };
+};
 
 const getWeight = variable => {
   return {
@@ -102,15 +121,23 @@ const getValues = (variable, unitType) => {
     return getWeight(variable);
   }
 
+  if (unitType === direction) {
+    return getDirection(variable);
+  }
+
   return {
     value: variable.result,
     unit: undefined,
   };
 };
 
-const getToolTip = variable => {
+const getToolTip = (variable, unit) => {
   if (variable.description) {
     return variable.description;
+  }
+
+  if (unit === direction) {
+    return `1d8 [${variable.result}]: ${objectToArrayString(directions)}`;
   }
 
   let modifier = `+ ${variable.modifier}`;
