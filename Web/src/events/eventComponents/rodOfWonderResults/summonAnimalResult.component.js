@@ -1,10 +1,7 @@
 import React, { Fragment } from 'react';
 import AonLink from '../../../common/linkDisplay.component';
-import VM, { dist, time } from '../../../common/variableMark.component';
-import {
-  makeConstantVariable,
-  makeVariable,
-} from '../../../state/activePrimalEvents/activePrimalEventsState';
+import VM from '../../../common/variableMark.component';
+import { makeVariable } from '../../../state/activePrimalEvents/activePrimalEventsState';
 
 export const summonAnimal = {
   percentileMin: 34,

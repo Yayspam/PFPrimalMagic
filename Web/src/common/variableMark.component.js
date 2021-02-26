@@ -15,6 +15,14 @@ export const willSave = 'WILL_SAVE';
 export const fortSave = 'FORT_SAVE';
 export const reflexSave = 'REFLEX_SAVE';
 export const cl = 'CASTER_LEVEL';
+export const weight = 'WEIGHT';
+
+const getWeight = variable => {
+  return {
+    value: variable.result,
+    unit: `lb${variable.result > 1 ? 's' : ''}`,
+  };
+};
 
 const getCasterLevel = variable => {
   return {
@@ -27,8 +35,11 @@ const getTime = variable => {
   let value = variable.result;
   let unit = `round${value > 1 ? 's' : ''}`;
 
-  if (value > 600) {
-    value = Math.floor(value / 600);
+  if (value >= 24 * 60 * 10) {
+    value = Math.floor(value / (24 * 60 * 10));
+    unit = `day${value > 1 ? 's' : ''}`;
+  } else if (value >= 60 * 10) {
+    value = Math.floor(value / (60 * 10));
     unit = `hour${value > 1 ? 's' : ''}`;
   } else if (value > 20) {
     value = Math.floor(value / 10);
@@ -87,6 +98,10 @@ const getValues = (variable, unitType) => {
     return getCasterLevel(variable);
   }
 
+  if (unitType === weight) {
+    return getWeight(variable);
+  }
+
   return {
     value: variable.result,
     unit: undefined,
@@ -98,12 +113,12 @@ const getToolTip = variable => {
     return variable.description;
   }
 
-  let modifier = `+${variable.modifier}`;
+  let modifier = `+ ${variable.modifier}`;
 
   if (!variable.modifier) {
     modifier = '';
   } else if (variable.modifier < 0) {
-    modifier = `-${variable.modifier}`;
+    modifier = `- ${variable.modifier}`;
   }
 
   return `${variable.diceCount}d${variable.diceSize} [${variable.result -

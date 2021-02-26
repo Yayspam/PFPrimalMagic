@@ -2,6 +2,7 @@ import { Box, Typography } from '@material-ui/core';
 import React, { Fragment } from 'react';
 import CustomChip from '../../common/customChip.component';
 import DurationEndChip from '../../common/durationChip.component';
+import { objectToArrayString } from '../../common/utils';
 import VM, { time } from '../../common/variableMark.component';
 import {
   makeConstantVariable,
@@ -33,7 +34,7 @@ const handleChant = {
     };
   },
   getToolTip: variable => {
-    return `1d4 [${variable.result}]: 1=${battleChants[1]}; 2=${battleChants[2]}; 3=${battleChants[3]}; 4=${battleChants[4]}`;
+    return `1d4 [${variable.result}]: ${objectToArrayString(battleChants)}`;
   },
 };
 

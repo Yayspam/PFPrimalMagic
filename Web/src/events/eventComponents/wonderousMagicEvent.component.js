@@ -49,6 +49,8 @@ const WonderousMagicEvent = ({ event }) => {
   const rodResult = getRodResult(rodOfWonderPercentile.result);
   const rodComponent = getRodOfWonderComponent(rodResult, variables);
 
+  console.log(duration);
+
   return (
     <Fragment>
       <Box>

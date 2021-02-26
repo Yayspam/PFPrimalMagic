@@ -16,7 +16,7 @@ const DurationEndChip = ({ value }) => {
     return <CustomChip label="End" value={value} />;
   }
 
-  if (duration < 600) {
+  if (duration < 59 * 10) {
     const durationInMins = Math.ceil(duration / 10);
     const plural = durationInMins > 1;
     return (
@@ -27,8 +27,24 @@ const DurationEndChip = ({ value }) => {
     );
   }
 
+  if (duration < 23 * 60 * 10) {
+    const durationInHours = Math.ceil(duration / 600);
+    const plural = durationInHours > 1;
+    return (
+      <CustomChip
+        label={`Hr${plural ? 's' : ''} Remain${plural ? '' : 's'}`}
+        value={`${durationInHours}`}
+      />
+    );
+  }
+
+  const durationInDays = Math.ceil(duration / (24 * 60 * 10));
+  const plural = durationInDays > 1;
   return (
-    <CustomChip label="Hrs Remain" value={`${Math.round(duration / 600)}h`} />
+    <CustomChip
+      label={`Day${plural ? 's' : ''} Remain${plural ? '' : 's'}`}
+      value={`${durationInDays}`}
+    />
   );
 };
 

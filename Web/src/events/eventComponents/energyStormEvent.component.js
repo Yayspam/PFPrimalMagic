@@ -2,6 +2,7 @@ import { Box, Typography } from '@material-ui/core';
 import React, { Fragment } from 'react';
 import CustomChip from '../../common/customChip.component';
 import DurationEndChip from '../../common/durationChip.component';
+import { objectToArrayString } from '../../common/utils';
 import VM, {
   dist,
   reflexSave,
@@ -40,7 +41,7 @@ const handleEnergyType = {
     };
   },
   getToolTip: variable => {
-    return `1d4 [${variable.result}]: 1=${energyTypes[1]}; 2=${energyTypes[2]}; 3=${energyTypes[3]}; 4=${energyTypes[4]}`;
+    return `1d4 [${variable.result}]: ${objectToArrayString(energyTypes)}`;
   },
 };
 
