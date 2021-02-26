@@ -117,7 +117,7 @@ const deconstructEvent = (
 };
 
 const TwoSimultaneousEventsEvent = ({ event }) => {
-  const { cr, variables, percentileRoll, startRound } = event;
+  const { cr, variables, percentileRoll, startRound, endRound } = event;
   const { result: crVal } = cr;
   const { percentileOne, percentileTwo, duration } = variables;
   const isInstantaneous = duration.result === 0;
@@ -145,9 +145,7 @@ const TwoSimultaneousEventsEvent = ({ event }) => {
         <CustomChip label="d%" value={percentileRoll} />
         <CustomChip label="CR" value={crVal} />
         <CustomChip label="Start" value={startRound} />
-        <DurationEndChip
-          value={isInstantaneous ? undefined : duration.result}
-        />
+        <DurationEndChip value={isInstantaneous ? undefined : endRound} />
       </Box>
       <Box>
         <EventCard
