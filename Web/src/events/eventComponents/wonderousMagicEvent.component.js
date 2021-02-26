@@ -48,8 +48,7 @@ const WonderousMagicEvent = ({ event }) => {
 
   const rodResult = getRodResult(rodOfWonderPercentile.result);
   const rodComponent = getRodOfWonderComponent(rodResult, variables);
-
-  console.log(duration);
+  const isInstantaneous = duration?.modifier === 0;
 
   return (
     <Fragment>
@@ -57,7 +56,9 @@ const WonderousMagicEvent = ({ event }) => {
         <CustomChip label="d%" value={percentileRoll} />
         <CustomChip label="CR" value={crVal} />
         <CustomChip label="Start" value={startRound} />
-        <DurationEndChip value={duration?.result} />
+        <DurationEndChip
+          value={isInstantaneous ? undefined : duration?.result}
+        />
       </Box>
       <Typography>
         Choose two random creatures in the area, then randomly pick one to be
