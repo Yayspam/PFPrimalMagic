@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import Spell from '../../../common/spellDisplay.component';
 import { objectToArrayString } from '../../../common/utils';
-import VM, { dist, fortSave } from '../../../common/variableMark.component';
+import VM, { dist } from '../../../common/variableMark.component';
 import {
   makeConstantVariable,
   makeVariable,

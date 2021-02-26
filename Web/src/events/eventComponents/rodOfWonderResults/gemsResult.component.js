@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import VM, { dist, time } from '../../../common/variableMark.component';
+import VM, { dist } from '../../../common/variableMark.component';
 import {
   makeConstantVariable,
   makeVariable,

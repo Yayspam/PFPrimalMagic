@@ -1,7 +1,6 @@
 import { makeStyles, Tooltip } from '@material-ui/core';
 import { lightBlue } from '@material-ui/core/colors';
 import React, { Fragment } from 'react';
-import Spell from '../../../common/spellDisplay.component';
 import VM, { dist, weight } from '../../../common/variableMark.component';
 import { makeConstantVariable } from '../../../state/activePrimalEvents/activePrimalEventsState';
 
