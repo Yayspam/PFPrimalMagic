@@ -10,7 +10,12 @@ import {
 } from '@material-ui/core';
 import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { manualTriggerHeader, primalStormHeader } from '../common/colours';
+import {
+  manualTriggerHeader,
+  manualTriggerHeaderEmphasis,
+  primalStormHeader,
+  primalStormHeaderEmphasis,
+} from '../common/colours';
 import {
   closeTriggerDialog,
   manualTriggerType,
@@ -29,10 +34,16 @@ import {
   rerollDialogPrimalEventVariablesThunk,
 } from '../state/triggerDialog/triggerDialogState.thunk';
 
+const getBackgroundColour = isManualTrigger =>
+  isManualTrigger ? manualTriggerHeader : primalStormHeader;
+
+const getEmphasisColour = isManualTrigger =>
+  isManualTrigger ? manualTriggerHeaderEmphasis : primalStormHeaderEmphasis;
+
 const useStyles = makeStyles({
   dialogHeader: {
     backgroundColor: ({ isManualTrigger }) =>
-      isManualTrigger ? manualTriggerHeader : primalStormHeader,
+      getBackgroundColour(isManualTrigger),
     color: 'white',
     textAlign: 'center',
   },
@@ -41,7 +52,7 @@ const useStyles = makeStyles({
   },
   cardHeader: {
     backgroundColor: ({ isManualTrigger }) =>
-      isManualTrigger ? manualTriggerHeader : primalStormHeader,
+      getBackgroundColour(isManualTrigger),
     color: 'white',
     paddingTop: 3,
     paddingBottom: 3,
@@ -56,9 +67,18 @@ const useStyles = makeStyles({
     flexDirection: 'row',
     justifyContent: 'center',
   },
+  confirmButton: {
+    backgroundColor: ({ isManualTrigger }) =>
+      getBackgroundColour(isManualTrigger),
+    color: 'white',
+    '&:hover': {
+      backgroundColor: ({ isManualTrigger }) =>
+        getEmphasisColour(isManualTrigger),
+    },
+  },
 });
 
-const ManualPrimalEventDialog = () => {
+const PrimalEventDialog = () => {
   const dispatch = useDispatch();
   const {
     percentile,
@@ -105,7 +125,11 @@ const ManualPrimalEventDialog = () => {
   }
 
   return (
-    <Dialog fullWidth open={open}>
+    <Dialog
+      fullWidth
+      open={open}
+      onClose={eventOccurred ? undefined : onCloseDialogClicked}
+    >
       <DialogTitle className={classes.dialogHeader}>
         {isManualTrigger ? 'Manual' : 'Storm'} Primal Event Trigger
       </DialogTitle>
@@ -152,7 +176,11 @@ const ManualPrimalEventDialog = () => {
       </DialogContent>
       <DialogActions>
         {showEventContent && (
-          <Button variant="contained" onClick={onAcceptClicked}>
+          <Button
+            className={classes.confirmButton}
+            variant="contained"
+            onClick={onAcceptClicked}
+          >
             Trigger Event
           </Button>
         )}
@@ -164,4 +192,4 @@ const ManualPrimalEventDialog = () => {
   );
 };
 
-export default ManualPrimalEventDialog;
+export default PrimalEventDialog;

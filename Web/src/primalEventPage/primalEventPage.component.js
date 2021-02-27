@@ -4,7 +4,7 @@ import { grey } from '@material-ui/core/colors';
 import ManualTriggerBar from '../manualTriggerBar/manualTrigger.component';
 import ActivePrimalEventsList from '../activePrimalEventsList/activePrimalEventsList.component';
 import RoundsBar from '../roundsBar/roundsBar.component';
-import ManualPrimalEventDialog from '../primalEventDialog/manualPrimalEventDialog.component';
+import PrimalEventDialog from '../primalEventDialog/primalEventDialog.component';
 
 const useStyles = makeStyles({
   contentContainer: {
@@ -54,7 +54,7 @@ const PrimalEventPage = () => {
       >
         <RoundsBar />
       </Paper>
-      <ManualPrimalEventDialog />
+      <PrimalEventDialog />
     </div>
   );
 };
