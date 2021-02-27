@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.js": "/PFPrimalMagic/static/js/main.13b93c0a.chunk.js",
-    "main.js.map": "/PFPrimalMagic/static/js/main.13b93c0a.chunk.js.map",
+    "main.js": "/PFPrimalMagic/static/js/main.7ced96c9.chunk.js",
+    "main.js.map": "/PFPrimalMagic/static/js/main.7ced96c9.chunk.js.map",
     "runtime-main.js": "/PFPrimalMagic/static/js/runtime-main.b1aa7981.js",
     "runtime-main.js.map": "/PFPrimalMagic/static/js/runtime-main.b1aa7981.js.map",
     "static/css/2.012b392b.chunk.css": "/PFPrimalMagic/static/css/2.012b392b.chunk.css",
-    "static/js/2.3e97daa1.chunk.js": "/PFPrimalMagic/static/js/2.3e97daa1.chunk.js",
-    "static/js/2.3e97daa1.chunk.js.map": "/PFPrimalMagic/static/js/2.3e97daa1.chunk.js.map",
+    "static/js/2.7f634718.chunk.js": "/PFPrimalMagic/static/js/2.7f634718.chunk.js",
+    "static/js/2.7f634718.chunk.js.map": "/PFPrimalMagic/static/js/2.7f634718.chunk.js.map",
     "index.html": "/PFPrimalMagic/index.html",
     "static/css/2.012b392b.chunk.css.map": "/PFPrimalMagic/static/css/2.012b392b.chunk.css.map",
-    "static/js/2.3e97daa1.chunk.js.LICENSE.txt": "/PFPrimalMagic/static/js/2.3e97daa1.chunk.js.LICENSE.txt",
+    "static/js/2.7f634718.chunk.js.LICENSE.txt": "/PFPrimalMagic/static/js/2.7f634718.chunk.js.LICENSE.txt",
     "static/media/primal_magic_flowchart.0bce3f09.png": "/PFPrimalMagic/static/media/primal_magic_flowchart.0bce3f09.png",
     "static/media/index.css": "/PFPrimalMagic/static/media/roboto-latin-900italic.cb5ad999.woff2"
   },
   "entrypoints": [
     "static/js/runtime-main.b1aa7981.js",
     "static/css/2.012b392b.chunk.css",
-    "static/js/2.3e97daa1.chunk.js",
-    "static/js/main.13b93c0a.chunk.js"
+    "static/js/2.7f634718.chunk.js",
+    "static/js/main.7ced96c9.chunk.js"
   ]
 }
