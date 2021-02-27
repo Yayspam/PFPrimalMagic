@@ -11,11 +11,11 @@ import {
 import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  activatePrimalStormThunk,
   primalStormStateSelector,
   setPrimalStormLeftArea,
   setPrimalStormSuppressed,
 } from '../state/primalStorm/primalStormState';
+import { activatePrimalStormThunk } from '../state/primalStorm/primalStormState.thunk';
 
 function getColor(value) {
   //value from 0 to 1
@@ -33,13 +33,15 @@ const useStyles = makeStyles({
   divider: {
     width: '100%',
   },
-  currentChanceText: {
+  currentChanceContainer: {
     display: 'flex',
     flexDirection: 'row',
-    marginLeft: 16,
     alignItems: 'center',
   },
-  chanceAvatar: {
+  currentChanceText: {
+    marginLeft: 16,
+  },
+  currentChanceAvatar: {
     backgroundColor: ({ value }) => getColor(value),
     marginLeft: 10,
     fontSize: '15px',
@@ -115,10 +117,14 @@ const PrimalStormContent = () => {
             leftArea,
             leavePrimalStorm
           )}
-          <Typography className={classes.currentChanceText}>
-            Current Primal Event Chance:{' '}
-            <Avatar className={classes.chanceAvatar}>{currentChance}%</Avatar>
-          </Typography>
+          <Box className={classes.currentChanceContainer}>
+            <Typography className={classes.currentChanceText}>
+              Current Primal Event Chance:
+            </Typography>
+            <Avatar className={classes.currentChanceAvatar}>
+              {currentChance}%
+            </Avatar>
+          </Box>
         </Fragment>
       )}
     </Box>

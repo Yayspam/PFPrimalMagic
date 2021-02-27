@@ -13,10 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { manualTriggerHeader, primalStormHeader } from '../common/colours';
 import {
   closeTriggerDialog,
-  confirmDialogPrimalEventThunk,
   manualTriggerType,
-  rerollDialogPrimalEventThunk,
-  rerollDialogPrimalEventVariablesThunk,
   toggleTriggerDialogPrimalEventExpanded,
   triggerDialogStateSelector,
 } from '../state/triggerDialog/triggerDialogState';
@@ -25,6 +22,12 @@ import EventCard from '../events/eventCard.component';
 import SyncIcon from '@material-ui/icons/Sync';
 import ReplayIcon from '@material-ui/icons/Replay';
 import { blue } from '@material-ui/core/colors';
+import { getEventCardContent } from '../events/events';
+import {
+  confirmDialogPrimalEventThunk,
+  rerollDialogPrimalEventThunk,
+  rerollDialogPrimalEventVariablesThunk,
+} from '../state/triggerDialog/triggerDialogState.thunk';
 
 const useStyles = makeStyles({
   dialogHeader: {
@@ -69,12 +72,12 @@ const ManualPrimalEventDialog = () => {
   const classes = useStyles({ isManualTrigger });
   const eventsAlwaysTriggered = useSelector(eventsAlwaysTriggerSelector);
 
-  const eventOccurred = percentile >= threshold;
+  const eventOccurred = percentile <= threshold;
   const showEventContent = eventOccurred || eventsAlwaysTriggered;
-  let eventOccuranceMessage = `Event did not occur (${percentile}%, >=${threshold}% required)`;
+  let eventOccuranceMessage = `Event did not occur (${percentile}%, <=${threshold}% required)`;
 
   if (eventOccurred) {
-    eventOccuranceMessage = `Event occurred (${percentile}%, >=${threshold}% achieved)`;
+    eventOccuranceMessage = `Event occurred (${percentile}%, <=${threshold}% achieved)`;
   }
 
   const onAcceptClicked = () => {
@@ -142,6 +145,7 @@ const ManualPrimalEventDialog = () => {
                 isManualTrigger ? manualTriggerHeader : primalStormHeader
               }
               onExpandToggleClicked={onExpandToggleClicked}
+              getEventCardContent={getEventCardContent}
             />
           </Fragment>
         )}

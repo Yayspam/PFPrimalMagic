@@ -1,9 +1,10 @@
 import React from 'react';
 import { Box, List, ListItem, makeStyles } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleSingleExpandedThunk } from '../state/eventExpansionState/eventExpansionState';
+import { toggleSingleExpandedThunk } from '../state/eventExpansionState/eventExpansionState.thunk';
 import { activePrimalEventsSelector } from '../state/activePrimalEvents/activePrimalEventsState';
 import EventCard from '../events/eventCard.component';
+import { getEventCardContent } from '../events/events';
 
 const useStyles = makeStyles({
   content: {
@@ -35,6 +36,7 @@ const ActivePrimalEventsListContent = () => {
               <EventCard
                 event={primalEvent}
                 onExpandToggleClicked={toggleSingleClicked(primalEvent)}
+                getEventCardContent={getEventCardContent}
               />
             </ListItem>
           ))}

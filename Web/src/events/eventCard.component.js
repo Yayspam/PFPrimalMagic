@@ -11,7 +11,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import { useSelector } from 'react-redux';
 import { currentRoundSelector } from '../state/rounds/roundsState';
-import { getEventCardContent } from './events';
 
 const useStyles = makeStyles({
   card: {
@@ -36,7 +35,12 @@ const useStyles = makeStyles({
   },
 });
 
-const EventCard = ({ event, titleColour, onExpandToggleClicked }) => {
+const EventCard = ({
+  event,
+  titleColour,
+  onExpandToggleClicked,
+  getEventCardContent,
+}) => {
   const { title, expanded, finalRound } = event;
   const currentRound = useSelector(currentRoundSelector);
   const expiresThisTurn = finalRound === currentRound;

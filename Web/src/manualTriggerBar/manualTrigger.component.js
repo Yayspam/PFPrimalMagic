@@ -3,7 +3,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import BarHeader from '../common/barHeader.component';
 import { manualTriggerHeader } from '../common/colours';
-import { manualTriggerThunk } from '../state/manualTrigger/manualTriggerState';
+import { manualTriggerThunk } from '../state/manualTrigger/manualTriggerState.thunk';
 import ManualTriggerContent from './manualTriggerContent.component';
 
 const useStyles = makeStyles({

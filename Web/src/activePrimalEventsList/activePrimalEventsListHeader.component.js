@@ -2,14 +2,12 @@ import React from 'react';
 import { Box, IconButton, makeStyles, Typography } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { activePrimalEventsSelector } from '../state/activePrimalEvents/activePrimalEventsState';
-import {
-  allExpandedSelector,
-  toggleAllExpandedThunk,
-} from '../state/eventExpansionState/eventExpansionState';
+import { allExpandedSelector } from '../state/eventExpansionState/eventExpansionState';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import RemoveIcon from '@material-ui/icons/Remove';
 import { primalEventsHeader } from '../common/colours';
+import { toggleAllExpandedThunk } from '../state/eventExpansionState/eventExpansionState.thunk';
 
 const useStyles = makeStyles({
   header: {

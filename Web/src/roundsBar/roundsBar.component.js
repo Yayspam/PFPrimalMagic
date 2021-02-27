@@ -3,7 +3,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import BarHeader from '../common/barHeader.component';
 import { primalStormHeader } from '../common/colours';
-import { advanceRoundThunk } from '../state/rounds/roundsState';
+import { advanceRoundThunk } from '../state/rounds/roundsState.thunk';
 import RoundsContent from './roundsContent.component';
 
 const useStyles = makeStyles({

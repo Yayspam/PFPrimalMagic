@@ -1,15 +1,15 @@
 import { Box, Divider, makeStyles, Typography } from '@material-ui/core';
 import { cyan } from '@material-ui/core/colors';
 import React, { Fragment, useState } from 'react';
-import CustomChip from '../../common/customChip.component';
-import DurationEndChip from '../../common/durationChip.component';
+import CustomChip from '../../../common/customChip.component';
+import DurationEndChip from '../../../common/durationChip.component';
 import {
   makeConstantVariable,
   makeLimitedVariable,
-} from '../../state/activePrimalEvents/activePrimalEventsState';
-import { calculateFinalRound } from '../../state/manualTrigger/manualTriggerState';
-import EventCard from '../eventCard.component';
-import { getEvent } from '../events';
+} from '../../../state/activePrimalEvents/activePrimalEventsState';
+import { calculateFinalRound } from '../../../state/manualTrigger/manualTriggerState.thunk';
+import EventCard from '../../eventCard.component';
+import { getLimitedEvent, getLimitedEventCardContent } from './limitedEvents';
 
 const useStyles = makeStyles({
   divider: {
@@ -73,13 +73,13 @@ export const twoSimultaneousEvents = {
     const percentileOne = makeLimitedVariable(100, 98);
     const percentileTwo = makeLimitedVariable(100, 98);
 
-    const eventOne = getEvent(percentileOne.result);
+    const eventOne = getLimitedEvent(percentileOne.result);
     const eventOneVariables = prefixVariableKeys(
       eventOne.createVariables(cr),
       'one'
     );
 
-    const eventTwo = getEvent(percentileTwo.result);
+    const eventTwo = getLimitedEvent(percentileTwo.result);
     const eventTwoVariables = prefixVariableKeys(
       eventTwo.createVariables(cr),
       'two'
@@ -104,7 +104,7 @@ const deconstructEvent = (
   variables,
   variablePrefix
 ) => {
-  const title = getEvent(percentile).title;
+  const title = getLimitedEvent(percentile).title;
   const deconstructedEventVariables = removeVariableKeyPrefix(
     variables,
     variablePrefix
@@ -163,12 +163,14 @@ const TwoSimultaneousEventsEvent = ({ event }) => {
           event={eventOne}
           titleColour={cyan['A700']}
           onExpandToggleClicked={() => setEventOneOpen(!eventOneOpen)}
+          getEventCardContent={getLimitedEventCardContent}
         />
         <Divider className={classes.divider} />
         <EventCard
           event={eventTwo}
           titleColour={cyan['A700']}
           onExpandToggleClicked={() => setEventTwoOpen(!eventTwoOpen)}
+          getEventCardContent={getLimitedEventCardContent}
         />
       </Box>
     </Fragment>
