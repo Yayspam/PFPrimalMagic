@@ -8,7 +8,6 @@ const useStyles = makeStyles({
     marginRight: 10,
   },
   image: {
-    // aspectRatio: 1 / 1.414,
     width: '100%',
   },
 });
