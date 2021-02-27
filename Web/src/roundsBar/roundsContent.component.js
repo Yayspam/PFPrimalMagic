@@ -4,11 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { currentRoundSelector } from '../state/rounds/roundsState';
 import { resetAll } from '../state/app/primalMagic.reducer';
 import { primalStormHeader } from '../common/colours';
+import PrimalStormContent from './primalStormContent.component';
 
 const useStyles = makeStyles({
   content: {
     height: '100%',
     width: '100%',
+  },
+  roundsContent: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -46,17 +49,20 @@ const RoundsContent = () => {
 
   return (
     <Box className={classes.content}>
-      <Box className={classes.currentRoundDisplay}>
-        <Typography>Current Round: </Typography>
-        <Avatar className={classes.roundAvatar}>{currentRound}</Avatar>
+      <Box className={classes.roundsContent}>
+        <Box className={classes.currentRoundDisplay}>
+          <Typography>Current Round: </Typography>
+          <Avatar className={classes.roundAvatar}>{currentRound}</Avatar>
+        </Box>
+        <Button
+          className={classes.resetButton}
+          variant="contained"
+          onClick={onResetClicked}
+        >
+          Reset
+        </Button>
       </Box>
-      <Button
-        className={classes.resetButton}
-        variant="contained"
-        onClick={onResetClicked}
-      >
-        Reset
-      </Button>
+      <PrimalStormContent />
     </Box>
   );
 };

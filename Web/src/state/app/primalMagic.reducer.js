@@ -7,7 +7,10 @@ import {
   activePrimalEventsInitialState,
   activePrimalEventsReducers,
 } from '../activePrimalEvents/activePrimalEventsState';
-import { primalStormInitialState } from '../primalStorm/primalStormState';
+import {
+  primalStormInitialState,
+  primalStormStateReducers,
+} from '../primalStorm/primalStormState';
 import {
   triggerDialogInitialState,
   triggerDialogStateReducers,
@@ -84,6 +87,7 @@ const PrimalMagicReducer = createReducer(initialState, {
   ...roundsStateReducers,
   ...triggerDialogStateReducers,
   ...userSettingsStateReducers,
+  ...primalStormStateReducers,
 });
 
 export default PrimalMagicReducer;
