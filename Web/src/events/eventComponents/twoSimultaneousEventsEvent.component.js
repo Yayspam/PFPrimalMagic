@@ -1,4 +1,4 @@
-import { Box } from '@material-ui/core';
+import { Box, Divider, makeStyles, Typography } from '@material-ui/core';
 import { cyan } from '@material-ui/core/colors';
 import React, { Fragment, useState } from 'react';
 import CustomChip from '../../common/customChip.component';
@@ -10,6 +10,14 @@ import {
 import { calculateFinalRound } from '../../state/manualTrigger/manualTriggerState';
 import EventCard from '../eventCard.component';
 import { getEvent } from '../events';
+
+const useStyles = makeStyles({
+  divider: {
+    width: '100%',
+    marginTop: 10,
+    marginBottom: 10,
+  },
+});
 
 const prefixVariableKeys = (variables, prefix) => {
   let newVariables = {};
@@ -117,6 +125,7 @@ const deconstructEvent = (
 };
 
 const TwoSimultaneousEventsEvent = ({ event }) => {
+  const classes = useStyles();
   const { cr, variables, percentileRoll, startRound, finalRound } = event;
   const { result: crVal } = cr;
   const { percentileOne, percentileTwo, duration } = variables;
@@ -148,11 +157,14 @@ const TwoSimultaneousEventsEvent = ({ event }) => {
         <DurationEndChip value={isInstantaneous ? undefined : finalRound} />
       </Box>
       <Box>
+        <Typography>The following two events occur simultaneously</Typography>
+        <Divider className={classes.divider} />
         <EventCard
           event={eventOne}
           titleColour={cyan['A700']}
           onExpandToggleClicked={() => setEventOneOpen(!eventOneOpen)}
         />
+        <Divider className={classes.divider} />
         <EventCard
           event={eventTwo}
           titleColour={cyan['A700']}
