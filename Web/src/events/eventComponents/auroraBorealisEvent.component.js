@@ -1,9 +1,8 @@
 import { Typography } from '@material-ui/core';
-import React, { Fragment } from 'react';
+import React from 'react';
 import Condition from '../../common/conditionDisplay.component';
 import VM, { dist, time, willSave } from '../../common/variableMark.component';
 import { makeConstantVariable } from '../../state/activePrimalEvents/activePrimalEventsState';
-import EventCardChips from '../eventCardChips.component';
 
 export const auroraBorealis = {
   percentileMin: 55,
@@ -19,19 +18,16 @@ export const auroraBorealis = {
 const AuroraBorealisEvent = ({ event }) => {
   const { radius, duration, save } = event.variables;
   return (
-    <Fragment>
-      <EventCardChips event={event} />
-      <Typography>
-        Strange, shifting curtains of colour, akin to an aurora borealis,
-        manifest in the sky but are visible only to those in a{' '}
-        <VM v={radius} u={dist} /> radius. Every creature in this area must make
-        a <VM v={save} u={willSave} /> or become <Condition name="Dazed" /> by
-        the shifting colours <mark>for 1 round</mark>. The colours persist for{' '}
-        <VM v={duration} u={time} />. Creatures must make a{' '}
-        <mark>new save each round</mark> to avoid becoming dazed. This is a
-        mind-affecting effect.
-      </Typography>
-    </Fragment>
+    <Typography>
+      Strange, shifting curtains of colour, akin to an aurora borealis, manifest
+      in the sky but are visible only to those in a <VM v={radius} u={dist} />{' '}
+      radius. Every creature in this area must make a{' '}
+      <VM v={save} u={willSave} /> or become <Condition name="Dazed" /> by the
+      shifting colours <mark>for 1 round</mark>. The colours persist for{' '}
+      <VM v={duration} u={time} />. Creatures must make a{' '}
+      <mark>new save each round</mark> to avoid becoming dazed. This is a
+      mind-affecting effect.
+    </Typography>
   );
 };
 

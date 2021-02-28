@@ -1,5 +1,5 @@
 import { Typography } from '@material-ui/core';
-import React, { Fragment } from 'react';
+import React from 'react';
 import { objectToArrayString } from '../../common/utils';
 import VM, {
   dist,
@@ -10,7 +10,6 @@ import {
   makeConstantVariable,
   makeVariable,
 } from '../../state/activePrimalEvents/activePrimalEventsState';
-import EventCardChips from '../eventCardChips.component';
 
 export const energyStorm = {
   percentileMin: 69,
@@ -51,16 +50,13 @@ const handleEnergyType = {
 const EnergyStormEvent = ({ event }) => {
   const { energyType, radius, damage, duration, save } = event.variables;
   return (
-    <Fragment>
-      <EventCardChips event={event} />
-      <Typography>
-        A storm of <VM v={energyType} h={handleEnergyType} /> sweeps through a{' '}
-        <VM v={radius} u={dist} /> radius spread. Each round, the storm inflicts{' '}
-        <VM v={damage} /> points of damage; a <VM v={save} u={reflexSave} />{' '}
-        halves the damage done. The storm persists for{' '}
-        <VM v={duration} u={time} />
-      </Typography>
-    </Fragment>
+    <Typography>
+      A storm of <VM v={energyType} h={handleEnergyType} /> sweeps through a{' '}
+      <VM v={radius} u={dist} /> radius spread. Each round, the storm inflicts{' '}
+      <VM v={damage} /> points of damage; a <VM v={save} u={reflexSave} />{' '}
+      halves the damage done. The storm persists for{' '}
+      <VM v={duration} u={time} />
+    </Typography>
   );
 };
 

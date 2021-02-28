@@ -3,7 +3,8 @@ import React from 'react';
 
 const useStyles = makeStyles({
   chip: {
-    margin: 2,
+    marginRight: 2,
+    backgroundColor: 'white',
   },
 });
 

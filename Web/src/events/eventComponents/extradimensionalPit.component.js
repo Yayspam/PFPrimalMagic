@@ -1,9 +1,8 @@
 import { Typography } from '@material-ui/core';
-import React, { Fragment } from 'react';
+import React from 'react';
 import Spell from '../../common/spellDisplay.component';
 import VM, { dist, reflexSave } from '../../common/variableMark.component';
 import { makeConstantVariable } from '../../state/activePrimalEvents/activePrimalEventsState';
-import EventCardChips from '../eventCardChips.component';
 
 export const extradimensionalPit = {
   percentileMin: 23,
@@ -24,21 +23,18 @@ export const extradimensionalPit = {
 const ExtradimensionalPitEvent = ({ event }) => {
   const { depth, duration, casterLevel, save } = event.variables;
   return (
-    <Fragment>
-      <EventCardChips event={event} />
-      <Typography>
-        A circular pit opens under the feet of a random target. The pit creates
-        an extradimensional space in the gorund, not an actual pit. The pit is{' '}
-        <VM v={depth} u={dist} />, but otherwise functions as the{' '}
-        <Spell
-          name="Create Pit"
-          casterLevel={casterLevel}
-          save={save}
-          saveType={reflexSave}
-          duration={duration}
-        />
-      </Typography>
-    </Fragment>
+    <Typography>
+      A circular pit opens under the feet of a random target. The pit creates an
+      extradimensional space in the gorund, not an actual pit. The pit is{' '}
+      <VM v={depth} u={dist} />, but otherwise functions as the{' '}
+      <Spell
+        name="Create Pit"
+        casterLevel={casterLevel}
+        save={save}
+        saveType={reflexSave}
+        duration={duration}
+      />
+    </Typography>
   );
 };
 

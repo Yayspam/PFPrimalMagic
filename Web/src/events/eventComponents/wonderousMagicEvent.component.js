@@ -1,12 +1,11 @@
 import { Typography } from '@material-ui/core';
-import React, { Fragment } from 'react';
+import React from 'react';
 import AonLink from '../../common/linkDisplay.component';
 import VM from '../../common/variableMark.component';
 import {
   makeConstantVariable,
   makeVariable,
 } from '../../state/activePrimalEvents/activePrimalEventsState';
-import EventCardChips from '../eventCardChips.component';
 import {
   getRodOfWonderComponent,
   getRodResult,
@@ -48,21 +47,18 @@ const WonderousMagicEvent = ({ event }) => {
   const rodComponent = getRodOfWonderComponent(rodResult, variables);
 
   return (
-    <Fragment>
-      <EventCardChips event={event} />
-      <Typography>
-        Choose two random creatures in the area, then randomly pick one to be
-        the &quot;wielder&quot; and one to be the &quot;target&quot;. A roll of{' '}
-        <VM v={rodOfWonderPercentile} /> on the{' '}
-        <AonLink
-          name="Rod of Wonder table"
-          link="https://aonprd.com/MagicRodsDisplay.aspx?FinalName=Rod%20of%20Wonder"
-        />{' '}
-        has determined the strange effect that occurs between these two
-        creatures: <br /> <br />
-        {rodComponent}
-      </Typography>
-    </Fragment>
+    <Typography>
+      Choose two random creatures in the area, then randomly pick one to be the
+      &quot;wielder&quot; and one to be the &quot;target&quot;. A roll of{' '}
+      <VM v={rodOfWonderPercentile} /> on the{' '}
+      <AonLink
+        name="Rod of Wonder table"
+        link="https://aonprd.com/MagicRodsDisplay.aspx?FinalName=Rod%20of%20Wonder"
+      />{' '}
+      has determined the strange effect that occurs between these two creatures:{' '}
+      <br /> <br />
+      {rodComponent}
+    </Typography>
   );
 };
 

@@ -1,12 +1,11 @@
 import { Typography } from '@material-ui/core';
-import React, { Fragment } from 'react';
+import React from 'react';
 import { objectToArrayString } from '../../common/utils';
 import VM, { time } from '../../common/variableMark.component';
 import {
   makeConstantVariable,
   makeVariable,
 } from '../../state/activePrimalEvents/activePrimalEventsState';
-import EventCardChips from '../eventCardChips.component';
 
 export const catchyMusic = {
   percentileMin: 11,
@@ -40,17 +39,14 @@ const handleChant = {
 const CatchyMusicEvent = ({ event }) => {
   const { duration, chantType } = event.variables;
   return (
-    <Fragment>
-      <EventCardChips event={event} />
-      <Typography>
-        Strange music fills the air for <VM v={duration} u={time} />. The music
-        reminds you of <VM v={chantType} h={handleChant} />. Those who hear the
-        music are instilled with a strong urge to sing or dance along. A
-        creature who does so gains a{' '}
-        <mark>+2 morale bonus on attack rolls and saving throws</mark> for the
-        duration of the music. heads in the direction of the Pit of Gormuz.
-      </Typography>
-    </Fragment>
+    <Typography>
+      Strange music fills the air for <VM v={duration} u={time} />. The music
+      reminds you of <VM v={chantType} h={handleChant} />. Those who hear the
+      music are instilled with a strong urge to sing or dance along. A creature
+      who does so gains a{' '}
+      <mark>+2 morale bonus on attack rolls and saving throws</mark> for the
+      duration of the music. heads in the direction of the Pit of Gormuz.
+    </Typography>
   );
 };
 

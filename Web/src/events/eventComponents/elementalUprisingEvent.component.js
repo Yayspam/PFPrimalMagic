@@ -1,11 +1,10 @@
 import { Typography } from '@material-ui/core';
-import React, { Fragment } from 'react';
+import React from 'react';
 import VM from '../../common/variableMark.component';
 import {
   makeConstantVariable,
   makeVariable,
 } from '../../state/activePrimalEvents/activePrimalEventsState';
-import EventCardChips from '../eventCardChips.component';
 
 export const elementalUprising = {
   percentileMin: 49,
@@ -29,16 +28,13 @@ const handleElementals = {
 const ElementalUprisingEvent = ({ event }) => {
   const { elementalCount } = event.variables;
   return (
-    <Fragment>
-      <EventCardChips event={event} />
-      <Typography>
-        The enviroment suddenly springs to life and attacks all{' '}
-        <mark>non-elemental creatures</mark> in the immediate area. This is an
-        encounter with <VM v={elementalCount} h={handleElementals} /> drawn from
-        the surroundings with mix of elementals that equals the CR of the primal
-        magic event.
-      </Typography>
-    </Fragment>
+    <Typography>
+      The enviroment suddenly springs to life and attacks all{' '}
+      <mark>non-elemental creatures</mark> in the immediate area. This is an
+      encounter with <VM v={elementalCount} h={handleElementals} /> drawn from
+      the surroundings with mix of elementals that equals the CR of the primal
+      magic event.
+    </Typography>
   );
 };
 

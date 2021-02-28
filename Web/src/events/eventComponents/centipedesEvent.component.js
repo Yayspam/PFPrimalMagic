@@ -1,11 +1,10 @@
 import { Typography } from '@material-ui/core';
-import React, { Fragment } from 'react';
+import React from 'react';
 import VM from '../../common/variableMark.component';
 import {
   makeConstantVariable,
   makeVariable,
 } from '../../state/activePrimalEvents/activePrimalEventsState';
-import EventCardChips from '../eventCardChips.component';
 
 export const centipedes = {
   percentileMin: 7,
@@ -29,17 +28,14 @@ const handleCentipedes = {
 const CentipedesEvent = ({ event }) => {
   const { centipedeCount } = event.variables;
   return (
-    <Fragment>
-      <EventCardChips event={event} />
-      <Typography>
-        <VM v={centipedeCount} h={handleCentipedes} /> appear in the area. These
-        centipedes <mark>ignore non-spellcasters</mark> and attack only
-        creatures capable of casting spells or using spell-like abilities. This
-        encounter should be a mix of centipedes that equals the CR of the primal
-        magic event. The corpses of any slaind centipedes pivot their heads in
-        the direction of the Pit of Gormuz.
-      </Typography>
-    </Fragment>
+    <Typography>
+      <VM v={centipedeCount} h={handleCentipedes} /> appear in the area. These
+      centipedes <mark>ignore non-spellcasters</mark> and attack only creatures
+      capable of casting spells or using spell-like abilities. This encounter
+      should be a mix of centipedes that equals the CR of the primal magic
+      event. The corpses of any slaind centipedes pivot their heads in the
+      direction of the Pit of Gormuz.
+    </Typography>
   );
 };
 

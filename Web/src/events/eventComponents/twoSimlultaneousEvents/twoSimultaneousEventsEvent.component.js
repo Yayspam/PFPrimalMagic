@@ -1,8 +1,6 @@
 import { Box, Divider, makeStyles, Typography } from '@material-ui/core';
 import { cyan } from '@material-ui/core/colors';
-import React, { Fragment, useState } from 'react';
-import CustomChip from '../../../common/customChip.component';
-import DurationEndChip from '../../../common/durationChip.component';
+import React, { useState } from 'react';
 import {
   makeConstantVariable,
   makeLimitedVariable,
@@ -126,10 +124,7 @@ const deconstructEvent = (
 
 const TwoSimultaneousEventsEvent = ({ event }) => {
   const classes = useStyles();
-  const { cr, variables, percentileRoll, startRound, finalRound } = event;
-  const { result: crVal } = cr;
-  const { percentileOne, percentileTwo, duration } = variables;
-  const isInstantaneous = duration.result === 0;
+  const { percentileOne, percentileTwo } = event.variables;
 
   const [eventOneOpen, setEventOneOpen] = useState(true);
   const [eventTwoOpen, setEventTwoOpen] = useState(true);
@@ -137,43 +132,35 @@ const TwoSimultaneousEventsEvent = ({ event }) => {
     event,
     eventOneOpen,
     percentileOne.result,
-    variables,
+    event.variables,
     'one'
   );
   const eventTwo = deconstructEvent(
     event,
     eventTwoOpen,
     percentileTwo.result,
-    variables,
+    event.variables,
     'two'
   );
 
   return (
-    <Fragment>
-      <Box>
-        <CustomChip label="d%" value={percentileRoll} />
-        <CustomChip label="CR" value={crVal} />
-        <CustomChip label="Start" value={startRound} />
-        <DurationEndChip value={isInstantaneous ? undefined : finalRound} />
-      </Box>
-      <Box>
-        <Typography>The following two events occur simultaneously</Typography>
-        <Divider className={classes.divider} />
-        <EventCard
-          event={eventOne}
-          titleColour={cyan['A700']}
-          onExpandToggleClicked={() => setEventOneOpen(!eventOneOpen)}
-          getEventCardContent={getLimitedEventCardContent}
-        />
-        <Divider className={classes.divider} />
-        <EventCard
-          event={eventTwo}
-          titleColour={cyan['A700']}
-          onExpandToggleClicked={() => setEventTwoOpen(!eventTwoOpen)}
-          getEventCardContent={getLimitedEventCardContent}
-        />
-      </Box>
-    </Fragment>
+    <Box>
+      <Typography>The following two events occur simultaneously</Typography>
+      <Divider className={classes.divider} />
+      <EventCard
+        event={eventOne}
+        titleColour={cyan['A700']}
+        onExpandToggleClicked={() => setEventOneOpen(!eventOneOpen)}
+        getEventCardContent={getLimitedEventCardContent}
+      />
+      <Divider className={classes.divider} />
+      <EventCard
+        event={eventTwo}
+        titleColour={cyan['A700']}
+        onExpandToggleClicked={() => setEventTwoOpen(!eventTwoOpen)}
+        getEventCardContent={getLimitedEventCardContent}
+      />
+    </Box>
   );
 };
 

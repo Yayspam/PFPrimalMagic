@@ -1,12 +1,11 @@
 import { Typography } from '@material-ui/core';
-import React, { Fragment } from 'react';
+import React from 'react';
 import Spell from '../../common/spellDisplay.component';
 import VM, { willSave } from '../../common/variableMark.component';
 import {
   makeConstantVariable,
   makeVariable,
 } from '../../state/activePrimalEvents/activePrimalEventsState';
-import EventCardChips from '../eventCardChips.component';
 
 export const harm = {
   percentileMin: 33,
@@ -23,19 +22,16 @@ export const harm = {
 const HarmEvent = ({ event }) => {
   const { casterLevel, creaturesAffected, save } = event.variables;
   return (
-    <Fragment>
-      <EventCardChips event={event} />
-      <Typography>
-        Negative energy affects <VM v={creaturesAffected} /> nearby creatures.
-        These creatures are affected by a{' '}
-        <Spell
-          name="Harm"
-          casterLevel={casterLevel}
-          save={save}
-          saveType={willSave}
-        />
-      </Typography>
-    </Fragment>
+    <Typography>
+      Negative energy affects <VM v={creaturesAffected} /> nearby creatures.
+      These creatures are affected by a{' '}
+      <Spell
+        name="Harm"
+        casterLevel={casterLevel}
+        save={save}
+        saveType={willSave}
+      />
+    </Typography>
   );
 };
 
