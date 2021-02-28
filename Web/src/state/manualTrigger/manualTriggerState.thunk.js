@@ -34,11 +34,13 @@ export const generateDialogEvent = (
   eventAlwaysSelected,
   rodOfWonderResultAlwaysSelected
 ) => {
+  const crVal = cr.result ?? cr;
+  const crVar = cr.result ? cr : makeConstantVariable(cr, 'CR = CL');
   const correspondingEvent = eventAlwaysSelected
     ? getEventByTitle(eventAlwaysSelected)
     : getEvent(percentile);
   const variables = correspondingEvent.createVariables(
-    cr,
+    crVal,
     rodOfWonderResultAlwaysSelected
   );
 
@@ -51,7 +53,7 @@ export const generateDialogEvent = (
     percentileRoll: eventAlwaysSelected
       ? correspondingEvent.percentileMin
       : percentile,
-    cr: makeConstantVariable(cr),
+    cr: crVar,
     startRound,
     finalRound,
     variables,

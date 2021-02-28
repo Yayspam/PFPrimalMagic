@@ -33,6 +33,7 @@ import {
   rerollDialogPrimalEventThunk,
   rerollDialogPrimalEventVariablesThunk,
 } from '../state/triggerDialog/triggerDialogState.thunk';
+import VM from '../common/variableMark.component';
 
 const getBackgroundColour = isManualTrigger =>
   isManualTrigger ? manualTriggerHeader : primalStormHeader;
@@ -142,7 +143,9 @@ const PrimalEventDialog = () => {
         )}
         {showEventContent && (
           <Fragment>
-            <Typography>CR: {cr}</Typography>
+            <Typography>
+              CR: <VM v={currentEvent.cr} />
+            </Typography>
           </Fragment>
         )}
         {showEventContent && (

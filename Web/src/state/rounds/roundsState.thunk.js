@@ -4,6 +4,7 @@
 
 import { wonderousMagic } from '../../events/eventComponents/wonderousMagicEvent.component';
 import { rollD, rollPercentile } from '../../random';
+import { makeVariable } from '../activePrimalEvents/activePrimalEventsState';
 import { generateDialogEvent } from '../manualTrigger/manualTriggerState.thunk';
 import {
   primalStormStateSelector,
@@ -54,14 +55,14 @@ export const advanceRoundThunk = () => (dispatch, getState) => {
   let newChance = Math.min(maximumChance, currentChance + chanceIncrement);
 
   const percentile = rollPercentile();
-  const currentCr = rollD(3) + 11; // 1d3+11 = CR (between 12 and 14);
+  const currentCrVariable = makeVariable(3, 1, 11); // 1d3+11 = CR (between 12 and 14);
 
   const dialogState = {
     ...triggerDialogInitialState,
     open: true,
     triggerType: stormTrigerType,
     percentile,
-    cr: currentCr,
+    cr: currentCrVariable.result,
     threshold: newChance,
   };
 
@@ -86,7 +87,7 @@ export const advanceRoundThunk = () => (dispatch, getState) => {
     const eventPercentile = rollPercentile();
     const event = generateDialogEvent(
       eventPercentile,
-      currentCr,
+      currentCrVariable,
       currentRound,
       eventAlwaysSelected,
       rodOfWonderResultAlwaysSelected
