@@ -166,11 +166,15 @@ const UserSettings = () => {
                   value={eventAlwaysSelected}
                   onChange={sameEventSelected}
                 >
-                  {events.map(event => (
-                    <MenuItem key={event.title} value={event.title}>
-                      {event.title}
-                    </MenuItem>
-                  ))}
+                  {events
+                    .sort((a, b) => a.percentileMin - b.percentileMin)
+                    .sort((a, b) => a.table - b.table)
+                    .map(event => (
+                      <MenuItem key={event.title} value={event.title}>
+                        Table {event.table}, {event.percentileMin}-
+                        {event.percentileMax}% - {event.title}
+                      </MenuItem>
+                    ))}
                 </Select>
               }
             />
