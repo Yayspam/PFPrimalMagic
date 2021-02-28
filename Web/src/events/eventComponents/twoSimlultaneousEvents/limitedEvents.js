@@ -2,15 +2,27 @@ import React from 'react';
 import AuroraBorealisEvent, {
   auroraBorealis,
 } from '../auroraBorealisEvent.component';
+import BlackTentaclesEvent, {
+  blackTentacles,
+} from '../blackTentaclesEvent.component';
+import BoomingCannonsEvent, {
+  boomingCannons,
+} from '../boomingCannonsEvent.component';
 import CatchyMusicEvent, { catchyMusic } from '../catchyMusicEvent.component';
 import CentipedesEvent, { centipedes } from '../centipedesEvent.component';
 import ColourDrainEvent, { colourDrain } from '../colourDrainEvent.component';
+import ElementalGrudgeEvent, {
+  elementalGrudge,
+} from '../elementalGrudgeEvent.component';
 import ElementalUprisingEvent, {
   elementalUprising,
 } from '../elementalUprisingEvent.component';
 import EnantiomaticSelfEvent, {
   enantiomaticSelf,
 } from '../enantiomaticSelfEvent.component';
+import EnergeticTouchEvent, {
+  energeticTouch,
+} from '../energeticTouchEvent.component';
 import EnergyStormEvent, { energyStorm } from '../energyStormEvent.component';
 import ExtradimensionalPitEvent, {
   extradimensionalPit,
@@ -20,10 +32,15 @@ import ForgeOfCriticalsEvent, {
 } from '../forgeOfCriticals.component';
 import HarmEvent, { harm } from '../harmEvent.component';
 import HealEvent, { heal } from '../healEvent.component';
+import IcyDreadEvent, { icyDread } from '../icyDread.component';
 import MagicJarEvent, { magicJar } from '../magicJarEvent.component';
+import MagneticFieldEvent, {
+  magneticField,
+} from '../magneticFieldEvent.component';
 import MassDelusionEvent, {
   massDelusion,
 } from '../massDelusionEvent.component';
+import OrbOfGreaseEvent, { orbOfGrease } from '../orbOfGreaseEvent.component';
 import RainOfSmallObjectsEvent, {
   rainOfSmallObjects,
 } from '../rainOfSmallObjectsEvent.component';
@@ -36,6 +53,9 @@ import TrippingTelekinesisEvent, {
 import UtterDarknessEvent, {
   utterDarkness,
 } from '../utterDarknessEvent.component';
+import WeightlessnessEvent, {
+  weightlessness,
+} from '../weightlessnessEvent.component';
 import WonderousMagicEvent, {
   wonderousMagic,
 } from '../wonderousMagicEvent.component';
@@ -120,6 +140,38 @@ export const getLimitedEventCardContent = event => {
     return <ForgeOfCriticalsEvent event={event} />;
   }
 
+  if (event.title === blackTentacles.title) {
+    return <BlackTentaclesEvent event={event} />;
+  }
+
+  if (event.title === boomingCannons.title) {
+    return <BoomingCannonsEvent event={event} />;
+  }
+
+  if (event.title === magneticField.title) {
+    return <MagneticFieldEvent event={event} />;
+  }
+
+  if (event.title === energeticTouch.title) {
+    return <EnergeticTouchEvent event={event} />;
+  }
+
+  if (event.title === weightlessness.title) {
+    return <WeightlessnessEvent event={event} />;
+  }
+
+  if (event.title === icyDread.title) {
+    return <IcyDreadEvent event={event} />;
+  }
+
+  if (event.title === elementalGrudge.title) {
+    return <ElementalGrudgeEvent event={event} />;
+  }
+
+  if (event.title === orbOfGrease.title) {
+    return <OrbOfGreaseEvent event={event} />;
+  }
+
   return <div>UNKNOWN EVENT {event.title}</div>;
 };
 
@@ -143,6 +195,14 @@ export const limitedEvents = [
   teleportationStorm,
   magicJar,
   forgeOfCriticals,
+  blackTentacles,
+  boomingCannons,
+  magneticField,
+  energeticTouch,
+  weightlessness,
+  icyDread,
+  elementalGrudge,
+  orbOfGrease,
 ];
 
 export const getLimitedEvent = (percentileRoll, tableRoll) => {

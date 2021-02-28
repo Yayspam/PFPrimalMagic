@@ -1,9 +1,9 @@
 import { Box } from '@material-ui/core';
-import React from 'react';
-import CrChip from '../common/crChip.component';
+import React, { Fragment } from 'react';
 import CustomChip from '../common/customChip.component';
 import DurationEndChip from '../common/durationChip.component';
 import { manualTriggerType } from '../state/triggerDialog/triggerDialogState';
+import VariableChip from '../common/variableChip.component';
 
 const getFinalRoundOrUndefined = (finalRound, duration) =>
   duration && !(duration?.modifier === 0 && duration.result === 0)
@@ -20,13 +20,13 @@ const EventCardChips = ({ event }) => {
     finalRound,
     triggerType,
   } = event;
-  const { duration, save } = variables;
+  const { duration, save, initiative } = variables;
   const finalRoundDisplay = getFinalRoundOrUndefined(finalRound, duration);
   return (
     <Box>
       <CustomChip label="Table" value={tableRoll} />
       <CustomChip label="d%" value={percentileRoll} />
-      <CrChip crVariable={cr} />
+      <VariableChip label="CR" variable={cr} />
       <CustomChip label="Start" value={startRound} />
       <DurationEndChip value={finalRoundDisplay} />
       {save && <CustomChip label={save?.type ?? 'Save'} value={save.result} />}
@@ -34,7 +34,10 @@ const EventCardChips = ({ event }) => {
         (triggerType === manualTriggerType ? (
           <CustomChip label="Manual Event" />
         ) : (
-          <CustomChip label="Storm Event" />
+          <Fragment>
+            <CustomChip label="Storm Event" />
+            <VariableChip label="Init" variable={initiative} />
+          </Fragment>
         ))}
     </Box>
   );

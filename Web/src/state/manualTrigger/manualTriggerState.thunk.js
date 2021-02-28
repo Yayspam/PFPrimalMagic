@@ -3,6 +3,7 @@ import { getEvent, getEventByTitle } from '../../events/events';
 import { rollPercentile, rollTableDice } from '../../random';
 import {
   makeConstantVariable,
+  makeVariable,
   primalEventInitialState,
 } from '../activePrimalEvents/activePrimalEventsState';
 import { currentRoundSelector } from '../rounds/roundsState';
@@ -27,6 +28,15 @@ export const calculateFinalRound = (durationVariable, startRound) => {
     : startRound + durationInRounds;
 };
 
+export const generateEventVariablesWithDefaults = (
+  event,
+  crVal,
+  rodOfWonderResultAlwaysSelected
+) => ({
+  ...event.createVariables(crVal, rodOfWonderResultAlwaysSelected),
+  initiative: makeVariable(20, 1, 5),
+});
+
 export const generateDialogEvent = (
   percentile,
   tableRoll,
@@ -41,7 +51,8 @@ export const generateDialogEvent = (
   const correspondingEvent = eventAlwaysSelected
     ? getEventByTitle(eventAlwaysSelected)
     : getEvent(percentile, tableRoll);
-  const variables = correspondingEvent.createVariables(
+  const variables = generateEventVariablesWithDefaults(
+    correspondingEvent,
     crVal,
     rodOfWonderResultAlwaysSelected
   );

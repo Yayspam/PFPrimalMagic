@@ -15,9 +15,18 @@ export const dist = 'DISTANCE';
 export const willSave = 'WILL_SAVE';
 export const fortSave = 'FORT_SAVE';
 export const reflexSave = 'REFLEX_SAVE';
+export const strengthCheck = 'STRENGTH_CHECK';
 export const cl = 'CASTER_LEVEL';
 export const weight = 'WEIGHT';
 export const direction = 'DIRECTION';
+export const energy = 'ENERGY';
+
+const energyTypes = {
+  1: 'acid',
+  2: 'cold',
+  3: 'electricity',
+  4: 'fire',
+};
 
 const directions = {
   1: 'north',
@@ -28,6 +37,13 @@ const directions = {
   6: 'south west',
   7: 'west',
   8: 'north west',
+};
+
+const getEnergy = variable => {
+  return {
+    value: energyTypes[variable.result],
+    unit: 'energy',
+  };
 };
 
 const getDirection = variable => {
@@ -81,9 +97,9 @@ const getDist = variable => {
   };
 };
 
-const getSave = (variable, saveType) => {
+const getSave = (variable, saveType, isCheck = false) => {
   const value = variable.result;
-  const unit = `${saveType} Save`;
+  const unit = `${saveType} ${isCheck ? 'Check' : 'Save'}`;
 
   return {
     prefix: 'DC ',
@@ -113,6 +129,10 @@ const getValues = (variable, unitType) => {
     return getSave(variable, 'Reflex');
   }
 
+  if (unitType === strengthCheck) {
+    return getSave(variable, 'Strength', true);
+  }
+
   if (unitType === cl) {
     return getCasterLevel(variable);
   }
@@ -123,6 +143,10 @@ const getValues = (variable, unitType) => {
 
   if (unitType === direction) {
     return getDirection(variable);
+  }
+
+  if (unitType === energy) {
+    return getEnergy(variable);
   }
 
   return {
@@ -138,6 +162,10 @@ export const getToolTip = (variable, unit) => {
 
   if (unit === direction) {
     return `1d8 [${variable.result}]: ${objectToArrayString(directions)}`;
+  }
+
+  if (unit === energy) {
+    return `1d4 [${variable.result}]: ${objectToArrayString(energyTypes)}`;
   }
 
   let modifier = `+ ${variable.modifier}`;
@@ -157,7 +185,7 @@ const VM = ({ v, u, h }) => {
   const { prefix, value, unit } = h?.getValues
     ? h.getValues(v)
     : getValues(v, u);
-  const toolTip = h?.getToolTip ? h.getToolTip(v) : getToolTip(v);
+  const toolTip = h?.getToolTip ? h.getToolTip(v) : getToolTip(v, u);
   return (
     <Tooltip title={toolTip} placement="left">
       <mark className={classes.mark}>

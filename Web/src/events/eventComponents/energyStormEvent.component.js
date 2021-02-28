@@ -1,8 +1,8 @@
 import { Typography } from '@material-ui/core';
 import React from 'react';
-import { objectToArrayString } from '../../common/utils';
 import VM, {
   dist,
+  energy,
   reflexSave,
   time,
 } from '../../common/variableMark.component';
@@ -17,7 +17,7 @@ export const energyStorm = {
   percentileMax: 74,
   title: 'Energy Storm',
   createVariables: cr => ({
-    energyType: makeVariable(4, 1, 0, ''), // 1d4; 1=acid, 2=cold, 3=electricity, 4=fire
+    energyType: makeVariable(4),
     radius: makeConstantVariable(cr * 5, 'CR x 5ft.'),
     damage: makeConstantVariable(cr * 2, 'CR x 2 damage'),
     duration: makeConstantVariable(cr, 'CR rounds'),
@@ -29,30 +29,11 @@ export const energyStorm = {
   }),
 };
 
-const energyTypes = {
-  1: 'acid',
-  2: 'cold',
-  3: 'electricity',
-  4: 'fire',
-};
-
-const handleEnergyType = {
-  getValues: variable => {
-    return {
-      value: energyTypes[variable.result],
-      unit: 'energy',
-    };
-  },
-  getToolTip: variable => {
-    return `1d4 [${variable.result}]: ${objectToArrayString(energyTypes)}`;
-  },
-};
-
 const EnergyStormEvent = ({ event }) => {
   const { energyType, radius, damage, duration, save } = event.variables;
   return (
     <Typography>
-      A storm of <VM v={energyType} h={handleEnergyType} /> sweeps through a{' '}
+      A storm of <VM v={energyType} u={energy} /> sweeps through a{' '}
       <VM v={radius} u={dist} /> radius spread. Each round, the storm inflicts{' '}
       <VM v={damage} /> points of damage; a <VM v={save} u={reflexSave} />{' '}
       halves the damage done. The storm persists for{' '}

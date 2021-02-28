@@ -12,6 +12,7 @@ import { specifiedCrSelector } from '../manualTrigger/manualTriggerState';
 import {
   calculateFinalRound,
   generateDialogEvent,
+  generateEventVariablesWithDefaults,
 } from '../manualTrigger/manualTriggerState.thunk';
 import { currentRoundSelector } from '../rounds/roundsState';
 import {
@@ -95,14 +96,16 @@ export const rerollDialogPrimalEventVariablesThunk = () => (
     const rodOfWonderResultAlwaysSelected = alwaysShowSameRodResult
       ? rodOfWonderAlwaysSelectedSelector(state)
       : undefined;
-    newVariables = wonderousMagic.createVariables(
-      undefined,
+    newVariables = generateEventVariablesWithDefaults(
+      wonderousMagic,
+      currentEvent.cr.result,
       rodOfWonderResultAlwaysSelected
     );
   } else if (currentEvent.title === twoSimultaneousEvents.title) {
     // Because two simultaneous events has two events inside which need variables rerolling
     // we need to completely re roll the variables object, not just each variable
-    newVariables = twoSimultaneousEvents.createVariables(
+    newVariables = generateEventVariablesWithDefaults(
+      twoSimultaneousEvents,
       currentEvent.cr.result
     );
   } else {

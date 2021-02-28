@@ -9,11 +9,10 @@ const useStyles = makeStyles({
   },
 });
 
-const CrChip = ({ crVariable }) => {
+const VariableChip = ({ label, variable }) => {
   const classes = useStyles();
-  const toolTip = getToolTip(crVariable);
-  const value = crVariable.result;
-  const label = 'CR';
+  const toolTip = getToolTip(variable);
+  const value = variable.result;
   return (
     <Chip
       className={classes.chip}
@@ -29,4 +28,4 @@ const CrChip = ({ crVariable }) => {
   );
 };
 
-export default CrChip;
+export default VariableChip;
