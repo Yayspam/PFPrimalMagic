@@ -5,6 +5,7 @@ import VM, { dist, time, willSave } from '../../common/variableMark.component';
 import { makeConstantVariable } from '../../state/activePrimalEvents/activePrimalEventsState';
 
 export const colourDrain = {
+  table: 1,
   percentileMin: 1,
   percentileMax: 6,
   title: 'Colour Drain',

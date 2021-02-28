@@ -4,6 +4,7 @@ import VM, { dist, time } from '../../common/variableMark.component';
 import { makeConstantVariable } from '../../state/activePrimalEvents/activePrimalEventsState';
 
 export const zoneOfUnluck = {
+  table: 1,
   percentileMin: 15,
   percentileMax: 18,
   title: 'Zone of Unluck',

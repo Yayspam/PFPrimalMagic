@@ -4,6 +4,7 @@ import VM, { dist } from '../../common/variableMark.component';
 import { makeConstantVariable } from '../../state/activePrimalEvents/activePrimalEventsState';
 
 export const trippingTelekinesis = {
+  table: 1,
   percentileMin: 75,
   percentileMax: 78,
   title: 'Tripping Telekinesis',

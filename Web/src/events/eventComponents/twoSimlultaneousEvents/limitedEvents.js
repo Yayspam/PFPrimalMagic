@@ -15,6 +15,9 @@ import EnergyStormEvent, { energyStorm } from '../energyStormEvent.component';
 import ExtradimensionalPitEvent, {
   extradimensionalPit,
 } from '../extradimensionalPit.component';
+import ForgeOfCriticalsEvent, {
+  forgeOfCriticals,
+} from '../forgeOfCriticals.component';
 import HarmEvent, { harm } from '../harmEvent.component';
 import HealEvent, { heal } from '../healEvent.component';
 import MagicJarEvent, { magicJar } from '../magicJarEvent.component';
@@ -113,6 +116,10 @@ export const getLimitedEventCardContent = event => {
     return <MagicJarEvent event={event} />;
   }
 
+  if (event.title === forgeOfCriticals.title) {
+    return <ForgeOfCriticalsEvent event={event} />;
+  }
+
   return <div>UNKNOWN EVENT {event.title}</div>;
 };
 
@@ -135,26 +142,20 @@ export const limitedEvents = [
   wonderousMagic,
   teleportationStorm,
   magicJar,
+  forgeOfCriticals,
 ];
 
-export const getLimitedEvent = percentileRoll => {
-  const eventsInRange = limitedEvents.filter(
-    e => percentileRoll >= e.percentileMin && percentileRoll <= e.percentileMax
-  );
+export const getLimitedEvent = (percentileRoll, tableRoll) => {
+  const eventsInRange = limitedEvents
+    .filter(e => e.table === tableRoll)
+    .filter(
+      e =>
+        percentileRoll >= e.percentileMin && percentileRoll <= e.percentileMax
+    );
 
   if (eventsInRange.length === 0) {
     return limitedEvents[0];
   }
 
   return eventsInRange[0];
-};
-
-export const getLimitedEventByTitle = title => {
-  const eventsWithTitle = limitedEvents.filter(e => e.title === title);
-
-  if (eventsWithTitle.length === 0) {
-    return limitedEvents[0];
-  }
-
-  return eventsWithTitle[0];
 };

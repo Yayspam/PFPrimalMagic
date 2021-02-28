@@ -3,6 +3,7 @@ import React from 'react';
 import { makeConstantVariable } from '../../state/activePrimalEvents/activePrimalEventsState';
 
 export const enantiomaticSelf = {
+  table: 1,
   percentileMin: 19,
   percentileMax: 22,
   title: 'Enantiomatic Self',

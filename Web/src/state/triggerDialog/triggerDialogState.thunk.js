@@ -2,7 +2,7 @@
 
 import { twoSimultaneousEvents } from '../../events/eventComponents/twoSimlultaneousEvents/twoSimultaneousEventsEvent.component';
 import { wonderousMagic } from '../../events/eventComponents/wonderousMagicEvent.component';
-import { rollPercentile } from '../../random';
+import { rollPercentile, rollTableDice } from '../../random';
 import {
   addActivePrimalEvent,
   reRollVariable,
@@ -46,6 +46,7 @@ export const rerollDialogPrimalEventThunk = () => (dispatch, getState) => {
   const state = getState();
   const currentDialogState = triggerDialogStateSelector(state);
   const eventPercentile = rollPercentile();
+  const tableRoll = rollTableDice();
   const currentCr = specifiedCrSelector(state);
   const currentRound = currentRoundSelector(state);
   const alwaysShowSameEvent = alwaysSelectSameEventSelector(state);
@@ -59,6 +60,7 @@ export const rerollDialogPrimalEventThunk = () => (dispatch, getState) => {
       : undefined;
   const event = generateDialogEvent(
     eventPercentile,
+    tableRoll,
     currentCr,
     currentRound,
     eventAlwaysSelected,

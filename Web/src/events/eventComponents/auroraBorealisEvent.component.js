@@ -5,6 +5,7 @@ import VM, { dist, time, willSave } from '../../common/variableMark.component';
 import { makeConstantVariable } from '../../state/activePrimalEvents/activePrimalEventsState';
 
 export const auroraBorealis = {
+  table: 1,
   percentileMin: 55,
   percentileMax: 62,
   title: 'Aurora Borealis',

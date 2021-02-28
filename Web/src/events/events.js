@@ -17,10 +17,13 @@ export const getEventCardContent = event => {
 
 export const events = [...limitedEvents, twoSimultaneousEvents];
 
-export const getEvent = percentileRoll => {
-  const eventsInRange = events.filter(
-    e => percentileRoll >= e.percentileMin && percentileRoll <= e.percentileMax
-  );
+export const getEvent = (percentileRoll, tableRoll) => {
+  const eventsInRange = events
+    .filter(e => e.table === tableRoll)
+    .filter(
+      e =>
+        percentileRoll >= e.percentileMin && percentileRoll <= e.percentileMax
+    );
 
   if (eventsInRange.length === 0) {
     return events[0];

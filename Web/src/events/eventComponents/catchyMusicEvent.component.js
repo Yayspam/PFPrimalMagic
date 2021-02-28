@@ -8,6 +8,7 @@ import {
 } from '../../state/activePrimalEvents/activePrimalEventsState';
 
 export const catchyMusic = {
+  table: 1,
   percentileMin: 11,
   percentileMax: 14,
   title: 'Catchy Music',

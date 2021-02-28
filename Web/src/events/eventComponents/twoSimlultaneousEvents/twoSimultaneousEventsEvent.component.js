@@ -1,6 +1,7 @@
 import { Box, Divider, makeStyles, Typography } from '@material-ui/core';
 import { cyan } from '@material-ui/core/colors';
 import React, { useState } from 'react';
+import { rollTableDice } from '../../../random';
 import {
   makeConstantVariable,
   makeLimitedVariable,
@@ -63,21 +64,24 @@ const longestDuration = (firstVars, secondVars) => {
 };
 
 export const twoSimultaneousEvents = {
+  table: 1,
   percentileMin: 99,
   percentileMax: 100,
   title: 'Two Simultaneous Events',
   createVariables: cr => {
     // Never allow either simultaneous event to be another two simultaneous events
     const percentileOne = makeLimitedVariable(100, 98);
+    const tableOne = rollTableDice();
     const percentileTwo = makeLimitedVariable(100, 98);
+    const tableTwo = rollTableDice();
 
-    const eventOne = getLimitedEvent(percentileOne.result);
+    const eventOne = getLimitedEvent(percentileOne.result, tableOne);
     const eventOneVariables = prefixVariableKeys(
       eventOne.createVariables(cr),
       'one'
     );
 
-    const eventTwo = getLimitedEvent(percentileTwo.result);
+    const eventTwo = getLimitedEvent(percentileTwo.result, tableTwo);
     const eventTwoVariables = prefixVariableKeys(
       eventTwo.createVariables(cr),
       'two'

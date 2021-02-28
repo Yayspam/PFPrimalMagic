@@ -8,6 +8,7 @@ import {
 } from '../../state/activePrimalEvents/activePrimalEventsState';
 
 export const heal = {
+  table: 1,
   percentileMin: 33,
   percentileMax: 38,
   title: 'Heal',

@@ -5,6 +5,7 @@ import VM, { dist } from '../../common/variableMark.component';
 import { makeConstantVariable } from '../../state/activePrimalEvents/activePrimalEventsState';
 
 export const utterDarkness = {
+  table: 1,
   percentileMin: 45,
   percentileMax: 48,
   title: 'Utter Darkness',

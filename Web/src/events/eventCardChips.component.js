@@ -15,6 +15,7 @@ const EventCardChips = ({ event }) => {
     cr,
     variables,
     percentileRoll,
+    tableRoll,
     startRound,
     finalRound,
     triggerType,
@@ -23,6 +24,7 @@ const EventCardChips = ({ event }) => {
   const finalRoundDisplay = getFinalRoundOrUndefined(finalRound, duration);
   return (
     <Box>
+      <CustomChip label="Table" value={tableRoll} />
       <CustomChip label="d%" value={percentileRoll} />
       <CrChip crVariable={cr} />
       <CustomChip label="Start" value={startRound} />

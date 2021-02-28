@@ -4,6 +4,7 @@ import VM, { dist, time } from '../../common/variableMark.component';
 import { makeConstantVariable } from '../../state/activePrimalEvents/activePrimalEventsState';
 
 export const rainOfSmallObjects = {
+  table: 1,
   percentileMin: 27,
   percentileMax: 32,
   title: 'Rain of Small Objects',

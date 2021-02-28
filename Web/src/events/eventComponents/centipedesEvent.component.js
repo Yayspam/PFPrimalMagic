@@ -7,6 +7,7 @@ import {
 } from '../../state/activePrimalEvents/activePrimalEventsState';
 
 export const centipedes = {
+  table: 1,
   percentileMin: 7,
   percentileMax: 10,
   title: 'Centipedes',

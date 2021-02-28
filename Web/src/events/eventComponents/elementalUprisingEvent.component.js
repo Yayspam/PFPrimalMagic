@@ -7,6 +7,7 @@ import {
 } from '../../state/activePrimalEvents/activePrimalEventsState';
 
 export const elementalUprising = {
+  table: 1,
   percentileMin: 49,
   percentileMax: 54,
   title: 'Elemental Uprising',

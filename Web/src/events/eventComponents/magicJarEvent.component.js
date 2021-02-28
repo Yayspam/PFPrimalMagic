@@ -9,6 +9,7 @@ import {
 } from '../../state/activePrimalEvents/activePrimalEventsState';
 
 export const magicJar = {
+  table: 1,
   percentileMin: 95,
   percentileMax: 98,
   title: 'Magic Jar',

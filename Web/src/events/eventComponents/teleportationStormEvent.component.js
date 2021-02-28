@@ -12,6 +12,7 @@ import {
 } from '../../state/activePrimalEvents/activePrimalEventsState';
 
 export const teleportationStorm = {
+  table: 1,
   percentileMin: 89,
   percentileMax: 94,
   title: 'Teleportation Storm',

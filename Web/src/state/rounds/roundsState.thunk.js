@@ -1,5 +1,5 @@
 import { wonderousMagic } from '../../events/eventComponents/wonderousMagicEvent.component';
-import { rollPercentile } from '../../random';
+import { rollPercentile, rollTableDice } from '../../random';
 import { makeVariable } from '../activePrimalEvents/activePrimalEventsState';
 import { generateDialogEvent } from '../manualTrigger/manualTriggerState.thunk';
 import {
@@ -77,8 +77,10 @@ export const advanceRoundThunk = () => (dispatch, getState) => {
         : undefined;
 
     const eventPercentile = rollPercentile();
+    const tableRoll = rollTableDice();
     const event = generateDialogEvent(
       eventPercentile,
+      tableRoll,
       currentCrVariable,
       currentRound,
       eventAlwaysSelected,

@@ -12,6 +12,7 @@ import {
 } from '../../state/activePrimalEvents/activePrimalEventsState';
 
 export const energyStorm = {
+  table: 1,
   percentileMin: 69,
   percentileMax: 74,
   title: 'Energy Storm',

@@ -167,6 +167,7 @@ const PrimalEventDialog = () => {
 
   return (
     <Dialog
+      maxWidth="md"
       fullWidth
       open={open}
       onClose={

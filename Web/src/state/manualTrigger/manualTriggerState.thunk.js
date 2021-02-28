@@ -1,6 +1,6 @@
 import { wonderousMagic } from '../../events/eventComponents/wonderousMagicEvent.component';
 import { getEvent, getEventByTitle } from '../../events/events';
-import { rollPercentile } from '../../random';
+import { rollPercentile, rollTableDice } from '../../random';
 import {
   makeConstantVariable,
   primalEventInitialState,
@@ -29,6 +29,7 @@ export const calculateFinalRound = (durationVariable, startRound) => {
 
 export const generateDialogEvent = (
   percentile,
+  tableRoll,
   cr,
   startRound,
   eventAlwaysSelected,
@@ -39,7 +40,7 @@ export const generateDialogEvent = (
   const crVar = cr.result ? cr : makeConstantVariable(cr, 'CR = CL');
   const correspondingEvent = eventAlwaysSelected
     ? getEventByTitle(eventAlwaysSelected)
-    : getEvent(percentile);
+    : getEvent(percentile, tableRoll);
   const variables = correspondingEvent.createVariables(
     crVal,
     rodOfWonderResultAlwaysSelected
@@ -54,6 +55,7 @@ export const generateDialogEvent = (
     percentileRoll: eventAlwaysSelected
       ? correspondingEvent.percentileMin
       : percentile,
+    tableRoll: eventAlwaysSelected ? correspondingEvent.table : tableRoll,
     cr: crVar,
     startRound,
     finalRound,
@@ -93,8 +95,10 @@ export const manualTriggerThunk = () => (dispatch, getState) => {
         : undefined;
 
     const eventPercentile = rollPercentile();
+    const tableRoll = rollTableDice();
     const event = generateDialogEvent(
       eventPercentile,
+      tableRoll,
       currentCr,
       currentRound,
       eventAlwaysSelected,

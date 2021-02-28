@@ -5,6 +5,7 @@ import VM, { dist, reflexSave } from '../../common/variableMark.component';
 import { makeConstantVariable } from '../../state/activePrimalEvents/activePrimalEventsState';
 
 export const extradimensionalPit = {
+  table: 1,
   percentileMin: 23,
   percentileMax: 26,
   title: 'Extradimensional Pit',
@@ -25,7 +26,7 @@ const ExtradimensionalPitEvent = ({ event }) => {
   return (
     <Typography>
       A circular pit opens under the feet of a random target. The pit creates an
-      extradimensional space in the gorund, not an actual pit. The pit is{' '}
+      extradimensional space in the ground, not an actual pit. The pit is{' '}
       <VM v={depth} u={dist} />, but otherwise functions as the{' '}
       <Spell
         name="Create Pit"

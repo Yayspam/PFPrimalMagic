@@ -13,6 +13,7 @@ import {
 } from './rodOfWonderResults/rodOfWonderResults';
 
 export const wonderousMagic = {
+  table: 1,
   percentileMin: 79,
   percentileMax: 88,
   title: 'Wonderous Magic',

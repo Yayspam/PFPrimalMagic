@@ -8,6 +8,7 @@ import {
 } from '../../state/activePrimalEvents/activePrimalEventsState';
 
 export const massDelusion = {
+  table: 1,
   percentileMin: 63,
   percentileMax: 68,
   title: 'Mass Delusion',
