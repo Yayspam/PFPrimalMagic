@@ -60,6 +60,7 @@ export const primalEventInitialState = {
   finalRound: undefined,
   variables: [],
   expanded: true,
+  triggerType: undefined,
 };
 
 export const activePrimalEventsInitialState = [];

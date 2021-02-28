@@ -62,7 +62,8 @@ export const rerollDialogPrimalEventThunk = () => (dispatch, getState) => {
     currentCr,
     currentRound,
     eventAlwaysSelected,
-    rodOfWonderResultAlwaysSelected
+    rodOfWonderResultAlwaysSelected,
+    currentDialogState.triggerType
   );
   event.expanded = currentDialogState.currentEvent.expanded;
   const newDialogState = {

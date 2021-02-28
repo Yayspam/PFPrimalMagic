@@ -32,7 +32,8 @@ export const generateDialogEvent = (
   cr,
   startRound,
   eventAlwaysSelected,
-  rodOfWonderResultAlwaysSelected
+  rodOfWonderResultAlwaysSelected,
+  triggerType
 ) => {
   const crVal = cr.result ?? cr;
   const crVar = cr.result ? cr : makeConstantVariable(cr, 'CR = CL');
@@ -58,6 +59,7 @@ export const generateDialogEvent = (
     finalRound,
     variables,
     expanded: true,
+    triggerType,
   };
 };
 
@@ -96,7 +98,8 @@ export const manualTriggerThunk = () => (dispatch, getState) => {
       currentCr,
       currentRound,
       eventAlwaysSelected,
-      rodOfWonderResultAlwaysSelected
+      rodOfWonderResultAlwaysSelected,
+      dialogState.triggerType
     );
     dialogState.currentEvent = event;
   }

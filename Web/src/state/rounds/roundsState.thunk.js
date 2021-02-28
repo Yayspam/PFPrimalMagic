@@ -90,7 +90,8 @@ export const advanceRoundThunk = () => (dispatch, getState) => {
       currentCrVariable,
       currentRound,
       eventAlwaysSelected,
-      rodOfWonderResultAlwaysSelected
+      rodOfWonderResultAlwaysSelected,
+      dialogState.triggerType
     );
     dialogState.currentEvent = event;
   }
