@@ -1,13 +1,12 @@
-import { Box, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import React, { Fragment } from 'react';
-import CustomChip from '../../common/customChip.component';
-import DurationEndChip from '../../common/durationChip.component';
 import AonLink from '../../common/linkDisplay.component';
 import VM from '../../common/variableMark.component';
 import {
   makeConstantVariable,
   makeVariable,
 } from '../../state/activePrimalEvents/activePrimalEventsState';
+import EventCardChips from '../eventCardChips.component';
 import {
   getRodOfWonderComponent,
   getRodResult,
@@ -42,22 +41,15 @@ export const wonderousMagic = {
 };
 
 const WonderousMagicEvent = ({ event }) => {
-  const { cr, variables, percentileRoll, startRound, finalRound } = event;
-  const { result: crVal } = cr;
-  const { rodOfWonderPercentile, duration } = variables;
+  const { variables } = event;
+  const { rodOfWonderPercentile } = variables;
 
   const rodResult = getRodResult(rodOfWonderPercentile.result);
   const rodComponent = getRodOfWonderComponent(rodResult, variables);
-  const isInstantaneous = duration?.modifier === 0 && duration?.diceSize === 0;
 
   return (
     <Fragment>
-      <Box>
-        <CustomChip label="d%" value={percentileRoll} />
-        <CustomChip label="CR" value={crVal} />
-        <CustomChip label="Start" value={startRound} />
-        <DurationEndChip value={isInstantaneous ? undefined : finalRound} />
-      </Box>
+      <EventCardChips event={event} />
       <Typography>
         Choose two random creatures in the area, then randomly pick one to be
         the &quot;wielder&quot; and one to be the &quot;target&quot;. A roll of{' '}

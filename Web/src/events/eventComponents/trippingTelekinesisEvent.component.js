@@ -1,9 +1,8 @@
-import { Box, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import React, { Fragment } from 'react';
-import CustomChip from '../../common/customChip.component';
-import DurationEndChip from '../../common/durationChip.component';
 import VM, { dist } from '../../common/variableMark.component';
 import { makeConstantVariable } from '../../state/activePrimalEvents/activePrimalEventsState';
+import EventCardChips from '../eventCardChips.component';
 
 export const trippingTelekinesis = {
   percentileMin: 75,
@@ -17,17 +16,10 @@ export const trippingTelekinesis = {
 };
 
 const TrippingTelekinesisEvent = ({ event }) => {
-  const { cr, variables, percentileRoll, startRound } = event;
-  const { result: crVal } = cr;
-  const { radius, cmb } = variables;
+  const { radius, cmb } = event.variables;
   return (
     <Fragment>
-      <Box>
-        <CustomChip label="d%" value={percentileRoll} />
-        <CustomChip label="CR" value={crVal} />
-        <CustomChip label="Start" value={startRound} />
-        <DurationEndChip />
-      </Box>
+      <EventCardChips event={event} />
       <Typography>
         Strange telekinetic forces rip through the area, attempting to trip all
         creatures in a <VM v={radius} u={dist} /> radius. The event makes a{' '}

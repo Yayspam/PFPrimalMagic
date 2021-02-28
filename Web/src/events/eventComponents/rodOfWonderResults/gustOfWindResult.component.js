@@ -9,7 +9,7 @@ export const gustOfWind = {
   title: 'Gust of Wind',
   createVariables: () => ({
     duration: makeConstantVariable(1, '1 round'),
-    save: makeConstantVariable(14, 'DC 14 Fortitude Save'),
+    save: makeConstantVariable(14, 'DC 14 Fortitude Save', 'Fort Save'),
   }),
 };
 

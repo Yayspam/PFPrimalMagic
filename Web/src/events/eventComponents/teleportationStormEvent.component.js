@@ -1,7 +1,5 @@
-import { Box, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import React, { Fragment } from 'react';
-import CustomChip from '../../common/customChip.component';
-import DurationEndChip from '../../common/durationChip.component';
 import Spell from '../../common/spellDisplay.component';
 import VM, {
   dist,
@@ -12,6 +10,7 @@ import {
   makeConstantVariable,
   makeVariable,
 } from '../../state/activePrimalEvents/activePrimalEventsState';
+import EventCardChips from '../eventCardChips.component';
 
 export const teleportationStorm = {
   percentileMin: 89,
@@ -19,7 +18,7 @@ export const teleportationStorm = {
   title: 'Teleportation Storm',
   createVariables: cr => ({
     duration: makeConstantVariable(0),
-    save: makeConstantVariable(cr + 10, 'DC = CR + 10'),
+    save: makeConstantVariable(cr + 10, 'DC = CR + 10', 'Will Save'),
     distance: makeConstantVariable(cr * 5, 'CR x 5ft.'),
     casterLevel: makeConstantVariable(cr, 'CL = CR'),
     cardinalDirection: makeVariable(8),
@@ -27,17 +26,10 @@ export const teleportationStorm = {
 };
 
 const TeleportationStormEvent = ({ event }) => {
-  const { cr, variables, percentileRoll, startRound } = event;
-  const { result: crVal } = cr;
-  const { distance, save, casterLevel, cardinalDirection } = variables;
+  const { distance, save, casterLevel, cardinalDirection } = event.variables;
   return (
     <Fragment>
-      <Box>
-        <CustomChip label="d%" value={percentileRoll} />
-        <CustomChip label="CR" value={crVal} />
-        <CustomChip label="Start" value={startRound} />
-        <DurationEndChip />
-      </Box>
+      <EventCardChips event={event} />
       <Typography>
         A teleportation storm occurs. All creatures in the area must make a{' '}
         <VM v={save} u={willSave} />. Those who fail are teleported, as if via

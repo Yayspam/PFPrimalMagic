@@ -18,7 +18,7 @@ export const butterflyStream = {
     duration: makeConstantVariable(2, '2 rounds'),
     radius: makeConstantVariable(25, '25ft. radius'),
     butteflyCount: makeVariable(100, 2, 400),
-    save: makeConstantVariable(14, 'DC 14 Reflex Save'),
+    save: makeConstantVariable(14, 'DC 14 Reflex Save', 'Reflex Save'),
   }),
 };
 

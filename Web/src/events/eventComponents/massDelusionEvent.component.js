@@ -1,13 +1,12 @@
-import { Box, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import React, { Fragment } from 'react';
 import Condition from '../../common/conditionDisplay.component';
-import CustomChip from '../../common/customChip.component';
-import DurationEndChip from '../../common/durationChip.component';
 import VM, { willSave } from '../../common/variableMark.component';
 import {
   makeConstantVariable,
   makeVariable,
 } from '../../state/activePrimalEvents/activePrimalEventsState';
+import EventCardChips from '../eventCardChips.component';
 
 export const massDelusion = {
   percentileMin: 63,
@@ -16,22 +15,16 @@ export const massDelusion = {
   createVariables: cr => ({
     duration: makeConstantVariable(0),
     creaturesAffected: makeVariable(cr, 1, 0, '# Creatures <= CR in total'),
-    save: makeConstantVariable(cr + 10, 'Will Save DC = CR + 10'),
+    save: makeConstantVariable(cr + 10, 'Will Save DC = CR + 10', 'Will Save'),
   }),
 };
 
 const MassDelusionEvent = ({ event }) => {
-  const { cr, variables, percentileRoll, startRound } = event;
-  const { result: crVal } = cr;
+  const { cr, variables } = event;
   const { creaturesAffected, save } = variables;
   return (
     <Fragment>
-      <Box>
-        <CustomChip label="d%" value={percentileRoll} />
-        <CustomChip label="CR" value={crVal} />
-        <CustomChip label="Start" value={startRound} />
-        <DurationEndChip />
-      </Box>
+      <EventCardChips event={event} />
       <Typography>
         <VM v={creaturesAffected} /> creatures become{' '}
         <Condition name="Confused" /> unless they succeed at a{' '}

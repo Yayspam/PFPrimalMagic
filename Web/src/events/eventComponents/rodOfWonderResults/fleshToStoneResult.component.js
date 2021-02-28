@@ -9,7 +9,7 @@ export const fleshToStone = {
   title: 'Flesh to Stone',
   createVariables: () => ({
     distance: makeConstantVariable(60, '60ft. away'),
-    save: makeConstantVariable(18, 'DC 18 Fortitude'),
+    save: makeConstantVariable(18, 'DC 18 Fortitude', 'Fort Save'),
   }),
 };
 

@@ -9,13 +9,18 @@ export const variableInitialState = {
   description: undefined,
 };
 
-export const makeConstantVariable = (value, description = undefined) => ({
+export const makeConstantVariable = (
+  value,
+  description = undefined,
+  type = undefined
+) => ({
   ...variableInitialState,
   diceSize: 0,
   diceCount: 0,
   modifier: value,
   result: value,
   description,
+  type,
 });
 
 export const makeVariable = (

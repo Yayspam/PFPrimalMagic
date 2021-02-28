@@ -1,8 +1,7 @@
-import { Box, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import React, { Fragment } from 'react';
-import CustomChip from '../../common/customChip.component';
-import DurationEndChip from '../../common/durationChip.component';
 import { makeConstantVariable } from '../../state/activePrimalEvents/activePrimalEventsState';
+import EventCardChips from '../eventCardChips.component';
 
 export const enantiomaticSelf = {
   percentileMin: 19,
@@ -14,16 +13,9 @@ export const enantiomaticSelf = {
 };
 
 const EnantiomaticSelfEvent = ({ event }) => {
-  const { cr, percentileRoll, startRound } = event;
-  const { result: crVal } = cr;
   return (
     <Fragment>
-      <Box>
-        <CustomChip label="d%" value={percentileRoll} />
-        <CustomChip label="CR" value={crVal} />
-        <CustomChip label="Start" value={startRound} />
-        <DurationEndChip />
-      </Box>
+      <EventCardChips event={event} />
       <Typography>
         One creature&apos;s body and all its posessions reverse into a mirror
         image of themselves. The binding of any book in its posession is

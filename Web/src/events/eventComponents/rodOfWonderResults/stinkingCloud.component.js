@@ -10,7 +10,7 @@ export const stinkingCloud = {
   createVariables: () => ({
     duration: makeConstantVariable(10, 'Rod CL = 10; 10 rounds'),
     distance: makeConstantVariable(30, '30-foot range'),
-    save: makeConstantVariable(15, 'DC 15 Fortitude Save'),
+    save: makeConstantVariable(15, 'DC 15 Fortitude Save', 'Fort Save'),
   }),
 };
 

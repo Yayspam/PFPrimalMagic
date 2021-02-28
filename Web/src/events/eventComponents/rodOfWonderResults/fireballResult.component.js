@@ -11,7 +11,7 @@ export const fireball = {
   percentileMax: 79,
   title: 'Fireball',
   createVariables: () => ({
-    save: makeConstantVariable(15, 'DC 15 Reflex Save'),
+    save: makeConstantVariable(15, 'DC 15 Reflex Save', 'Reflex Save'),
     distance: makeConstantVariable(100, '100ft straight ahead'),
     damage: makeVariable(6, 6),
   }),

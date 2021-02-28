@@ -1,9 +1,8 @@
-import { Box, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import React, { Fragment } from 'react';
-import CustomChip from '../../common/customChip.component';
-import DurationEndChip from '../../common/durationChip.component';
 import VM, { dist, time } from '../../common/variableMark.component';
 import { makeConstantVariable } from '../../state/activePrimalEvents/activePrimalEventsState';
+import EventCardChips from '../eventCardChips.component';
 
 export const rainOfSmallObjects = {
   percentileMin: 27,
@@ -16,17 +15,10 @@ export const rainOfSmallObjects = {
 };
 
 const RainOfSmallObjectsEvent = ({ event }) => {
-  const { cr, variables, percentileRoll, startRound, finalRound } = event;
-  const { result: crVal } = cr;
-  const { radius, duration } = variables;
+  const { radius, duration } = event.variables;
   return (
     <Fragment>
-      <Box>
-        <CustomChip label="d%" value={percentileRoll} />
-        <CustomChip label="CR" value={crVal} />
-        <CustomChip label="Start" value={startRound} />
-        <DurationEndChip value={finalRound} />
-      </Box>
+      <EventCardChips event={event} />
       <Typography>
         A rain of small objects (anything from flowers to rotten fruit) pelts an
         area with a <VM v={radius} u={dist} /> radius for{' '}

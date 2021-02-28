@@ -1,10 +1,9 @@
-import { Box, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import React, { Fragment } from 'react';
-import CustomChip from '../../common/customChip.component';
-import DurationEndChip from '../../common/durationChip.component';
 import Spell from '../../common/spellDisplay.component';
 import VM, { dist } from '../../common/variableMark.component';
 import { makeConstantVariable } from '../../state/activePrimalEvents/activePrimalEventsState';
+import EventCardChips from '../eventCardChips.component';
 
 export const utterDarkness = {
   percentileMin: 45,
@@ -18,17 +17,10 @@ export const utterDarkness = {
 };
 
 const UtterDarknessEvent = ({ event }) => {
-  const { cr, variables, percentileRoll, startRound, finalRound } = event;
-  const { result: crVal } = cr;
-  const { casterLevel, radius } = variables;
+  const { casterLevel, radius } = event.variables;
   return (
     <Fragment>
-      <Box>
-        <CustomChip label="d%" value={percentileRoll} />
-        <CustomChip label="CR" value={crVal} />
-        <CustomChip label="Start" value={startRound} />
-        <DurationEndChip value={finalRound} />
-      </Box>
+      <EventCardChips event={event} />
       <Typography>
         A <VM v={radius} u={dist} /> radius area becomes utterly dark, as if
         from a <Spell name="Deeper Darkness" casterLevel={casterLevel} />

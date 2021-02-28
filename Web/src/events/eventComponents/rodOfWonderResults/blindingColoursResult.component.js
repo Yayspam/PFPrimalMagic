@@ -18,7 +18,7 @@ export const blindingColours = {
     length: makeConstantVariable(40, '40 ft. length'),
     width: makeConstantVariable(30, '30ft. width'),
     duration: makeVariable(6),
-    save: makeConstantVariable(15, 'DC 15 Fortitude Save'),
+    save: makeConstantVariable(15, 'DC 15 Fortitude Save', 'Fort Save'),
   }),
 };
 

@@ -1,10 +1,9 @@
-import { Box, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import React, { Fragment } from 'react';
 import Condition from '../../common/conditionDisplay.component';
-import CustomChip from '../../common/customChip.component';
-import DurationEndChip from '../../common/durationChip.component';
 import VM, { dist, time, willSave } from '../../common/variableMark.component';
 import { makeConstantVariable } from '../../state/activePrimalEvents/activePrimalEventsState';
+import EventCardChips from '../eventCardChips.component';
 
 export const auroraBorealis = {
   percentileMin: 55,
@@ -12,24 +11,16 @@ export const auroraBorealis = {
   title: 'Aurora Borealis',
   createVariables: cr => ({
     radius: makeConstantVariable(cr * 10, 'CR x 10ft.'),
-    save: makeConstantVariable(cr + 10, 'Will Save DC = CR + 10'),
+    save: makeConstantVariable(cr + 10, 'Will Save DC = CR + 10', 'Will Save'),
     duration: makeConstantVariable(cr, 'CR rounds'),
   }),
 };
 
 const AuroraBorealisEvent = ({ event }) => {
-  const { cr, variables, percentileRoll, startRound, finalRound } = event;
-  const { result: crVal } = cr;
-  const { radius, duration, save } = variables;
+  const { radius, duration, save } = event.variables;
   return (
     <Fragment>
-      <Box>
-        <CustomChip label="d%" value={percentileRoll} />
-        <CustomChip label="CR" value={crVal} />
-        <CustomChip label="Start" value={startRound} />
-        <DurationEndChip value={finalRound} />
-        <CustomChip label="Will Save" value={save?.result} />
-      </Box>
+      <EventCardChips event={event} />
       <Typography>
         Strange, shifting curtains of colour, akin to an aurora borealis,
         manifest in the sky but are visible only to those in a{' '}

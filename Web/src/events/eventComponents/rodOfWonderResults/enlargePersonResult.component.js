@@ -10,7 +10,7 @@ export const enlargePerson = {
   createVariables: () => ({
     duration: makeConstantVariable(10, '10 rounds'),
     distance: makeConstantVariable(60, 'within 60ft'),
-    save: makeConstantVariable(13, 'DC 13 Fortitude Save'),
+    save: makeConstantVariable(13, 'DC 13 Fortitude Save', 'Fort Save'),
   }),
 };
 

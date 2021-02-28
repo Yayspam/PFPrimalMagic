@@ -8,7 +8,7 @@ export const faerieFire = {
   title: 'Faerie Fire',
   createVariables: () => ({
     duration: makeConstantVariable(10 * 10, 'Rod CL = 10; 10 minutes'),
-    save: makeConstantVariable(15, 'DC 15 Will Save'),
+    save: makeConstantVariable(15, 'DC 15 Will Save', 'Will Save'),
   }),
 };
 

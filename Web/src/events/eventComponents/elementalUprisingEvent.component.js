@@ -1,12 +1,11 @@
-import { Box, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import React, { Fragment } from 'react';
-import CustomChip from '../../common/customChip.component';
-import DurationEndChip from '../../common/durationChip.component';
 import VM from '../../common/variableMark.component';
 import {
   makeConstantVariable,
   makeVariable,
 } from '../../state/activePrimalEvents/activePrimalEventsState';
+import EventCardChips from '../eventCardChips.component';
 
 export const elementalUprising = {
   percentileMin: 49,
@@ -28,17 +27,10 @@ const handleElementals = {
 };
 
 const ElementalUprisingEvent = ({ event }) => {
-  const { cr, variables, percentileRoll, startRound } = event;
-  const { result: crVal } = cr;
-  const { elementalCount } = variables;
+  const { elementalCount } = event.variables;
   return (
     <Fragment>
-      <Box>
-        <CustomChip label="d%" value={percentileRoll} />
-        <CustomChip label="CR" value={crVal} />
-        <CustomChip label="Start" value={startRound} />
-        <DurationEndChip />
-      </Box>
+      <EventCardChips event={event} />
       <Typography>
         The enviroment suddenly springs to life and attacks all{' '}
         <mark>non-elemental creatures</mark> in the immediate area. This is an

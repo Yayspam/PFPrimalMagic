@@ -1,14 +1,13 @@
-import { Box, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import React, { Fragment } from 'react';
 import Condition from '../../common/conditionDisplay.component';
-import CustomChip from '../../common/customChip.component';
-import DurationEndChip from '../../common/durationChip.component';
 import Spell from '../../common/spellDisplay.component';
 import VM, { time, willSave } from '../../common/variableMark.component';
 import {
   makeConstantVariable,
   makeVariable,
 } from '../../state/activePrimalEvents/activePrimalEventsState';
+import EventCardChips from '../eventCardChips.component';
 
 export const magicJar = {
   percentileMin: 95,
@@ -16,7 +15,7 @@ export const magicJar = {
   title: 'Magic Jar',
   createVariables: cr => ({
     duration: makeConstantVariable(0),
-    save: makeConstantVariable(cr + 10, 'Will Save DC = CR + 10'),
+    save: makeConstantVariable(cr + 10, 'Will Save DC = CR + 10', 'Will Save'),
     stunDuration: makeVariable(4), // 1d4 rounds stun duration
     bodySwapDuration: makeConstantVariable(cr, 'CR rounds'),
     casterLevel: makeConstantVariable(cr, 'CL = CR'),
@@ -24,17 +23,10 @@ export const magicJar = {
 };
 
 const MagicJarEvent = ({ event }) => {
-  const { cr, variables, percentileRoll, startRound } = event;
-  const { result: crVal } = cr;
-  const { save, stunDuration, bodySwapDuration, casterLevel } = variables;
+  const { save, stunDuration, bodySwapDuration, casterLevel } = event.variables;
   return (
     <Fragment>
-      <Box>
-        <CustomChip label="d%" value={percentileRoll} />
-        <CustomChip label="CR" value={crVal} />
-        <CustomChip label="Start" value={startRound} />
-        <DurationEndChip />
-      </Box>
+      <EventCardChips event={event} />
       <Typography>
         A <Spell name="Magic Jar" casterLevel={casterLevel} /> like effect
         affects two creatures. A <VM v={save} u={willSave} /> negates the

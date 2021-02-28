@@ -13,7 +13,7 @@ export const lightningBolt = {
   createVariables: () => ({
     length: makeConstantVariable(70, '70ft. long'),
     damage: makeVariable(6, 6),
-    save: makeConstantVariable(15, 'DC 15 Reflex Save'),
+    save: makeConstantVariable(15, 'DC 15 Reflex Save', 'Reflex Save'),
   }),
 };
 

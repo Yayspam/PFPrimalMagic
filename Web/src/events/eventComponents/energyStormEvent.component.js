@@ -1,7 +1,5 @@
-import { Box, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import React, { Fragment } from 'react';
-import CustomChip from '../../common/customChip.component';
-import DurationEndChip from '../../common/durationChip.component';
 import { objectToArrayString } from '../../common/utils';
 import VM, {
   dist,
@@ -12,6 +10,7 @@ import {
   makeConstantVariable,
   makeVariable,
 } from '../../state/activePrimalEvents/activePrimalEventsState';
+import EventCardChips from '../eventCardChips.component';
 
 export const energyStorm = {
   percentileMin: 69,
@@ -22,7 +21,11 @@ export const energyStorm = {
     radius: makeConstantVariable(cr * 5, 'CR x 5ft.'),
     damage: makeConstantVariable(cr * 2, 'CR x 2 damage'),
     duration: makeConstantVariable(cr, 'CR rounds'),
-    save: makeConstantVariable(cr + 10, 'Reflex Save DC = CR + 10'),
+    save: makeConstantVariable(
+      cr + 10,
+      'Reflex Save DC = CR + 10',
+      'Reflex Save'
+    ),
   }),
 };
 
@@ -46,18 +49,10 @@ const handleEnergyType = {
 };
 
 const EnergyStormEvent = ({ event }) => {
-  const { cr, variables, percentileRoll, startRound, finalRound } = event;
-  const { result: crVal } = cr;
-  const { energyType, radius, damage, duration, save } = variables;
+  const { energyType, radius, damage, duration, save } = event.variables;
   return (
     <Fragment>
-      <Box>
-        <CustomChip label="d%" value={percentileRoll} />
-        <CustomChip label="CR" value={crVal} />
-        <CustomChip label="Start" value={startRound} />
-        <DurationEndChip value={finalRound} />
-        <CustomChip label="Reflex Save" value={save?.result} />
-      </Box>
+      <EventCardChips event={event} />
       <Typography>
         A storm of <VM v={energyType} h={handleEnergyType} /> sweeps through a{' '}
         <VM v={radius} u={dist} /> radius spread. Each round, the storm inflicts{' '}

@@ -1,13 +1,12 @@
-import { Box, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import React, { Fragment } from 'react';
-import CustomChip from '../../common/customChip.component';
-import DurationEndChip from '../../common/durationChip.component';
 import { objectToArrayString } from '../../common/utils';
 import VM, { time } from '../../common/variableMark.component';
 import {
   makeConstantVariable,
   makeVariable,
 } from '../../state/activePrimalEvents/activePrimalEventsState';
+import EventCardChips from '../eventCardChips.component';
 
 export const catchyMusic = {
   percentileMin: 11,
@@ -39,17 +38,10 @@ const handleChant = {
 };
 
 const CatchyMusicEvent = ({ event }) => {
-  const { cr, variables, percentileRoll, startRound, finalRound } = event;
-  const { result: crVal } = cr;
-  const { duration, chantType } = variables;
+  const { duration, chantType } = event.variables;
   return (
     <Fragment>
-      <Box>
-        <CustomChip label="d%" value={percentileRoll} />
-        <CustomChip label="CR" value={crVal} />
-        <CustomChip label="Start" value={startRound} />
-        <DurationEndChip value={finalRound} />
-      </Box>
+      <EventCardChips event={event} />
       <Typography>
         Strange music fills the air for <VM v={duration} u={time} />. The music
         reminds you of <VM v={chantType} h={handleChant} />. Those who hear the

@@ -1,10 +1,9 @@
-import { Box, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import React, { Fragment } from 'react';
 import Condition from '../../common/conditionDisplay.component';
-import CustomChip from '../../common/customChip.component';
-import DurationEndChip from '../../common/durationChip.component';
 import VM, { dist, time, willSave } from '../../common/variableMark.component';
 import { makeConstantVariable } from '../../state/activePrimalEvents/activePrimalEventsState';
+import EventCardChips from '../eventCardChips.component';
 
 export const colourDrain = {
   percentileMin: 1,
@@ -13,23 +12,15 @@ export const colourDrain = {
   createVariables: cr => ({
     radius: makeConstantVariable(cr * 5, 'CR x 5ft.'),
     duration: makeConstantVariable(cr * 10, 'CR mins'),
-    save: makeConstantVariable(15, 'DC 15 Will Save'),
+    save: makeConstantVariable(15, 'DC 15 Will Save', 'Will Save'),
   }),
 };
 
 const ColourDrainEvent = ({ event }) => {
-  const { cr, variables, percentileRoll, startRound, finalRound } = event;
-  const { result: crVal } = cr;
-  const { radius, duration, save } = variables;
+  const { radius, duration, save } = event.variables;
   return (
     <Fragment>
-      <Box>
-        <CustomChip label="d%" value={percentileRoll} />
-        <CustomChip label="CR" value={crVal} />
-        <CustomChip label="Start" value={startRound} />
-        <DurationEndChip value={finalRound} />
-        <CustomChip label="Will Save" value={save?.result} />
-      </Box>
+      <EventCardChips event={event} />
       <Typography>
         Creatures and objects within a <VM v={radius} u={dist} /> radius are
         drained of colour for <VM v={duration} u={time} />. A gnome in this area
