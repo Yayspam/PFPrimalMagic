@@ -34,6 +34,10 @@ import {
   rerollDialogPrimalEventVariablesThunk,
 } from '../state/triggerDialog/triggerDialogState.thunk';
 import VM from '../common/variableMark.component';
+import {
+  calculateIncrementAndMax,
+  primalStormStateSelector,
+} from '../state/primalStorm/primalStormState';
 
 const getBackgroundColour = isManualTrigger =>
   isManualTrigger ? manualTriggerHeader : primalStormHeader;
@@ -79,6 +83,36 @@ const useStyles = makeStyles({
   },
 });
 
+const getChanceMessage = (eventOccurred, primalStormState, threshold) => {
+  const { suppressed, leftArea, currentChance } = primalStormState;
+  const { increment, max } = calculateIncrementAndMax(suppressed, leftArea);
+  const isCapped = currentChance >= max && threshold >= max;
+
+  if (eventOccurred) {
+    if (leftArea) {
+      return `Chance next round reset to ${currentChance}% (left area)`;
+    }
+
+    return `Chance next round reset to ${currentChance}%${
+      suppressed ? ' (suppressed)' : ''
+    }`;
+  } else {
+    if (leftArea) {
+      return `Chance next round remains at ${currentChance}% (left area)`;
+    }
+
+    if (isCapped) {
+      return `Chance next round capped at ${max}%${
+        suppressed ? ' (suppressed)' : ''
+      }`;
+    }
+
+    return `Chance next round increased by ${increment}%${
+      suppressed ? ' (suppressed)' : ''
+    } to ${currentChance}%`;
+  }
+};
+
 const PrimalEventDialog = () => {
   const dispatch = useDispatch();
   const {
@@ -86,7 +120,6 @@ const PrimalEventDialog = () => {
     threshold,
     triggerType,
     open,
-    cr,
     currentEvent,
   } = useSelector(triggerDialogStateSelector);
   const isManualTrigger = triggerType === manualTriggerType;
@@ -100,6 +133,13 @@ const PrimalEventDialog = () => {
   if (eventOccurred) {
     eventOccuranceMessage = `Event occurred (${percentile}%, <=${threshold}% achieved)`;
   }
+
+  const primalStormState = useSelector(primalStormStateSelector);
+  const chanceMessage = getChanceMessage(
+    eventOccurred,
+    primalStormState,
+    threshold
+  );
 
   const onAcceptClicked = () => {
     dispatch(confirmDialogPrimalEventThunk());
@@ -129,7 +169,11 @@ const PrimalEventDialog = () => {
     <Dialog
       fullWidth
       open={open}
-      onClose={eventOccurred ? undefined : onCloseDialogClicked}
+      onClose={
+        eventOccurred || eventsAlwaysTriggered
+          ? undefined
+          : onCloseDialogClicked
+      }
     >
       <DialogTitle className={classes.dialogHeader}>
         {isManualTrigger ? 'Manual' : 'Storm'} Primal Event Trigger
@@ -139,7 +183,14 @@ const PrimalEventDialog = () => {
           {eventOccuranceMessage}
         </Typography>
         {!eventOccurred && eventsAlwaysTriggered && (
-          <Typography>(But was forced to occur by settings)</Typography>
+          <Typography variant="caption">
+            (But was forced to occur by settings)
+          </Typography>
+        )}
+        {!isManualTrigger && (
+          <Typography className={classes.eventOccurrance}>
+            {chanceMessage}
+          </Typography>
         )}
         {showEventContent && (
           <Fragment>

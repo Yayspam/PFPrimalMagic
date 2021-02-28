@@ -1,12 +1,10 @@
-// Thunk that handles all state when pressing the advance round button
-// Increments the round number
-// Then, if primal magic storm is on, generates the dialog state and event state if roll is high enough
-
 import { wonderousMagic } from '../../events/eventComponents/wonderousMagicEvent.component';
-import { rollD, rollPercentile } from '../../random';
+import { rollPercentile } from '../../random';
 import { makeVariable } from '../activePrimalEvents/activePrimalEventsState';
 import { generateDialogEvent } from '../manualTrigger/manualTriggerState.thunk';
 import {
+  calculateIncrementAndMax,
+  primalStormInitialState,
   primalStormStateSelector,
   setPrimalStormCurrentChance,
 } from '../primalStorm/primalStormState';
@@ -24,6 +22,9 @@ import {
 } from '../userSettings/userSetingsState';
 import { currentRoundSelector, incrementRound } from './roundsState';
 
+// Thunk that handles all state when pressing the advance round button
+// Increments the round number
+// Then, if primal magic storm is on, generates the dialog state and event state if roll is high enough
 //  and opens the event dialog (this functionality comes later)
 export const advanceRoundThunk = () => (dispatch, getState) => {
   const state = getState();
@@ -40,19 +41,10 @@ export const advanceRoundThunk = () => (dispatch, getState) => {
     return;
   }
 
-  let chanceIncrement = 10;
-  let maximumChance = 100;
+  const { increment, max } = calculateIncrementAndMax(suppressed, leftArea);
 
-  if (suppressed) {
-    chanceIncrement = 5;
-    maximumChance = 50;
-  }
-
-  if (leftArea) {
-    chanceIncrement = 0;
-  }
-
-  let newChance = Math.min(maximumChance, currentChance + chanceIncrement);
+  let newChance = Math.min(max, currentChance + increment);
+  const currentThreshold = Math.min(max, currentChance);
 
   const percentile = rollPercentile();
   const currentCrVariable = makeVariable(3, 1, 11); // 1d3+11 = CR (between 12 and 14);
@@ -63,14 +55,14 @@ export const advanceRoundThunk = () => (dispatch, getState) => {
     triggerType: stormTrigerType,
     percentile,
     cr: currentCrVariable.result,
-    threshold: newChance,
+    threshold: currentThreshold,
   };
 
   const eventsAlwaysTrigger = eventsAlwaysTriggerSelector(state);
 
-  if (eventsAlwaysTrigger || percentile <= newChance) {
-    // Chance drops back to zero when an event is triggered
-    newChance = 0;
+  if (eventsAlwaysTrigger || percentile <= currentThreshold) {
+    // Chance drops back to default when an event is triggered
+    newChance = leftArea ? 0 : increment;
 
     // Need to use current round +1 because we incremented the round above
     const currentRound = currentRoundSelector(state) + 1;

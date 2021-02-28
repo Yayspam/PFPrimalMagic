@@ -2,7 +2,23 @@ export const primalStormInitialState = {
   active: false,
   suppressed: false,
   leftArea: false,
-  currentChance: 0,
+  currentChance: 10,
+};
+
+export const calculateIncrementAndMax = (suppressed, leftArea) => {
+  let increment = 10;
+  let max = 100;
+
+  if (suppressed) {
+    increment = 5;
+    max = 50;
+  }
+
+  if (leftArea) {
+    increment = 0;
+  }
+
+  return { increment, max };
 };
 
 export const primalStormStateSelector = state =>
@@ -16,11 +32,16 @@ export const primalStormLeftAreaSelector = state =>
 export const primalStormCurrentChanceSelector = state =>
   primalStormStateSelector(state).currentChance;
 
+const ResetStateType = 'primalMagic:primalStormState:resetStateType';
 const SetActiveType = 'primalMagic:primalStormState:setActiveType';
 const SetSuppressedType = 'primalMagic:primalStormState:setSuppressedType';
 const SetLeftAreaType = 'primalMagic:primalStormState:setLeftAreaType';
 const SetCurrentChanceType =
   'primalMagic:primalStormState:setCurrentChanceType';
+
+export const resetPrimalStormState = () => ({
+  type: ResetStateType,
+});
 
 export const setPrimalStormActive = isActive => ({
   type: SetActiveType,
@@ -49,6 +70,13 @@ const copyState = state => ({
   },
 });
 
+const handleResetPrimalStormState = state => ({
+  ...state,
+  primalStormState: {
+    ...primalStormInitialState,
+  },
+});
+
 const handleSetPrimalStormActive = (state, payload) => {
   const newState = copyState(state);
   newState.primalStormState.active = payload;
@@ -74,6 +102,7 @@ const handleSetPrimalStormCurrentChance = (state, payload) => {
 };
 
 export const primalStormStateReducers = {
+  [ResetStateType]: handleResetPrimalStormState,
   [SetActiveType]: handleSetPrimalStormActive,
   [SetSuppressedType]: handleSetPrimalStormSuppressed,
   [SetLeftAreaType]: handleSetPrimalStormLeftArea,
