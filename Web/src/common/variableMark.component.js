@@ -131,7 +131,7 @@ const getValues = (variable, unitType) => {
   };
 };
 
-const getToolTip = (variable, unit) => {
+export const getToolTip = (variable, unit) => {
   if (variable.description) {
     return variable.description;
   }

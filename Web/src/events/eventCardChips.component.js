@@ -1,5 +1,6 @@
 import { Box } from '@material-ui/core';
 import React from 'react';
+import CrChip from '../common/crChip.component';
 import CustomChip from '../common/customChip.component';
 import DurationEndChip from '../common/durationChip.component';
 import { manualTriggerType } from '../state/triggerDialog/triggerDialogState';
@@ -18,13 +19,12 @@ const EventCardChips = ({ event }) => {
     finalRound,
     triggerType,
   } = event;
-  const { result: crVal } = cr;
   const { duration, save } = variables;
   const finalRoundDisplay = getFinalRoundOrUndefined(finalRound, duration);
   return (
     <Box>
       <CustomChip label="d%" value={percentileRoll} />
-      <CustomChip label="CR" value={crVal} />
+      <CrChip crVariable={cr} />
       <CustomChip label="Start" value={startRound} />
       <DurationEndChip value={finalRoundDisplay} />
       {save && <CustomChip label={save?.type ?? 'Save'} value={save.result} />}
