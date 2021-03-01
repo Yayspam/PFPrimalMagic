@@ -1,10 +1,18 @@
 import React from 'react';
-import { Avatar, Box, Button, makeStyles, Typography } from '@material-ui/core';
+import {
+  Avatar,
+  Box,
+  Button,
+  makeStyles,
+  Tooltip,
+  Typography,
+} from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { currentRoundSelector } from '../state/rounds/roundsState';
 import { resetAll } from '../state/app/primalMagic.reducer';
 import { primalStormHeader } from '../common/colours';
 import PrimalStormContent from './primalStormContent.component';
+import { resetOnlyResetsRoundsSelector } from '../state/userSettings/userSetingsState';
 
 const useStyles = makeStyles({
   content: {
@@ -42,6 +50,10 @@ const RoundsContent = () => {
   const dispatch = useDispatch();
 
   const currentRound = useSelector(currentRoundSelector);
+  const onlyRoundsSetting = useSelector(resetOnlyResetsRoundsSelector);
+  const toolTip = onlyRoundsSetting
+    ? 'Resets only rounds. Primal storm and active events preserved'
+    : 'Resets rounds, primal storm and active events';
 
   const onResetClicked = () => {
     dispatch(resetAll());
@@ -54,13 +66,15 @@ const RoundsContent = () => {
           <Typography>Current Round: </Typography>
           <Avatar className={classes.roundAvatar}>{currentRound}</Avatar>
         </Box>
-        <Button
-          className={classes.resetButton}
-          variant="contained"
-          onClick={onResetClicked}
-        >
-          Reset
-        </Button>
+        <Tooltip title={toolTip}>
+          <Button
+            className={classes.resetButton}
+            variant="contained"
+            onClick={onResetClicked}
+          >
+            Reset
+          </Button>
+        </Tooltip>
       </Box>
       <PrimalStormContent />
     </Box>

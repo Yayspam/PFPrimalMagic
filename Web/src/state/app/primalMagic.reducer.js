@@ -69,6 +69,7 @@ const handleResetAll = state => {
   return {
     ...initialState,
     userSettingsState: { ...state.userSettingsState },
+    manualTriggerState: { ...state.manualTriggerState },
   };
 };
 
