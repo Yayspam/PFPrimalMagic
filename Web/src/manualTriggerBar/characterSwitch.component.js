@@ -18,7 +18,8 @@ import ManageCharacters from './manageCharacters.component';
 
 const useStyles = makeStyles({
   radioContainer: {
-    overflow: 'auto',
+    overflowY: 'auto',
+    overflowX: 'hidden',
     height: '100%',
     width: 'calc(100% - 20px)',
     paddingLeft: 20,
@@ -48,7 +49,7 @@ const CharacterSwitch = () => {
             value={value.id}
             control={<Radio color="default" />}
             label={
-              <Typography>
+              <Typography noWrap className={classes.characterNameText}>
                 {value.name}
                 {value.id === characterInitialState.id
                   ? ''
