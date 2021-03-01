@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -67,6 +67,11 @@ const ManageCharacters = () => {
   const currentCharacters = useSelector(charactersSelector);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [data, setData] = useState(currentCharacters);
+
+  useEffect(() => {
+    setData(currentCharacters);
+  }, [currentCharacters, setData]);
+
   const dataHasAnyErrors = data
     .map(c => characterDataErrors(c))
     .some(e => e[0] || e[1]);
