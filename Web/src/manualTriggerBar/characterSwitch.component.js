@@ -10,15 +10,18 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import {
   characterInitialState,
-  characters,
   characterSelector,
+  charactersSelector,
   setManualTriggerCharacter,
 } from '../state/manualTrigger/manualTriggerState';
 import ManageCharacters from './manageCharacters.component';
 
 const useStyles = makeStyles({
   radioContainer: {
-    padding: 20,
+    overflow: 'auto',
+    height: '100%',
+    width: 'calc(100% - 20px)',
+    paddingLeft: 20,
   },
 });
 
@@ -27,27 +30,31 @@ const CharacterSwitch = () => {
   const dispatch = useDispatch();
 
   const currentCharacter = useSelector(characterSelector);
+  const currentCharacters = useSelector(charactersSelector);
 
   const handleCharacterChanged = event => {
-    const selected = event?.target?.value ?? characterInitialState.name;
-    const character = characters[selected];
-    dispatch(setManualTriggerCharacter(character));
+    const selected = event?.target?.value ?? characterInitialState.id;
+    dispatch(setManualTriggerCharacter(selected));
   };
 
   return (
     <FormControl className={classes.radioContainer}>
       <ManageCharacters />
-      <RadioGroup
-        value={currentCharacter.name}
-        onChange={handleCharacterChanged}
-      >
-        {Object.keys(characters).map(key => (
+      <RadioGroup value={currentCharacter.id} onChange={handleCharacterChanged}>
+        {Object.entries(currentCharacters).map(([_, value]) => (
           <FormControlLabel
             labelPlacement="end"
-            key={key}
-            value={key}
+            key={value.id}
+            value={value.id}
             control={<Radio color="default" />}
-            label={<Typography>{characters[key].name}</Typography>}
+            label={
+              <Typography>
+                {value.name}
+                {value.id === characterInitialState.id
+                  ? ''
+                  : ` (CL ${value.cl})`}
+              </Typography>
+            }
           />
         ))}
       </RadioGroup>

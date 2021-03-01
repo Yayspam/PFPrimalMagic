@@ -8,7 +8,6 @@ import {
   DialogTitle,
   IconButton,
   makeStyles,
-  Paper,
   Table,
   TableBody,
   TableCell,
@@ -19,9 +18,15 @@ import {
   Typography,
 } from '@material-ui/core';
 import { blue } from '@material-ui/core/colors';
-import { userSettingsHeader } from '../common/colours';
-import CharacterRow from './characterRow.component';
+import {
+  userSettingsHeader,
+  userSettingsHeaderEmphasis,
+} from '../common/colours';
+import CharacterRow, { characterDataErrors } from './characterRow.component';
 import AddIcon from '@material-ui/icons/Add';
+import { useDispatch, useSelector } from 'react-redux';
+import { charactersSelector } from '../state/manualTrigger/manualTriggerState';
+import { saveManualTriggerCharactersThunk } from '../state/manualTrigger/manualTriggerState.thunk';
 
 const useStyles = makeStyles({
   container: {
@@ -32,6 +37,7 @@ const useStyles = makeStyles({
   },
   manageButton: {
     color: blue[500],
+    marginRight: 10,
   },
   dialogTitle: {
     backgroundColor: userSettingsHeader,
@@ -46,14 +52,24 @@ const useStyles = makeStyles({
   headerCell: {
     textAlign: 'center',
   },
+  saveButton: {
+    backgroundColor: userSettingsHeader,
+    color: 'white',
+    '&:hover': {
+      backgroundColor: userSettingsHeaderEmphasis,
+    },
+  },
 });
 
 const ManageCharacters = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const currentCharacters = useSelector(charactersSelector);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [data, setData] = useState([
-    { id: Date.now(), name: 'Test', casterLevel: 2 },
-  ]);
+  const [data, setData] = useState(currentCharacters);
+  const dataHasAnyErrors = data
+    .map(c => characterDataErrors(c))
+    .some(e => e[0] || e[1]);
 
   const onUpdate = newEntry => {
     const newData = data.map(entry =>
@@ -71,7 +87,17 @@ const ManageCharacters = () => {
   };
 
   const onAdd = () => {
-    setData([...data, { id: Date.now(), name: '', casterLevel: 0 }]);
+    setData([...data, { id: Date.now(), name: '', cl: 0 }]);
+  };
+
+  const onSaveAndClose = () => {
+    dispatch(saveManualTriggerCharactersThunk(data));
+
+    setDialogOpen(false);
+  };
+
+  const onCancel = () => {
+    setDialogOpen(false);
   };
 
   return (
@@ -121,8 +147,16 @@ const ManageCharacters = () => {
           </Tooltip>
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" onClick={() => setDialogOpen(false)}>
+          <Button
+            disabled={dataHasAnyErrors}
+            className={classes.saveButton}
+            variant="contained"
+            onClick={onSaveAndClose}
+          >
             Save & Close
+          </Button>
+          <Button variant="contained" onClick={onCancel}>
+            Cancel
           </Button>
         </DialogActions>
       </Dialog>

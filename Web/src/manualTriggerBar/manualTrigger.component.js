@@ -4,7 +4,8 @@ import { useDispatch } from 'react-redux';
 import BarHeader from '../common/barHeader.component';
 import { manualTriggerHeader } from '../common/colours';
 import { manualTriggerThunk } from '../state/manualTrigger/manualTriggerState.thunk';
-import ManualTriggerContent from './manualTriggerContent.component';
+import CharacterSwitch from './characterSwitch.component';
+import CrInput from './crInput.component';
 
 const useStyles = makeStyles({
   container: {
@@ -13,7 +14,7 @@ const useStyles = makeStyles({
     justifyContent: 'space-between',
     height: '100%',
     width: '100%',
-    alignItems: 'center',
+    alignItems: 'flex-start',
   },
   footer: {
     margin: 20,
@@ -31,7 +32,8 @@ const ManualTriggerBar = () => {
   return (
     <Box className={classes.container}>
       <BarHeader title="Manual Trigger" colour={manualTriggerHeader} />
-      <ManualTriggerContent />
+      <CrInput />
+      <CharacterSwitch />
       <Box className={classes.footer}>
         <Button variant="contained" onClick={onManualTriggerClicked}>
           Manually Trigger Event

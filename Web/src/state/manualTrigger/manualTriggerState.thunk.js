@@ -19,7 +19,13 @@ import {
   eventsAlwaysTriggerSelector,
   rodOfWonderAlwaysSelectedSelector,
 } from '../userSettings/userSetingsState';
-import { specifiedCrSelector } from './manualTriggerState';
+import {
+  characterInitialState,
+  characterSelector,
+  saveManualTriggerCharacters,
+  setManualTriggerCharacter,
+  specifiedCrSelector,
+} from './manualTriggerState';
 
 export const calculateFinalRound = (durationVariable, startRound) => {
   const durationInRounds = durationVariable?.result;
@@ -120,4 +126,18 @@ export const manualTriggerThunk = () => (dispatch, getState) => {
   }
 
   dispatch(setTriggerDialogState(dialogState));
+};
+
+export const saveManualTriggerCharactersThunk = characters => (
+  dispatch,
+  getState
+) => {
+  const state = getState();
+  const currentCharacter = characterSelector(state);
+
+  if (!characters.find(c => c.id === currentCharacter.id)) {
+    dispatch(setManualTriggerCharacter(characterInitialState.id));
+  }
+
+  dispatch(saveManualTriggerCharacters(characters));
 };
