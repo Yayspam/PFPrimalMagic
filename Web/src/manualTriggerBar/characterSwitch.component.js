@@ -14,6 +14,7 @@ import {
   characterSelector,
   setManualTriggerCharacter,
 } from '../state/manualTrigger/manualTriggerState';
+import ManageCharacters from './manageCharacters.component';
 
 const useStyles = makeStyles({
   radioContainer: {
@@ -35,7 +36,7 @@ const CharacterSwitch = () => {
 
   return (
     <FormControl className={classes.radioContainer}>
-      <Typography>Character</Typography>
+      <ManageCharacters />
       <RadioGroup
         value={currentCharacter.name}
         onChange={handleCharacterChanged}
