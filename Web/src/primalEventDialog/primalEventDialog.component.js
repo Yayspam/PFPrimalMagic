@@ -183,9 +183,14 @@ const PrimalEventDialog = () => {
         <Typography className={classes.eventOccurrance}>
           {eventOccuranceMessage}
         </Typography>
+        {!eventOccurred && !eventsAlwaysTriggered && (
+          <Typography variant="caption">
+            [TRIGGERING MAGIC HAPPENS AS NORMAL]
+          </Typography>
+        )}
         {!eventOccurred && eventsAlwaysTriggered && (
           <Typography variant="caption">
-            (But was forced to occur by settings)
+            [BUT WAS FORCED TO OCCUR BY USER SETTINGS]
           </Typography>
         )}
         {!isManualTrigger && (

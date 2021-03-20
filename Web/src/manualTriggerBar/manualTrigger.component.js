@@ -18,6 +18,7 @@ const useStyles = makeStyles({
   },
   footer: {
     margin: 20,
+    alignSelf: 'center',
   },
 });
 
