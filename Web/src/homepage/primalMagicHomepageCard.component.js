@@ -60,8 +60,8 @@ const PrimalMagicHomepageCard = () => {
           title={
             'Resets all data to default, removing any existing data ' +
             'such as settings, characters and active events. May be ' +
-            'useful if you have encountered an error and the data' +
-            ' has become corrupted'
+            'useful in the unlikely event that you encounter an error ' +
+            'and/or the data has become corrupted'
           }
         >
           <Button variant="contained" onClick={() => setPrimalResetOpen(true)}>
