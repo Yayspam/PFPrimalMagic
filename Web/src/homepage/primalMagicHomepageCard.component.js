@@ -44,7 +44,7 @@ const PrimalMagicHomepageCard = () => {
     <Card>
       <CardHeader
         className={classes.cardHeader}
-        title={`Primal Magic Utility - ${appVersion}`}
+        title={`Primal Magic Utility - v${appVersion}`}
       />
       <NavLink to="/PrimalMagicTracker">
         <img src={primalMagicImage} />
