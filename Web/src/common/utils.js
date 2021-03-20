@@ -6,3 +6,5 @@ export const objectToArrayString = (object, separator = '; ') => {
     .map(([key, value]) => `${key}=${value}`)
     .join(separator);
 };
+
+export const appVersion = process.env.REACT_APP_VERSION;

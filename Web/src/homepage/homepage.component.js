@@ -10,16 +10,6 @@ const useStyles = makeStyles({
     alignItems: 'center',
     height: '100%',
   },
-  cardHeader: {
-    textAlign: 'center',
-    paddingTop: 5,
-    paddingBottom: 5,
-  },
-  cardActions: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
 });
 
 const Homepage = () => {

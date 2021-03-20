@@ -13,6 +13,7 @@ import {
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { appVersion } from '../common/utils';
 import primalMagicImage from '../images/primal_magic_image.png';
 import { resetPrimalMagic } from '../state/app/primalMagic.reducer';
 
@@ -43,7 +44,7 @@ const PrimalMagicHomepageCard = () => {
     <Card>
       <CardHeader
         className={classes.cardHeader}
-        title={'Primal Magic Utility'}
+        title={`Primal Magic Utility - ${appVersion}`}
       />
       <NavLink to="/PrimalMagicTracker">
         <img src={primalMagicImage} />
