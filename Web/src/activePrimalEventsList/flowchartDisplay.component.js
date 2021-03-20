@@ -8,7 +8,20 @@ const useStyles = makeStyles({
     marginRight: 10,
   },
   image: {
-    width: '100%',
+    height: '100%',
+  },
+  dailogPaper: {
+    maxHeight: 'calc(100% - 10px)',
+    maxWidth: 'calc(100% - 10px)',
+  },
+  dialogContent: {
+    height: '100vh',
+    overflowY: 'hidden',
+    display: 'flex',
+    alignItems: 'center',
+    '&:first-child': {
+      padding: 5,
+    },
   },
 });
 
@@ -33,8 +46,13 @@ const FlowchartDisplay = () => {
       >
         Flowchart
       </Button>
-      <Dialog open={dialogOpen} onClose={onClose}>
-        <DialogContent>
+      <Dialog
+        maxWidth={false}
+        open={dialogOpen}
+        onClose={onClose}
+        PaperProps={{ className: classes.dailogPaper }}
+      >
+        <DialogContent className={classes.dialogContent}>
           <img className={classes.image} src={primalMagicFlowchart} />
         </DialogContent>
       </Dialog>
